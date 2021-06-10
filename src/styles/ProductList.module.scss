@@ -1,0 +1,16 @@
+@use '../styles/variables.scss' as *;
+
+
+.root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+    max-width: 1170px;
+
+    * {
+        width: 100%;
+    }
+}
+
