@@ -22,8 +22,8 @@ export class Store {
     products = getProductsFromLocalstorage()
 
     addProduct(): void {
-        this.products.push(new ProductItemStore({
-            name: 'New product',
+        this.products.unshift(new ProductItemStore({
+            name: '',
             qty: 1,
             unit: Unit.piece,
         }));

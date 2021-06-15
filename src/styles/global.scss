@@ -12,4 +12,10 @@ html, body, #root {
 
 body {
     background: $background-color;
+    color: $font-color;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
 }

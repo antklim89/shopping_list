@@ -9,6 +9,23 @@
     color: #1c1c1c;
     box-shadow: 2px 2px 5px black;
     margin-bottom: 2rem;
+
+    input, select {
+        background: #fff;
+    }
+    
+    input:disabled, select:disabled {
+        background: #fff;
+        opacity: .3;
+    }
+
+    input.name {
+        background: transparent;
+    }
+    
+    input.name:focus {
+        background: white;
+    }
 }
 
 .name, .qte, .deleteBtn, .unit {
@@ -16,7 +33,7 @@
     margin: 0 0.5rem;
 }
 
-.qte, .unit, .deleteBtn {
+.qte, .unit, .deleteBtn, .isBought {
     flex: 0;
 }
 
@@ -24,11 +41,6 @@
     flex: 1;
     font-size: 1.5rem;
     border: none;
-    background: transparent;
-
-    &:focus {
-        background: white;
-    }
 }
 
 .unit {
@@ -50,4 +62,21 @@
     @extend %base-input;
     padding: 0.5rem 1rem;
     background: $delete-color;
+
+    &:hover {
+        cursor: pointer;
+        background: darken($delete-color, 10);
+    }
+}
+
+.isBought {
+    button {
+        background: none;
+        border: none;
+    }
+    svg {
+        width: 48px;
+        height: 48px;
+        fill: $secondary-color;
+    }
 }

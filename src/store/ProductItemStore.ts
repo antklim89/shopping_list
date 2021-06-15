@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { IProductItem, NewProductItem } from '../types/IProductItem';
+import { IProductItem, NewProductItem, UpdateProductItem } from '../types/IProductItem';
 import { Unit } from '../types/Unit';
 
 
@@ -10,6 +10,8 @@ export class ProductItemStore implements IProductItem {
     name: string;
 
     qty: number;
+
+    isBought = false;
 
     unit: Unit;
 
@@ -21,7 +23,7 @@ export class ProductItemStore implements IProductItem {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    update(product: Partial<NewProductItem>): void {
+    update(product: UpdateProductItem): void {
         Object.assign(this, product);
     }
 }
