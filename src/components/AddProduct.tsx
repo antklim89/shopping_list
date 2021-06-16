@@ -1,18 +1,21 @@
 import { FC } from 'react';
 
+import { ReactComponent as AddIcon } from '../assets/add.svg';
+import style from '../styles/AddProduct.module.scss';
+
 import { useStore } from './StoreProvider';
 
 
 export const AddProduct: FC = () => {
     const store = useStore();
     return (
-        <div>
-            <button
-                type="button"
-                onClick={() => store.addProduct()}
-            >
-                Add
-            </button>
-        </div>
+        <button
+            className={style.root}
+            type="button"
+            onClick={() => store.addProduct()}
+        >
+            <AddIcon className="icon" />
+            Add Product
+        </button>
     );
 };

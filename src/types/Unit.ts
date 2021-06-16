@@ -3,7 +3,8 @@
 export enum Unit {
     kg = 'kg',
     mg = 'mg',
-    l = 'l',
+    gram = 'gram',
+    liter = 'liter',
     ml = 'ml',
     piece = 'piece'
 }

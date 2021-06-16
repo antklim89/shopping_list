@@ -1,0 +1,19 @@
+@use "./variables.scss" as *;
+
+
+.root {
+    background-color: $secondary-color;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    svg {
+        height: 32px;
+        width: 32px;
+        margin: -10px 0;
+    }
+}

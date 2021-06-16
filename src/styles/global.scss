@@ -15,7 +15,13 @@ body {
     color: $font-color;
 }
 
-.icon {
-    width: 48px;
-    height: 48px;
+svg {
+    width: 24px;
+    height: 24px;
+}
+
+.container {
+    width: 100%;
+    max-width: $container-width;
+    margin: 0 auto;
 }

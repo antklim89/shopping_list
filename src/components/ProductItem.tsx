@@ -56,7 +56,8 @@ export const ProductItem: FC<{ product: ProductItemStore }> = observer(({ produc
                 >
                     <option value="kg">kg</option>
                     <option value="mg">mg</option>
-                    <option value="l">l</option>
+                    <option value="gram">gram</option>
+                    <option value="liter">liter</option>
                     <option value="ml">ml</option>
                     <option value="piece">piece</option>
                 </select>
