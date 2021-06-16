@@ -12,7 +12,6 @@ export const App: FC = () => {
             <StoreProvider>
                 <Header />
                 <ProductList />
-                <div>FOOTER</div>
             </StoreProvider>
         </div>
     );

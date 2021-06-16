@@ -15,7 +15,7 @@ export const AddProduct: FC = () => {
             onClick={() => store.addProduct()}
         >
             <AddIcon className="icon" />
-            Add Product
+            <span className={style.text}>Add Product</span>
         </button>
     );
 };

@@ -3,12 +3,14 @@
 
 .item {
     display: flex;
+    align-items: center;
     padding: 1rem;
     border-radius: 1rem;
     background: $primary-color;
     color: #1c1c1c;
     box-shadow: 2px 2px 5px black;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 
     input, select {
         background: #fff;
@@ -26,6 +28,12 @@
     input.name:focus {
         background: white;
     }
+            
+    @media (max-width: $breakpoint) {
+        margin-bottom: 1rem;
+        padding: .5rem;
+        justify-content: center;
+    }
 }
 
 .name, .qte, .deleteBtn, .unit {
@@ -35,12 +43,18 @@
 
 .qte, .unit, .deleteBtn, .isBought {
     flex: 0;
+    order: 3;
 }
 
 .name {
     flex: 1;
     font-size: 1.5rem;
     border: none;
+    order: 1;
+
+    @media (max-width: $breakpoint) {
+        flex: 1 0 100%;
+    }
 }
 
 .unit {
@@ -78,5 +92,14 @@
         width: 48px;
         height: 48px;
         fill: $secondary-color;
+    }
+
+        
+    @media (max-width: $breakpoint) {
+        order: 2;
+        svg {
+            width: 24px;
+            height: 24px;
+        }
     }
 }

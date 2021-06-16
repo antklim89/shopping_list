@@ -16,4 +16,17 @@
         width: 32px;
         margin: -10px 0;
     }
+
+    @media (max-width: $breakpoint) {
+        padding: 1rem 1rem;
+
+        svg {
+            height: 24px;
+            width: 24px;
+        }
+
+        .text {
+            display: none;
+        }
+    }
 }
