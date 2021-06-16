@@ -40,7 +40,7 @@ export const ProductItem: FC<{ product: ProductItemStore }> = observer(({ produc
                     className={style.qte}
                     disabled={product.isBought}
                     min={1}
-                    type="text"
+                    type="number"
                     value={product.qty}
                     onChange={(e) => {
                         const value = parseInt(e.target.value, 10);

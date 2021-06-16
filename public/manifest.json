@@ -1,9 +1,9 @@
 {
-    "short_name": "Shop List",
-    "name": "Shop List",
+    "short_name": "Shopping List",
+    "name": "Shopping List",
     "icons": [
         {
-            "src": "favicon.ico",
+            "src": "favicon.png",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/x-icon"
         },
@@ -20,6 +20,6 @@
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#000000",
+    "theme_color": "#EEF0F2",
     "background_color": "#ffffff"
 }
