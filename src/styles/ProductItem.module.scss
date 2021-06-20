@@ -6,27 +6,28 @@
     align-items: center;
     padding: 1rem;
     border-radius: 1rem;
-    background: $primary-color;
+    background-color: $primary-color;
     color: #1c1c1c;
     box-shadow: 2px 2px 5px black;
     margin-bottom: 2rem;
     flex-wrap: wrap;
 
     input, select {
-        background: #fff;
+        background-color: #fff;
+        transition: 200ms opacity;
     }
     
     input:disabled, select:disabled {
-        background: #fff;
+        background-color: #fff;
         opacity: .3;
     }
 
     input.name {
-        background: transparent;
+        background-color: transparent;
     }
     
     input.name:focus {
-        background: white;
+        background-color: white;
     }
             
     @media (max-width: $breakpoint) {
@@ -43,14 +44,12 @@
 
 .qte, .unit, .deleteBtn, .isBought {
     flex: 0;
-    order: 3;
 }
 
 .name {
     flex: 1;
     font-size: 1.5rem;
     border: none;
-    order: 1;
 
     @media (max-width: $breakpoint) {
         flex: 1 0 100%;
@@ -75,17 +74,17 @@
 .deleteBtn {
     @extend %base-input;
     padding: 0.5rem 1rem;
-    background: $delete-color;
+    background-color: $delete-color;
 
     &:hover {
         cursor: pointer;
-        background: darken($delete-color, 10);
+        background-color: darken($delete-color, 10);
     }
 }
 
 .isBought {
     button {
-        background: none;
+        background-color: none;
         border: none;
     }
     svg {
@@ -96,10 +95,27 @@
 
         
     @media (max-width: $breakpoint) {
-        order: 2;
         svg {
             width: 24px;
             height: 24px;
         }
+    }
+}
+
+.removeStyle {
+    animation: removeAnimation 200ms;
+    
+    @keyframes removeAnimation {
+        from { opacity: 1; };
+        to { opacity: 0; };
+    }
+}
+
+.appearanceStyle {
+    animation: appearanceAnimation 400ms;
+    
+    @keyframes appearanceAnimation {
+        from { opacity: 0; };
+        to { opacity: 1; };
     }
 }

@@ -4,19 +4,18 @@
 .root {
     box-shadow: 0 0 5px #000;
     width: 100%;
-    height: 64px;
-    display: flex;
-    align-items: center;
+    padding: 0 2rem;
 }
 
 .logo {
     font-size: 2rem;
-    padding: 0 2rem;
     font-weight: bold;
 }
 
 .headerContainer {
     @extend .container;
-    display: flex;
     justify-content: space-between;
+    height: 64px;
+    display: flex;
+    align-items: center;
 }
