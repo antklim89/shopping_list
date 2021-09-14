@@ -2,13 +2,13 @@ import { reaction } from 'mobx';
 import { createContext, FunctionalComponent, h } from 'preact';
 import { useContext, useEffect, useMemo } from 'preact/hooks';
 
-import { Store } from '../store/Store';
+import { PropductStore } from '../store/Store';
 
 
-const Context = createContext({} as Store);
+const Context = createContext({} as PropductStore);
 
-export const StoreProvider: FunctionalComponent = ({ children }) => {
-    const store = useMemo(() => new Store(), []);
+const StoreProvider: FunctionalComponent = ({ children }) => {
+    const store = useMemo(() => new PropductStore(), []);
 
     useEffect(() => reaction(
         () => JSON.stringify(store.products),
@@ -22,4 +22,6 @@ export const StoreProvider: FunctionalComponent = ({ children }) => {
     );
 };
 
-export const useStore = (): Store => useContext(Context);
+export const useStore = (): PropductStore => useContext(Context);
+
+export default StoreProvider;

@@ -7,7 +7,7 @@ import style from '../styles/AddProduct.module.scss';
 import { useStore } from './StoreProvider';
 
 
-export const AddProduct: FunctionalComponent = () => {
+const AddProduct: FunctionalComponent = () => {
     const store = useStore();
     return (
         <button
@@ -20,3 +20,5 @@ export const AddProduct: FunctionalComponent = () => {
         </button>
     );
 };
+
+export default AddProduct;

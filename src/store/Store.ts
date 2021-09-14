@@ -14,7 +14,7 @@ function getProductsFromLocalstorage(): IObservableArray<ProductItemStore> {
     return observable.array(products);
 }
 
-export class Store {
+export class PropductStore {
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
     }

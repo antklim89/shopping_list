@@ -2,17 +2,17 @@ import { observer } from 'mobx-react-lite';
 import { FunctionalComponent, h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-// import { ReactComponent as CartIcon } from '../assets/cart.svg';
-// import { ReactComponent as DoneIcon } from '../assets/done.svg';
-import type { ProductItemStore } from '../store/ProductItemStore';
-import style from '../styles/ProductItem.module.scss';
-import type { Unit } from '../types/Unit';
-
 import { useStore } from './StoreProvider';
 
+import CartIcon from '~/assets/cart.svg';
+import DeleteIcon from '~/assets/delete.svg';
+import DoneIcon from '~/assets/done.svg';
+import type { ProductItemStore } from '~/store/ProductItemStore';
+import style from '~/styles/ProductItem.module.scss';
+import type { Unit } from '~/types/Unit';
 
-// @ts-ignore
-export const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = observer(({ product }) => {
+
+const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ product }) => {
     const store = useStore();
     const ref = useRef<HTMLLIElement>(null);
 
@@ -36,14 +36,12 @@ export const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = o
                 { product.isBought
                     ? (
                         <button type="button" onClick={() => product.update({ isBought: false })}>
-                            U
-                            {/* <DoneIcon /> */}
+                            <img alt="done" className="icon" src={DoneIcon} />
                         </button>
                     )
                     : (
                         <button type="button" onClick={() => product.update({ isBought: true })}>
-                            X
-                            {/* <CartIcon /> */}
+                            <img alt="done" className="icon" src={CartIcon} />
                         </button>
                     ) }
             </div>
@@ -83,9 +81,10 @@ export const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = o
                     }, 190);
                 }}
             >
-                &times;
-
+                <img alt="delete" className="icon" src={DeleteIcon} />
             </button>
         </li>
     );
-});
+};
+
+export default observer(ProductItem);

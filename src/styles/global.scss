@@ -20,8 +20,17 @@ svg {
     height: 24px;
 }
 
+button {
+    cursor: pointer;
+}
+
 .container {
     width: 100%;
     max-width: $container-width;
     margin: 0 auto;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
 }

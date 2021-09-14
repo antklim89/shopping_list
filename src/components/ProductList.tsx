@@ -3,11 +3,11 @@ import { FunctionalComponent, h } from 'preact';
 
 import style from '../styles/ProductList.module.scss';
 
-import { ProductItem } from './ProductItem';
+import ProductItem from './ProductItem';
 import { useStore } from './StoreProvider';
 
 
-export const ProductList: FunctionalComponent = observer(() => {
+const ProductList: FunctionalComponent = observer(() => {
     const { products } = useStore();
     return (
         <div className={style.root}>
@@ -19,3 +19,5 @@ export const ProductList: FunctionalComponent = observer(() => {
         </div>
     );
 });
+
+export default ProductList;

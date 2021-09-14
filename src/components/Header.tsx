@@ -2,10 +2,10 @@ import { FunctionComponent, h } from 'preact';
 
 import style from '../styles/Header.module.scss';
 
-import { AddProduct } from './AddProduct';
+import AddProduct from './AddProduct';
 
 
-export const Header: FunctionComponent = () => {
+const Header: FunctionComponent = () => {
     return (
         <div className={style.root}>
             <div className={style.headerContainer}>
@@ -17,3 +17,5 @@ export const Header: FunctionComponent = () => {
         </div>
     );
 };
+
+export default Header;
