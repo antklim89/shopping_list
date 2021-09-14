@@ -9,9 +9,10 @@ import { useStore } from './StoreProvider';
 
 const ProductList: FunctionalComponent = observer(() => {
     const { products } = useStore();
+
     return (
-        <div className={style.root}>
-            <ul>
+        <div className={style.container}>
+            <ul className={style.list}>
                 {products.map((product) => (
                     <ProductItem key={product.id} product={product} />
                 ))}
