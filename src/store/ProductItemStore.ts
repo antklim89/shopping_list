@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
-import { IProductItem, NewProductItem, UpdateProductItem } from '../types/IProductItem';
-import { Unit } from '../types/Unit';
+import type { IProductItem, NewProductItem, UpdateProductItem } from '../types/IProductItem';
+import type { Unit } from '../types/Unit';
 
 
 export class ProductItemStore implements IProductItem {

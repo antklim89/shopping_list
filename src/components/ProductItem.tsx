@@ -1,17 +1,18 @@
 import { observer } from 'mobx-react-lite';
-import { useRef, FC } from 'react';
+import { FunctionalComponent, h } from 'preact';
+import { useRef } from 'preact/hooks';
 
-
-import { ReactComponent as CartIcon } from '../assets/cart.svg';
-import { ReactComponent as DoneIcon } from '../assets/done.svg';
-import { ProductItemStore } from '../store/ProductItemStore';
+// import { ReactComponent as CartIcon } from '../assets/cart.svg';
+// import { ReactComponent as DoneIcon } from '../assets/done.svg';
+import type { ProductItemStore } from '../store/ProductItemStore';
 import style from '../styles/ProductItem.module.scss';
-import { Unit } from '../types/Unit';
+import type { Unit } from '../types/Unit';
 
 import { useStore } from './StoreProvider';
 
 
-export const ProductItem: FC<{ product: ProductItemStore }> = observer(({ product }) => {
+// @ts-ignore
+export const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = observer(({ product }) => {
     const store = useStore();
     const ref = useRef<HTMLLIElement>(null);
 
@@ -26,19 +27,25 @@ export const ProductItem: FC<{ product: ProductItemStore }> = observer(({ produc
                 placeholder="Enter product name..."
                 type="text"
                 value={product.name}
-                onChange={(e) => product.update({ name: e.target.value })}
-                onKeyPress={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }}
+                onChange={(e) => product.update({ name: e.currentTarget.value })}
+                onKeyPress={(e) => {
+                    if (e.key === 'Enter') e.currentTarget.blur();
+                }}
             />
             <div className={style.isBought}>
-                {product.isBought ? (
-                    <button type="button" onClick={() => product.update({ isBought: false })}>
-                        <DoneIcon />
-                    </button>
-                ) : (
-                    <button type="button" onClick={() => product.update({ isBought: true })}>
-                        <CartIcon />
-                    </button>
-                )}
+                { product.isBought
+                    ? (
+                        <button type="button" onClick={() => product.update({ isBought: false })}>
+                            U
+                            {/* <DoneIcon /> */}
+                        </button>
+                    )
+                    : (
+                        <button type="button" onClick={() => product.update({ isBought: true })}>
+                            X
+                            {/* <CartIcon /> */}
+                        </button>
+                    ) }
             </div>
             <input
                 className={style.qte}
@@ -46,17 +53,17 @@ export const ProductItem: FC<{ product: ProductItemStore }> = observer(({ produc
                 min={1}
                 type="number"
                 value={product.qty}
-                onChange={(e) => {
-                    const value = parseInt(e.target.value, 10);
+                onInput={(e) => {
+                    const value = parseInt(e.currentTarget.value, 10);
                     if (Number.isNaN(value)) product.update({ qty: 0 });
                     else product.update({ qty: value });
                 }}
             />
             <select
                 className={style.unit}
-                defaultValue={product.unit}
                 disabled={product.isBought}
-                onChange={(e) => product.update({ unit: e.target.value as Unit })}
+                value={product.unit}
+                onChange={(e) => product.update({ unit: e.currentTarget.value as Unit })}
             >
                 <option value="kg">kg</option>
                 <option value="mg">mg</option>

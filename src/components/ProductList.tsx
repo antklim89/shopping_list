@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { FC } from 'react';
+import { FunctionalComponent, h } from 'preact';
 
 import style from '../styles/ProductList.module.scss';
 
@@ -7,7 +7,7 @@ import { ProductItem } from './ProductItem';
 import { useStore } from './StoreProvider';
 
 
-export const ProductList: FC = observer(() => {
+export const ProductList: FunctionalComponent = observer(() => {
     const { products } = useStore();
     return (
         <div className={style.root}>

@@ -1,4 +1,5 @@
-import { FC, useEffect } from 'react';
+import { FunctionComponent, h } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 import { Header } from './components/Header';
 import { ProductList } from './components/ProductList';
@@ -6,7 +7,7 @@ import { StoreProvider } from './components/StoreProvider';
 import style from './styles/App.module.scss';
 
 
-export const App: FC = () => {
+const App: FunctionComponent = () => {
     useEffect(() => window.history.replaceState(null, '', '/'), []);
 
     return (
@@ -18,3 +19,5 @@ export const App: FC = () => {
         </div>
     );
 };
+
+export default App;

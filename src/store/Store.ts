@@ -1,6 +1,6 @@
 import { IObservableArray, makeAutoObservable, observable } from 'mobx';
 
-import { IProductItem } from '../types/IProductItem';
+import type { IProductItem } from '../types/IProductItem';
 import { Unit } from '../types/Unit';
 
 import { ProductItemStore } from './ProductItemStore';
@@ -10,7 +10,7 @@ function getProductsFromLocalstorage(): IObservableArray<ProductItemStore> {
     const productsString = localStorage.getItem('store');
     if (!productsString) return observable.array();
     const productsObjects: IProductItem[] = JSON.parse(productsString);
-    const products = productsObjects.map((p) => new ProductItemStore(p));
+    const products = productsObjects.map((prod) => new ProductItemStore(prod));
     return observable.array(products);
 }
 

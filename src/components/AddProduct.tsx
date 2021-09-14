@@ -1,12 +1,13 @@
-import { FC } from 'react';
 
-import { ReactComponent as AddIcon } from '../assets/add.svg';
+// import { ReactComponent as AddIcon } from '../assets/add.svg';
+import { FunctionalComponent, h } from 'preact';
+
 import style from '../styles/AddProduct.module.scss';
 
 import { useStore } from './StoreProvider';
 
 
-export const AddProduct: FC = () => {
+export const AddProduct: FunctionalComponent = () => {
     const store = useStore();
     return (
         <button
@@ -14,7 +15,7 @@ export const AddProduct: FC = () => {
             type="button"
             onClick={() => store.addProduct()}
         >
-            <AddIcon className="icon" />
+            {/* <AddIcon className="icon" /> */}
             <span className={style.text}>Add Product</span>
         </button>
     );

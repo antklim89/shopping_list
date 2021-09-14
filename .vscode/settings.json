@@ -1,3 +1,10 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.triggerExpansionOnTab": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.quickSuggestionsDelay": 1,
 }

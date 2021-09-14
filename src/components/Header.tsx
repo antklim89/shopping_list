@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FunctionComponent, h } from 'preact';
 
 import style from '../styles/Header.module.scss';
 
 import { AddProduct } from './AddProduct';
 
 
-export const Header: FC = () => {
+export const Header: FunctionComponent = () => {
     return (
         <div className={style.root}>
             <div className={style.headerContainer}>
