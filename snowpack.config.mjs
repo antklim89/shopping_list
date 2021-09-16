@@ -5,31 +5,13 @@ export default {
         src: { url: '/dist' },
     },
     plugins: [
-    // [
-    //   "@snowpack/plugin-babel",
-    //   {
-    //     "input": ['.js', '.mjs', '.jsx', '.ts', '.tsx'],
-    //     transformOptions: {
-    //       "plugins": [
-    //         ["@babel/plugin-transform-react-jsx", {
-    //           "pragma": "h",
-    //           "pragmaFrag": "Fragment",
-    //         }]
-    //       ]
-    //     }
-    //   }
-    // ],
-        '@snowpack/plugin-react-refresh',
+        '@prefresh/snowpack',
         '@snowpack/plugin-dotenv',
         '@snowpack/plugin-sass',
         ['@snowpack/plugin-webpack'],
         [
             '@snowpack/plugin-typescript',
-            {
-
-                /* Yarn PnP workaround: see https://www.npmjs.com/package/@snowpack/plugin-typescript */
-                ...(process.versions.pnp ? { tsc: 'yarn pnpify tsc' } : {}),
-            },
+            { ...(process.versions.pnp ? { tsc: 'yarn pnpify tsc' } : {}) },
         ],
     ],
     routes: [],
