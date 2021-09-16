@@ -1,3 +1,9 @@
+
+if (import.meta.hot) {
+    import.meta.hot.accept();
+}
+
+
 import { render, h } from 'preact';
 
 import App from './App';
@@ -10,7 +16,3 @@ render(
     document.body,
 );
 
-
-if (import.meta.hot) {
-    import.meta.hot.accept();
-}
