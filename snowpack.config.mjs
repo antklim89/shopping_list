@@ -15,7 +15,7 @@ export default {
         ],
     ],
     routes: [],
-    optimize: { 'bundle': true },
+    // optimize: { 'bundle': true },
     packageOptions: {},
     devOptions: { open: 'none' },
     buildOptions: {},
