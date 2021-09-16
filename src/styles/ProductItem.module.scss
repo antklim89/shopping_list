@@ -1,106 +1,49 @@
 @use '../styles/variables.scss' as *;
 
 
-.item {
+.product {
     display: flex;
-    align-items: center;
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: $primary-color;
-    color: #1c1c1c;
-    box-shadow: 2px 2px 5px black;
-    margin-bottom: 2rem;
+    margin: $sp-1;
+    width: 100%;
     flex-wrap: wrap;
+    align-items: center;
 
-    input, select {
-        background-color: #fff;
-        transition: 200ms opacity;
-    }
-    
-    input:disabled, select:disabled {
-        background-color: #fff;
-        opacity: .3;
+    .item {
+        margin: $sp-1;
     }
 
-    input.name {
-        background-color: transparent;
+    &__name {
+        flex: 5 1 auto;
     }
-    
-    input.name:focus {
-        background-color: white;
+
+    &__qty {
+        flex: 1 1 auto;
+        width: 70px;
+    }
+
+    &__unit {
+        flex: 1 1 auto;
+    }
+
+    &__actions {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: flex-end;
+        & button:first-child {
+            margin-right: $sp-2;
+        }
     }
             
     @media (max-width: $breakpoint) {
-        margin-bottom: 1rem;
-        padding: .5rem;
-        justify-content: center;
-    }
-}
-
-.name, .qte, .deleteBtn, .unit {
-    padding: 0.2rem;
-    margin: 0 0.5rem;
-}
-
-.qte, .unit, .deleteBtn, .isBought {
-    flex: 0;
-}
-
-.name {
-    flex: 1;
-    font-size: 1.5rem;
-    border: none;
-
-    @media (max-width: $breakpoint) {
-        flex: 1 0 100%;
-    }
-}
-
-.unit {
-    @extend %base-input;
-    min-width: 70px;
-
-    option {
-        text-align: center;
-    }
-}
-
-.qte {
-    @extend %base-input;
-    min-width: 100px;
-    padding: 0.5rem 1rem;
-}
-
-.deleteBtn {
-    // @extend %base-input;
-    // padding: 0.5rem 1rem;
-    // background-color: $delete-color;
-    background: none;
-    border: none;
-
-    &:hover {
-        color: red;
-        // cursor: pointer;
-        // background-color: darken($delete-color, 10);
-    }
-}
-
-.isBought {
-    button {
-        background-color: none;
-        border: none;
-    }
-    svg {
-        width: 48px;
-        height: 48px;
-        fill: $secondary-color;
-    }
-
-        
-    @media (max-width: $breakpoint) {
-        svg {
-            width: 24px;
-            height: 24px;
+        &__name {
+            flex: 5 1 100%;
+        }
+        &__qty {
+            flex: 1 1 30%;
+        }
+    
+        &__unit {
+            flex: 1 1 30%;
         }
     }
 }

@@ -1,14 +1,20 @@
-$background-color: #fff;
-$primary-color: #EEF0F2;
-$secondary-color: #29BF12;
-$delete-color: #F21B3F;
+$background-color: rgb(255, 255, 255);
+
+$primary-color: #FEB95F;
+$secondary-color: #C2095A;
+$delete-color: #F71735;
+$disabled-color: #aaa;
+
 $font-color: #000;
+$light-color: #fff;
+$dark-color: #000;
+
+$radius: 10px;
+
+$sp-1: .5rem;
+$sp-2: 1rem;
+$sp-3: 1.7rem;
+
 $container-width: 1170px;
 
 $breakpoint: 720px;
-
-%base-input {
-    border-radius: 1rem;
-    border: none;
-    background: #fff;
-}

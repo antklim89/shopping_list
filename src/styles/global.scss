@@ -34,3 +34,57 @@ button {
     width: 32px;
     height: 32px;
 }
+
+.btn {
+    background: $primary-color;
+    border: none;
+    border-radius: $radius;
+    box-shadow: 2px 2px 2px black;
+    color: $light-color;
+    fill: $light-color;
+    transition: 100ms transform;
+    min-width: 70px;
+    padding: $sp-1 $sp-2;
+
+    &.delete {
+        background: $delete-color;
+        &:hover, &:focus {
+            background: darken($color: $delete-color, $amount: 10);
+        }
+    }
+
+    &:hover, &:focus {
+        box-shadow: 1px 1px 2px black;
+        transform: translate(1px, 1px);
+        background: darken($color: $primary-color, $amount: 10);
+        outline: none;
+    }
+}
+
+.input {
+    background: none;
+    border: 2px solid $primary-color;
+    padding: $sp-2;
+    border-radius: $radius;
+    min-width: 70px;
+
+    &:hover, &:focus {
+        box-shadow: 0 0 10px darken($color: $primary-color, $amount: 20);
+        outline: none;
+    }
+
+    &:disabled {
+        color: $disabled-color;
+        border: 2px solid $disabled-color;
+        &:hover, &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    }
+}
+
+@media (max-width: $breakpoint) {
+    html {
+        font-size: 60%;
+    }
+}

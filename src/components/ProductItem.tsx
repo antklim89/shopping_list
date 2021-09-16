@@ -2,11 +2,9 @@ import { observer } from 'mobx-react-lite';
 import { FunctionalComponent, h } from 'preact';
 import { useRef } from 'preact/hooks';
 
+import { CartIcon, DeleteIcon, DoneIcon } from './icons';
 import { useStore } from './StoreProvider';
 
-import CartIcon from '~/assets/cart.svg';
-import DeleteIcon from '~/assets/delete.svg';
-import DoneIcon from '~/assets/done.svg';
 import type { ProductItemStore } from '~/store/ProductItemStore';
 import style from '~/styles/ProductItem.module.scss';
 import type { Unit } from '~/types/Unit';
@@ -18,11 +16,11 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
 
     return (
         <li
-            className={`${style.item} ${style.appearanceStyle}`}
+            className={`${style.product} ${style.appearanceStyle}`}
             ref={ref}
         >
             <input
-                className={style.name}
+                className={`${style.product__name} ${style.item} input`}
                 disabled={product.isBought}
                 placeholder="Enter product name..."
                 type="text"
@@ -32,21 +30,9 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                     if (e.key === 'Enter') e.currentTarget.blur();
                 }}
             />
-            <div className={style.isBought}>
-                { product.isBought
-                    ? (
-                        <button type="button" onClick={() => product.update({ isBought: false })}>
-                            <img alt="done" className="icon" src={DoneIcon} />
-                        </button>
-                    )
-                    : (
-                        <button type="button" onClick={() => product.update({ isBought: true })}>
-                            <img alt="done" className="icon" src={CartIcon} />
-                        </button>
-                    ) }
-            </div>
+
             <input
-                className={style.qte}
+                className={`${style.product__qty} ${style.item} input`}
                 disabled={product.isBought}
                 min={1}
                 type="number"
@@ -57,8 +43,9 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                     else product.update({ qty: value });
                 }}
             />
+
             <select
-                className={style.unit}
+                className={`${style.product__unit} ${style.item} input`}
                 disabled={product.isBought}
                 value={product.unit}
                 onChange={(e) => product.update({ unit: e.currentTarget.value as Unit })}
@@ -70,19 +57,34 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                 <option value="ml">ml</option>
                 <option value="piece">piece</option>
             </select>
-            <button
-                className={style.deleteBtn}
-                type="button"
-                onClick={() => {
-                    ref.current?.classList.remove(style.appearanceStyle);
-                    ref.current?.classList.add(style.removeStyle);
-                    setTimeout(() => {
-                        store.removeProduct(product);
-                    }, 190);
-                }}
-            >
-                <img alt="delete" className="icon" src={DeleteIcon} />
-            </button>
+
+            <div className={`${style.product__actions} ${style.item}`} >
+                <button
+                    className="btn"
+                    type="button"
+                    onClick={() => product.update({ isBought: !product.isBought })}
+                >
+                    {
+                        product.isBought
+                            ? <DoneIcon />
+                            : <CartIcon />
+                    }
+                </button>
+
+                <button
+                    className="btn delete"
+                    type="button"
+                    onClick={() => {
+                        ref.current?.classList.remove(style.appearanceStyle);
+                        ref.current?.classList.add(style.removeStyle);
+                        setTimeout(() => {
+                            store.removeProduct(product);
+                        }, 190);
+                    }}
+                >
+                    <DeleteIcon />
+                </button>
+            </div>
         </li>
     );
 };
