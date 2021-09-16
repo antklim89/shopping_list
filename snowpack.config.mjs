@@ -17,7 +17,7 @@ export default {
     routes: [],
     optimize: { 'bundle': true },
     packageOptions: {},
-    devOptions: {},
+    devOptions: { open: 'none' },
     buildOptions: {},
     alias: {
         'react': 'preact/compat',
