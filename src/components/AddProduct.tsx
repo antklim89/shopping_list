@@ -1,9 +1,8 @@
-
-// import { ReactComponent as AddIcon } from '../assets/add.svg';
 import { FunctionalComponent, h } from 'preact';
 
 import style from '../styles/AddProduct.module.scss';
 
+import { AddIcon } from './icons';
 import { useStore } from './StoreProvider';
 
 
@@ -15,8 +14,8 @@ const AddProduct: FunctionalComponent = () => {
             type="button"
             onClick={() => store.addProduct()}
         >
-            {/* <AddIcon className="icon" /> */}
             <span className={style.text}>Add Product</span>
+            <span className={style.icon}><AddIcon /></span>
         </button>
     );
 };

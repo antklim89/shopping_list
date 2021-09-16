@@ -1,31 +1,26 @@
 @use "./variables.scss" as *;
+@use "./global.scss" as *;
 
 
 .root {
-    background-color: $secondary-color;
-    border: none;
-    border-radius: 1rem;
-    padding: 1rem 2rem;
+    @extend .btn;
     text-transform: uppercase;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    padding: $sp-2;
 
-    svg {
-        height: 32px;
-        width: 32px;
-        margin: -10px 0;
+    .icon {
+        display: none;
+        padding-top: 5px;
     }
 
     @media (max-width: $breakpoint) {
-        padding: 1rem 1rem;
-
-        svg {
-            height: 24px;
-            width: 24px;
-        }
-
         .text {
             display: none;
+        }
+            
+        .icon {
+            display: block;
         }
     }
 }
