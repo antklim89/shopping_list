@@ -1,9 +1,9 @@
 import { IObservableArray, makeAutoObservable, observable } from 'mobx';
 
-import type { IProductItem } from '../types/IProductItem';
-import { Unit } from '../types/Unit';
-
 import { ProductItemStore } from './ProductItemStore';
+
+import type { IProductItem } from '~/types/IProductItem';
+import { Unit } from '~/types/Unit';
 
 
 function getProductsFromLocalstorage(): IObservableArray<ProductItemStore> {

@@ -2,7 +2,7 @@ import { reaction } from 'mobx';
 import { createContext, FunctionalComponent, h } from 'preact';
 import { useContext, useEffect, useMemo } from 'preact/hooks';
 
-import { PropductStore } from '../store/Store';
+import { PropductStore } from '~/store/Store';
 
 
 const Context = createContext({} as PropductStore);
