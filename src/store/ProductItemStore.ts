@@ -1,29 +1,37 @@
 import { makeAutoObservable } from 'mobx';
+import { v4 } from 'uuid';
 
-import type { IProductItem, NewProductItem, UpdateProductItem } from '~/types/IProductItem';
-import type { Unit } from '~/types/Unit';
+import { Unit } from '~/types/Unit';
 
 
-export class ProductItemStore implements IProductItem {
-    id: number
+export type INewProductItem = Partial<ProductItemStore>
+
+export type IProductItem = Pick<INewProductItem, 'name'|'qty'|'isBought'|'unit'>
+
+export type IUpdateProductItem = Partial<IProductItem>
+
+
+export class ProductItemStore {
+    id: string
 
     name: string;
 
     qty: number;
 
-    isBought = false;
+    isBought: boolean;
 
     unit: Unit;
 
-    constructor(product: NewProductItem) {
-        this.id = Math.random();
-        this.name = product.name;
-        this.qty = product.qty;
-        this.unit = product.unit;
+    constructor(product: INewProductItem = {}) {
+        this.id = product.id || v4();
+        this.isBought = product.isBought || false;
+        this.name = product.name || '';
+        this.qty = product.qty || 1;
+        this.unit = product.unit || Unit.piece;
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    update(product: UpdateProductItem): void {
+    update(product: IUpdateProductItem): void {
         Object.assign(this, product);
     }
 }
