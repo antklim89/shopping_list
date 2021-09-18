@@ -4,10 +4,24 @@ import { useStore } from './StoreProvider';
 
 
 const Actions: FunctionComponent = () => {
-    const { toFile, fromFile } = useStore();
+    const { toFile, fromFile, clearList, toggleBougth } = useStore();
 
     return (
         <div className="Actions">
+            <button
+                className="Actions__action btn"
+                type="button"
+                onClick={() => clearList()}
+            >
+                Clear List
+            </button>
+            <button
+                className="Actions__action btn"
+                type="button"
+                onClick={() => toggleBougth()}
+            >
+                Toggle all bought
+            </button>
             <button
                 className="Actions__action btn"
                 type="button"

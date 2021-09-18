@@ -21,6 +21,17 @@ export class ProductListStore {
         this.products.remove(product);
     }
 
+    clearList(): void {
+        this.products.clear();
+    }
+
+    toggleBougth(): void {
+        const isAllBougth = this.products.every((product) => product.isBought);
+        this.products.forEach((product) => {
+            product.isBought = !isAllBougth;
+        });
+    }
+
     toFile(): void {
         const blob = new Blob([JSON.stringify(this.products)]);
         const fileName = `Product List - ${new Date()}.json`;
