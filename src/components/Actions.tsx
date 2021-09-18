@@ -20,6 +20,7 @@ const Actions: FunctionComponent = () => {
                 Load from file
             </label>
             <input
+                accept="application/json"
                 className="hidden"
                 id="load-file"
                 type="file"

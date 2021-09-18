@@ -6,15 +6,12 @@ import { IProductItem, ProductItemStore } from './ProductItemStore';
 export class ProductListStore {
 
     constructor() {
-        const productsString = localStorage.getItem('store');
-        const productsObjects: IProductItem[] = productsString ? JSON.parse(productsString) : [];
-        const products = productsObjects.map((prod) => new ProductItemStore(prod));
-        this.products = observable.array(products);
-
+        this.fromLocalStorage();
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    products: IObservableArray<ProductItemStore>
+    products: IObservableArray<ProductItemStore> = observable.array()
+
 
     addProduct(): void {
         this.products.unshift(new ProductItemStore());
@@ -38,8 +35,9 @@ export class ProductListStore {
     }
 
     async fromFile(files: FileList | null): Promise<void> {
-        if (!files) return;
+        if (!files || files.length < 1) return;
         const [file] = files;
+        if (file.type !== 'application/json' || !(/.*\.json$/i).test(file.name)) return;
         try {
             const fileText = await file.text();
             const fileJson: IProductItem[] = JSON.parse(fileText);
@@ -49,5 +47,17 @@ export class ProductListStore {
         } catch (error) {
             console.error('File upload error:', error);
         }
+    }
+
+    fromLocalStorage(): void {
+        const productsString = localStorage.getItem('store');
+        const productsObjects: IProductItem[] = productsString ? JSON.parse(productsString) : [];
+        const products = productsObjects.map((prod) => new ProductItemStore(prod));
+        this.products.replace(products);
+    }
+
+    toLocalStorage(): void {
+        const productsString = JSON.stringify(this.products);
+        localStorage.setItem('store', productsString);
     }
 }
