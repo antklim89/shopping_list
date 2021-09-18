@@ -1,0 +1,10 @@
+
+
+.Actions {
+    display: flex;
+    justify-content: flex-end;
+
+    &__action {
+        margin: 0 $sp-1;
+    }
+}
