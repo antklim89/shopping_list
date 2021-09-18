@@ -1,0 +1,20 @@
+
+.Header {
+    box-shadow: 0 0 5px #000;
+    width: 100%;
+    padding: 0 2rem;
+    
+    &__logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: $primary-color
+    }
+    
+    &__container {
+        @extend .container;
+        justify-content: space-between;
+        height: 64px;
+        display: flex;
+        align-items: center;
+    }
+}

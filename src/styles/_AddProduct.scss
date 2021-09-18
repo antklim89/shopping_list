@@ -1,25 +1,23 @@
-@use "./variables.scss" as *;
-@use "./global.scss" as *;
 
 
-.root {
+.AddProduct {
     @extend .btn;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
     padding: $sp-2;
 
-    .icon {
+    &__icon {
         display: none;
         padding-top: 5px;
     }
 
     @media (max-width: $breakpoint) {
-        .text {
+        &__text {
             display: none;
         }
             
-        .icon {
+        &__icon {
             display: block;
         }
     }

@@ -6,7 +6,6 @@ import { CartIcon, DeleteIcon, DoneIcon } from './icons';
 import { useStore } from './StoreProvider';
 
 import type { ProductItemStore } from '~/store/ProductItemStore';
-import style from '~/styles/ProductItem.module.scss';
 import type { Unit } from '~/types/Unit';
 
 
@@ -16,11 +15,11 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
 
     return (
         <li
-            className={`${style.product} ${style.appearanceStyle}`}
+            className="ProductItem appearance"
             ref={ref}
         >
             <input
-                className={`${style.product__name} ${style.item} input`}
+                className="ProductItem__name item input"
                 disabled={product.isBought}
                 placeholder="Enter product name..."
                 type="text"
@@ -32,7 +31,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
             />
 
             <input
-                className={`${style.product__qty} ${style.item} input`}
+                className="ProductItem__qty item input"
                 disabled={product.isBought}
                 min={1}
                 type="number"
@@ -45,7 +44,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
             />
 
             <select
-                className={`${style.product__unit} ${style.item} input`}
+                className="ProductItem__unit item input"
                 disabled={product.isBought}
                 value={product.unit}
                 onChange={(e) => product.update({ unit: e.currentTarget.value as Unit })}
@@ -58,7 +57,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                 <option value="piece">piece</option>
             </select>
 
-            <div className={`${style.product__actions} ${style.item}`} >
+            <div className="ProductItem__actions item" >
                 <button
                     className="btn"
                     type="button"
@@ -75,8 +74,8 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                     className="btn delete"
                     type="button"
                     onClick={() => {
-                        ref.current?.classList.remove(style.appearanceStyle);
-                        ref.current?.classList.add(style.removeStyle);
+                        ref.current?.classList.remove('appearance');
+                        ref.current?.classList.add('disappearence');
                         setTimeout(() => {
                             store.removeProduct(product);
                         }, 190);

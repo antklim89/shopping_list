@@ -1,0 +1,14 @@
+
+.ProductList {
+    width: 100%;
+    max-width: 1170px;
+    margin: 4rem auto;
+    
+    &__list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+}

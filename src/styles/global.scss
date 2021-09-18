@@ -1,4 +1,10 @@
-@use './variables.scss' as *;
+@import './variables.scss';
+
+@import './AddProduct.scss';
+@import './Header.scss';
+@import './ProductItem.scss';
+@import './ProductList.scss';
+
 
 * {
     padding: 0;
