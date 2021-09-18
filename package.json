@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "dev": "snowpack dev",
+    "dev": "snowpack dev --port 3000",
     "build": "rm -rf ./build && snowpack build",
+    "serve": "snowpack serve",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {

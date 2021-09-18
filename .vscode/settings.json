@@ -7,4 +7,5 @@
     "emmet.triggerExpansionOnTab": true,
     "editor.suggest.insertMode": "replace",
     "editor.quickSuggestionsDelay": 1,
+    "liveServer.settings.root": "/build",
 }
