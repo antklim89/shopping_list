@@ -1,4 +1,4 @@
-import { reaction, toJS } from 'mobx';
+import { reaction } from 'mobx';
 import { createContext, FunctionalComponent, h } from 'preact';
 import { useContext, useEffect, useMemo } from 'preact/hooks';
 
