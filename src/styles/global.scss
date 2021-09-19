@@ -5,6 +5,7 @@
 @import './ProductItem.scss';
 @import './ProductList.scss';
 @import './Actions';
+@import './Drawer';
 
 
 * {
@@ -55,7 +56,7 @@ button {
     background: $primary-color;
     border: none;
     border-radius: $radius;
-    box-shadow: 2px 2px 2px black;
+    box-shadow: $shadow;
     color: $light-color;
     fill: $light-color;
     transition: 100ms transform;

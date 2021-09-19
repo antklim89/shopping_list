@@ -4,13 +4,14 @@ import { AddIcon } from './icons';
 import { useStore } from './StoreProvider';
 
 
-const AddProduct: FunctionalComponent = () => {
+const AddProduct: FunctionalComponent<h.JSX.HTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => {
     const store = useStore();
     return (
         <button
-            className="AddProduct"
+            className={`AddProduct btn ${className}`}
             type="button"
             onClick={() => store.addProduct()}
+            {...props}
         >
             <span className="AddProduct__text">Add Product</span>
             <span className="AddProduct__icon"><AddIcon /></span>

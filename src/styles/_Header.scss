@@ -12,9 +12,17 @@
     
     &__container {
         @extend .container;
-        justify-content: space-between;
+        justify-content: flex-start;
         height: 64px;
         display: flex;
         align-items: center;
+    }
+
+    &__grow {
+        flex-grow: 1;
+    }
+    
+    &__add-product {
+        margin-left: $sp-1;
     }
 }
