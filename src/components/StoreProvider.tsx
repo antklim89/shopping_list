@@ -11,8 +11,11 @@ const StoreProvider: FunctionalComponent = ({ children }) => {
     const store = useMemo(() => new ProductListStore(), []);
 
     useEffect(() => reaction(
-        () => toJS(store.products),
-        () => store.toLocalStorage(),
+        () => store.base64Products,
+        () => {
+            store.toLocalStorage();
+            store.toUrl();
+        },
     ), []);
 
     return (

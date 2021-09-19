@@ -3,10 +3,16 @@ import { IObservableArray, makeAutoObservable, observable, runInAction } from 'm
 import { IProductItem, ProductItemStore } from './ProductItemStore';
 
 
+const STORE_NAME = 'SHOPPING_LIST';
+
 export class ProductListStore {
 
     constructor() {
-        this.fromLocalStorage();
+        if (location.hash.substring(1).length > 0) this.fromUrl();
+        else {
+            this.fromLocalStorage();
+            this.toUrl();
+        }
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
@@ -56,19 +62,46 @@ export class ProductListStore {
             runInAction(() => this.products.replace(products));
 
         } catch (error) {
-            console.error('File upload error:', error);
+            console.error('Load from file Error: \n', error);
         }
     }
 
     fromLocalStorage(): void {
-        const productsString = localStorage.getItem('store');
-        const productsObjects: IProductItem[] = productsString ? JSON.parse(productsString) : [];
-        const products = productsObjects.map((prod) => new ProductItemStore(prod));
-        this.products.replace(products);
+        const productsBase64 = localStorage.getItem(STORE_NAME);
+        if (!productsBase64 || productsBase64.length === 0) return;
+        try {
+            const productsJSONString = atob(productsBase64);
+            const productsObjects: IProductItem[] = JSON.parse(productsJSONString);
+            const products = productsObjects.map((prod) => new ProductItemStore(prod));
+            this.products.replace(products);
+        } catch (error) {
+            console.error('Load from localStorage Error: \n');
+        }
     }
 
     toLocalStorage(): void {
+        localStorage.setItem(STORE_NAME, this.base64Products);
+    }
+
+    toUrl(): void {
+        window.history.pushState(null, '', `#${this.base64Products}`);
+    }
+
+    fromUrl(): void {
+        const base64 = location.hash.substring(1);
+        if (base64.length === 0) return;
+        try {
+            const productsString = atob(base64);
+            const productsList: IProductItem[] = JSON.parse(productsString);
+            const productsListStore = productsList.map((product) => new ProductItemStore(product));
+            this.products.replace(productsListStore);
+        } catch (error) {
+            console.error('Load from url Error: \n');
+        }
+    }
+
+    get base64Products(): string {
         const productsString = JSON.stringify(this.products);
-        localStorage.setItem('store', productsString);
+        return btoa(productsString);
     }
 }
