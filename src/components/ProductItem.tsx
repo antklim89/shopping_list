@@ -1,6 +1,6 @@
+import { m } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import { FunctionalComponent, h } from 'preact';
-import { useRef } from 'preact/hooks';
 
 import { CartIcon, DeleteIcon, DoneIcon } from './icons';
 import { useStore } from './StoreProvider';
@@ -11,12 +11,13 @@ import type { Unit } from '~/types/Unit';
 
 const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ product }) => {
     const store = useStore();
-    const ref = useRef<HTMLLIElement>(null);
 
     return (
-        <li
+        <m.li
+            animate={{ x: 0, opacity: 1 }}
             className="ProductItem appearance"
-            ref={ref}
+            exit={{ x: '100vh', opacity: 0 }}
+            initial={{ x: '-100vh', opacity: 0 }}
         >
             <input
                 className="ProductItem__name item input"
@@ -73,18 +74,19 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                 <button
                     className="btn delete"
                     type="button"
-                    onClick={() => {
-                        ref.current?.classList.remove('appearance');
-                        ref.current?.classList.add('disappearence');
-                        setTimeout(() => {
-                            store.removeProduct(product);
-                        }, 190);
-                    }}
+                    onClick={() => store.removeProduct(product)}
+                    // onClick={() => {
+                    //     ref.current?.classList.remove('appearance');
+                    //     ref.current?.classList.add('disappearence');
+                    //     setTimeout(() => {
+                    //         store.removeProduct(product);
+                    //     }, 190);
+                    // }}
                 >
                     <DeleteIcon />
                 </button>
             </div>
-        </li>
+        </m.li>
     );
 };
 

@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import { FunctionalComponent, h } from 'preact';
 
@@ -13,9 +14,11 @@ const ProductList: FunctionalComponent = observer(() => {
         <div className="ProductList">
             <Actions />
             <ul className="ProductList__list">
-                {products.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                ))}
+                <AnimatePresence>
+                    {products.map((product) => (
+                        <ProductItem key={product.id} product={product} />
+                    ))}
+                </AnimatePresence>
             </ul>
         </div>
     );

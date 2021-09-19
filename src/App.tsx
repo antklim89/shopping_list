@@ -1,3 +1,4 @@
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { FunctionComponent, h } from 'preact';
 
 import Header from './components/Header';
@@ -8,10 +9,12 @@ import StoreProvider from './components/StoreProvider';
 const App: FunctionComponent = () => {
 
     return (
-        <StoreProvider>
-            <Header />
-            <ProductList />
-        </StoreProvider>
+        <LazyMotion strict features={domAnimation}>
+            <StoreProvider>
+                <Header />
+                <ProductList />
+            </StoreProvider>
+        </LazyMotion>
     );
 };
 
