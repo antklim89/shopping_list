@@ -8,8 +8,31 @@ import { copyTextToClipboard } from '~/utils';
 const Actions: FunctionComponent = () => {
     const { toFile, fromFile, clearList, toggleBougth } = useStore();
 
+    const shareData = {
+        title: 'Shopping List',
+        url: location.href,
+    };
+
+
+    const share = async () => {
+        if (!navigator.share) return;
+        try {
+            await navigator.share(shareData);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
         <div className="Actions">
+            <button
+                className="Actions__action btn"
+                type="button"
+                onClick={() => share()}
+            >
+                Share
+            </button>
             <button
                 className="Actions__action btn"
                 type="button"
