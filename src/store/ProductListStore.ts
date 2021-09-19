@@ -84,7 +84,7 @@ export class ProductListStore {
     }
 
     toUrl(): void {
-        window.history.pushState(null, '', `#${this.base64Products}`);
+        window.history.replaceState(null, '', `#${this.base64Products}`);
     }
 
     fromUrl(): void {

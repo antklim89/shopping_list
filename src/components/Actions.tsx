@@ -2,12 +2,21 @@ import { h, FunctionComponent } from 'preact';
 
 import { useStore } from './StoreProvider';
 
+import { copyTextToClipboard } from '~/utils';
+
 
 const Actions: FunctionComponent = () => {
     const { toFile, fromFile, clearList, toggleBougth } = useStore();
 
     return (
         <div className="Actions">
+            <button
+                className="Actions__action btn"
+                type="button"
+                onClick={() => copyTextToClipboard(location.href)}
+            >
+                Copy link
+            </button>
             <button
                 className="Actions__action btn"
                 type="button"
