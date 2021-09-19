@@ -13,8 +13,8 @@ const AddProduct: FunctionalComponent<h.JSX.HTMLAttributes<HTMLButtonElement>> =
             onClick={() => store.addProduct()}
             {...props}
         >
-            <span className="AddProduct__text">Add Product</span>
-            <span className="AddProduct__icon"><AddIcon /></span>
+            <span className="AddProduct__text sm-hide">Add Product</span>
+            <span className="AddProduct__icon lg-hide"><AddIcon /></span>
         </button>
     );
 };

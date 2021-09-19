@@ -4,19 +4,4 @@
     text-transform: uppercase;
     display: flex;
     justify-content: center;
-
-    &__icon {
-        display: none;
-        padding-top: 5px;
-    }
-
-    @media (max-width: $breakpoint) {
-        &__text {
-            display: none;
-        }
-            
-        &__icon {
-            display: block;
-        }
-    }
 }

@@ -2,6 +2,8 @@ import { AnimatePresence, m } from 'framer-motion';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
 
+import { ListIcon } from './icons/ListIcon';
+
 
 const Drawer: FunctionComponent = ({ children }) => {
     const state = useLocalObservable(() => ({
@@ -14,7 +16,8 @@ const Drawer: FunctionComponent = ({ children }) => {
     return (
         <div className="Drawer">
             <button className="Drawer__open-button btn" type="button" onClick={() => state.toggle()}>
-                Open
+                <div className="sm-hide">Open</div>
+                <div className="lg-hide"><ListIcon /></div>
             </button>
             <AnimatePresence>
                 {state.show && (

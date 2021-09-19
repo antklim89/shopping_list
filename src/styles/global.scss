@@ -10,7 +10,7 @@
 html, body, #root {
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 body {
@@ -19,6 +19,7 @@ body {
 }
 
 svg {
+    padding-top: 5px;
     width: 24px;
     height: 24px;
 }
@@ -100,6 +101,18 @@ button {
 @media (max-width: $breakpoint) {
     html {
         font-size: 80%;
+    }
+}
+
+@media (min-width: $breakpoint) {
+    .lg-hide {
+        display: none;
+    }
+}
+
+@media (max-width: $breakpoint - 1) {
+    .sm-hide {
+        display: none;
     }
 }
 
