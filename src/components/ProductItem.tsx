@@ -15,12 +15,12 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
     return (
         <m.li
             animate={{ x: 0, opacity: 1 }}
-            className="ProductItem appearance"
+            className="ProductItem"
             exit={{ x: '100vh', opacity: 0 }}
             initial={{ x: '-100vh', opacity: 0 }}
         >
             <input
-                className="ProductItem__name item input"
+                className="ProductItem__name input item"
                 disabled={product.isBought}
                 placeholder="Enter product name..."
                 type="text"
@@ -75,13 +75,6 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                     className="btn delete"
                     type="button"
                     onClick={() => store.removeProduct(product)}
-                    // onClick={() => {
-                    //     ref.current?.classList.remove('appearance');
-                    //     ref.current?.classList.add('disappearence');
-                    //     setTimeout(() => {
-                    //         store.removeProduct(product);
-                    //     }, 190);
-                    // }}
                 >
                     <DeleteIcon />
                 </button>

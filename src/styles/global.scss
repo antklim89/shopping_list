@@ -1,12 +1,5 @@
 @import './variables.scss';
 
-@import './AddProduct.scss';
-@import './Header.scss';
-@import './ProductItem.scss';
-@import './ProductList.scss';
-@import './Actions';
-@import './Drawer';
-
 
 * {
     padding: 0;
@@ -51,6 +44,7 @@ button {
 
 .btn {
     display: inline-block;
+    text-transform: uppercase;
     font-family: inherit;
     cursor: pointer;
     background: $primary-color;
@@ -82,9 +76,11 @@ button {
 .input {
     background: none;
     border: 2px solid $primary-color;
-    padding: $sp-2;
+    padding: $sp-1;
     border-radius: $radius;
     min-width: 70px;
+    color: $primary-color;
+    font-size: 1.4rem;
 
     &:hover, &:focus {
         box-shadow: 0 0 10px darken($color: $primary-color, $amount: 20);
@@ -106,3 +102,12 @@ button {
         font-size: 80%;
     }
 }
+
+
+@import './AddProduct.scss';
+@import './Header.scss';
+@import './ProductItem.scss';
+@import './ProductList.scss';
+@import './Actions';
+@import './Drawer';
+
