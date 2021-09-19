@@ -3,6 +3,17 @@
 .Actions {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
+
+    @media (max-width: $breakpoint) {
+        flex-direction: column;
+    }
+
+    &__group {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: $sp-1;
+    }
 
     &__action {
         margin: 0 $sp-1;
