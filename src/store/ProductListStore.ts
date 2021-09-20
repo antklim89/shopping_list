@@ -1,18 +1,25 @@
 import { IObservableArray, makeAutoObservable, observable, runInAction } from 'mobx';
+import { v4 } from 'uuid';
 
 import { IProductItem, ProductItemStore } from './ProductItemStore';
 
 
 const STORE_NAME = 'SHOPPING_LIST';
+const CURRENT_LIST_STORE_NAME = 'CURRENT_LIST';
 
 export class ProductListStore {
 
     constructor() {
+        this.getLists();
+
+        this.getCurrentList();
+
         if (location.hash.substring(1).length > 0) this.fromUrl();
         else {
             this.fromLocalStorage();
             this.toUrl();
         }
+
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
@@ -67,7 +74,7 @@ export class ProductListStore {
     }
 
     fromLocalStorage(): void {
-        const productsBase64 = localStorage.getItem(STORE_NAME);
+        const productsBase64 = localStorage.getItem(`${this.currentList}`);
         if (!productsBase64 || productsBase64.length === 0) return;
         try {
             const productsJSONString = atob(productsBase64);
@@ -80,7 +87,7 @@ export class ProductListStore {
     }
 
     toLocalStorage(): void {
-        localStorage.setItem(STORE_NAME, this.base64Products);
+        localStorage.setItem(`${this.currentList}`, this.base64Products);
     }
 
     toUrl(): void {
@@ -103,5 +110,35 @@ export class ProductListStore {
     get base64Products(): string {
         const productsString = JSON.stringify(this.products);
         return btoa(productsString);
+    }
+
+
+    currentList = `${STORE_NAME}:New list:${v4()}`;
+
+    lists: IObservableArray<string> = observable.array()
+
+    private getLists() {
+        let index = 0;
+        let storeKey = localStorage.key(0);
+        while (storeKey) {
+            if (storeKey.startsWith(STORE_NAME)) {
+                this.lists.push(storeKey);
+            }
+            index += 1;
+            storeKey = localStorage.key(index);
+        }
+    }
+
+    getCurrentList(): void {
+        const currentList = localStorage.getItem(CURRENT_LIST_STORE_NAME);
+        if (currentList) {
+            this.currentList = currentList;
+        } else {
+            this.setCurrentList();
+        }
+    }
+
+    setCurrentList(): void {
+        localStorage.setItem(CURRENT_LIST_STORE_NAME, `${STORE_NAME}:${this.currentList}`);
     }
 }

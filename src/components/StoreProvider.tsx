@@ -18,6 +18,11 @@ const StoreProvider: FunctionalComponent = ({ children }) => {
         },
     ), []);
 
+    useEffect(() => reaction(
+        () => store.currentList,
+        () => store.setCurrentList(),
+    ), []);
+
     return (
         <Context.Provider value={store}>
             {children}
