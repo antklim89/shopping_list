@@ -2,6 +2,7 @@ import { FunctionComponent, h } from 'preact';
 
 import AddProduct from './AddProduct';
 import Drawer from './Drawer';
+import Lists from './Lists';
 
 
 const Header: FunctionComponent = () => {
@@ -12,7 +13,9 @@ const Header: FunctionComponent = () => {
                     SHOPPING LIST
                 </div>
                 <div className="Header__grow" />
-                <Drawer>CONTENT</Drawer>
+                <Drawer>
+                    <Lists />
+                </Drawer>
                 <AddProduct className="Header__add-product" />
             </div>
         </div>
