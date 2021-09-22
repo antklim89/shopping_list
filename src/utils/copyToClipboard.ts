@@ -20,7 +20,7 @@ function fallbackCopyTextToClipboard(text: string): void {
 }
 
 export async function copyTextToClipboard(text: string): Promise<void> {
-    if (!window.navigator?.clipboard) {
+    if (!window.navigator.clipboard) {
         fallbackCopyTextToClipboard(text);
         return;
     }
