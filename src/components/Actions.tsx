@@ -50,7 +50,7 @@ const Actions: FunctionComponent = () => {
                 </button>
             </div>
             <div className="Actions__group">
-                {typeof window !== 'undefined' && window?.navigator?.share && (
+                {typeof window !== 'undefined' && window.navigator.share && (
                     <button
                         className="Actions__action btn"
                         type="button"
