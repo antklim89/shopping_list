@@ -13,7 +13,7 @@ const CollectionList: FunctionComponent = () => {
 
     const handleAdd = () => {
         if (newListName.length < 2) return;
-        store.addCollection(newListName);
+        store.currentCollection.add(newListName);
         setNewListName('');
     };
 
@@ -32,8 +32,8 @@ const CollectionList: FunctionComponent = () => {
                 <button className="btn" type="button" onClick={handleAdd}>Add</button>
             </div>
 
-            {store.collectionNames.map((collection) => (
-                <CollectionItem collection={collection} key={collection} />
+            {store.currentCollection.storeNames.map((storeName) => (
+                <CollectionItem key={storeName.split(':').pop()} storeName={storeName} />
             ))}
         </div>
     );

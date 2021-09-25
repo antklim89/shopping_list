@@ -1,31 +1,29 @@
 import { IObservableArray, makeAutoObservable, observable, runInAction } from 'mobx';
-import { v4 } from 'uuid';
 
+import { CollectionStore } from './CollectionStore';
 import { IProductItem, ProductItemStore } from './ProductItemStore';
-
-import type { CollectionName } from '~/types/CollectionName';
 
 
 export const STORE_NAME = 'SHOPPING_LIST';
-const CURRENT_COLLECTION_STORE_NAME = 'CURRENT_COLLECTION';
+export const CURRENT_COLLECTION_STORE_NAME = 'CURRENT_COLLECTION';
 
 export class ProductListStore {
     constructor() {
-        this.getCurrentCollectionFromStorage();
+        // this.getCurrentCollectionFromStorage();
 
         this.fromLocalStorage();
         this.fromUrl();
 
-        this.getCollectionNamesFromStorage();
+        // this.getCollectionNamesFromStorage();
 
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
     products: IObservableArray<ProductItemStore> = observable.array()
 
-    currentCollection: CollectionName = `${STORE_NAME}:New collection:${v4()}`;
+    currentCollection = new CollectionStore()
 
-    collectionNames: IObservableArray<CollectionName> = observable.array()
+    // collectionNames: IObservableArray<CollectionName> = observable.array()
 
 
     get base64Products(): string {
@@ -81,9 +79,9 @@ export class ProductListStore {
     }
 
     fromLocalStorage(): void {
-        const productsBase64 = localStorage.getItem(this.currentCollection);
+        const productsBase64 = localStorage.getItem(this.currentCollection.storeName);
         if (!productsBase64) {
-            localStorage.setItem(this.currentCollection, 'W10=');
+            localStorage.setItem(this.currentCollection.storeName, 'W10=');
             return;
         }
         try {
@@ -97,7 +95,7 @@ export class ProductListStore {
     }
 
     toLocalStorage(): void {
-        localStorage.setItem(this.currentCollection, this.base64Products);
+        localStorage.setItem(this.currentCollection.storeName, this.base64Products);
     }
 
 
@@ -121,39 +119,15 @@ export class ProductListStore {
         window.history.replaceState(null, '', `#${this.base64Products}`);
     }
 
+/*
 
-    private getCollectionNamesFromStorage() {
-        let index = 0;
-        let storeKey = localStorage.key(0);
-        while (storeKey) {
-            if (storeKey.startsWith(STORE_NAME)) {
-                this.collectionNames.push(storeKey as CollectionName);
-            }
-            index += 1;
-            storeKey = localStorage.key(index);
-        }
-    }
-
-    getCurrentCollectionFromStorage(): void {
-        const currentCollection = localStorage.getItem(CURRENT_COLLECTION_STORE_NAME) as CollectionName | null;
-        if (currentCollection) {
-            this.currentCollection = currentCollection;
-        } else {
-            this.setCurrentCollectionStorage();
-            this.addCollection(this.currentCollection);
-        }
-    }
-
-    setCurrentCollectionStorage(): void {
-        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
-    }
 
     addCollection(newCollectionName: string): void {
         if (newCollectionName.length < 2) return;
-        this.currentCollection = `${STORE_NAME}:${newCollectionName}:${v4()}`;
-        this.collectionNames.push(this.currentCollection);
+        this.currentCollection.storeName = `${STORE_NAME}:${newCollectionName}:${v4()}`;
+        this.collectionNames.push(this.currentCollection.storeName);
         this.products.clear();
-        localStorage.setItem(this.currentCollection, 'W10=');
+        localStorage.setItem(this.currentCollection.storeName, 'W10=');
         window.history.replaceState(null, '', '#W10=');
     }
 
@@ -163,17 +137,18 @@ export class ProductListStore {
         this.collectionNames.remove(collectionName);
 
         const [firstCollection] = this.collectionNames;
-        this.currentCollection = firstCollection;
+        this.currentCollection.storeName = firstCollection;
     }
 
     renameCollection(newCollectionName: string): void {
         localStorage.removeItem(CURRENT_COLLECTION_STORE_NAME);
-        this.currentCollection = `${STORE_NAME}:${newCollectionName}:${v4()}`;
-        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
+        this.currentCollection.storeName = `${STORE_NAME}:${newCollectionName}:${v4()}`;
+        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection.storeName);
     }
 
     selectCollection(collectionName: CollectionName): void {
-        this.currentCollection = collectionName;
+        this.currentCollection.storeName = collectionName;
         this.fromLocalStorage();
     }
+    */
 }

@@ -1,16 +1,23 @@
 import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 import { useStore } from './StoreProvider';
 
 import type { CollectionName } from '~/types/CollectionName';
 
 
-const CollectionItem: FunctionComponent<{collection: CollectionName}> = ({ collection }) => {
+const CollectionItem: FunctionComponent<{storeName: CollectionName}> = ({ storeName }) => {
+    const [, name, id] = storeName.split(':');
+
     const [isEdit, setIsEdit] = useState(false);
+    // const [newName, setNewName] = useState(name);
+
     const store = useStore();
-    const [, name, id] = collection.split(':');
+
+    // useEffect(() => {
+    //     store.currentCollection.rename(storeName, newName);
+    // }, [newName, storeName]);
 
     return (
         <div key={id}>
@@ -20,14 +27,14 @@ const CollectionItem: FunctionComponent<{collection: CollectionName}> = ({ colle
                         className="input"
                         type="text"
                         value={name}
-                        onChange={(e) => store.renameCollection(e.currentTarget.name)}
+                        onChange={(e) => store.currentCollection.rename(storeName, e.currentTarget.value)}
                     />
                 )
                 : (
                     <button
-                        className={`btn ${collection === store.currentCollection ? 'delete' : ''}`}
+                        className={`btn ${storeName === store.currentCollection.storeName ? 'delete' : ''}`}
                         type="button"
-                        onClick={() => store.selectCollection(collection)}
+                        onClick={() => store.currentCollection.select(storeName)}
                     >
                         {name}
                     </button>
@@ -39,15 +46,15 @@ const CollectionItem: FunctionComponent<{collection: CollectionName}> = ({ colle
             >
                 Edit
             </button>
-            {store.collectionNames.length > 1 && (
+            {/* {store.collectionNames.length > 1 && (
                 <button
                     className="btn"
                     type="button"
-                    onClick={() => store.removeCollection(collection)}
+                    onClick={() => store.removeCollection(storeName)}
                 >
                     Delete
                 </button>
-            )}
+            )} */}
         </div>
     );
 };

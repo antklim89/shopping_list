@@ -81,6 +81,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: 'h' }],
         '@typescript-eslint/no-empty-interface': 0,
 
+        'no-underscore-dangle': 0,
         'no-inline-comments': 0,
         'line-comment-position': 0,
         'multiline-ternary': [2, 'always-multiline'],

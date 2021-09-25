@@ -19,8 +19,13 @@ const StoreProvider: FunctionalComponent = ({ children }) => {
     ), []);
 
     useEffect(() => reaction(
-        () => store.currentCollection,
-        () => store.setCurrentCollectionStorage(),
+        () => store.currentCollection.storeName,
+        () => store.currentCollection.setCollectionToStorage(),
+    ), []);
+
+    useEffect(() => reaction(
+        () => store.currentCollection.id,
+        () => store.fromLocalStorage(),
     ), []);
 
     return (
