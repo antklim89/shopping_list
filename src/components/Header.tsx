@@ -1,8 +1,8 @@
 import { FunctionComponent, h } from 'preact';
 
 import AddProduct from './AddProduct';
+import CollectionList from './CollectionList';
 import Drawer from './Drawer';
-import Lists from './Lists';
 
 
 const Header: FunctionComponent = () => {
@@ -14,7 +14,7 @@ const Header: FunctionComponent = () => {
                 </div>
                 <div className="Header__grow" />
                 <Drawer>
-                    <Lists />
+                    <CollectionList />
                 </Drawer>
                 <AddProduct className="Header__add-product" />
             </div>

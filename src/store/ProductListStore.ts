@@ -3,11 +3,11 @@ import { v4 } from 'uuid';
 
 import { IProductItem, ProductItemStore } from './ProductItemStore';
 
+import type { CollectionName } from '~/types/CollectionName';
 
-const STORE_NAME = 'SHOPPING_LIST';
+
+export const STORE_NAME = 'SHOPPING_LIST';
 const CURRENT_COLLECTION_STORE_NAME = 'CURRENT_COLLECTION';
-
-type CollectionName = `${typeof STORE_NAME}:${string}:${string}`;
 
 export class ProductListStore {
     constructor() {
@@ -148,11 +148,6 @@ export class ProductListStore {
         localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
     }
 
-    renameCurrentCollectionStorage(): void {
-        localStorage.removeItem(CURRENT_COLLECTION_STORE_NAME);
-        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
-    }
-
     addCollection(newCollectionName: string): void {
         if (newCollectionName.length < 2) return;
         this.currentCollection = `${STORE_NAME}:${newCollectionName}:${v4()}`;
@@ -172,8 +167,9 @@ export class ProductListStore {
     }
 
     renameCollection(newCollectionName: string): void {
+        localStorage.removeItem(CURRENT_COLLECTION_STORE_NAME);
         this.currentCollection = `${STORE_NAME}:${newCollectionName}:${v4()}`;
-        this.renameCurrentCollectionStorage();
+        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
     }
 
     selectCollection(collectionName: CollectionName): void {
