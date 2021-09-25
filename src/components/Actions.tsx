@@ -6,7 +6,7 @@ import { copyTextToClipboard } from '~/utils';
 
 
 const Actions: FunctionComponent = () => {
-    const { toFile, fromFile, clearList, toggleBougth } = useStore();
+    const { toFile, fromFile, clearProducts: clearList, toggleAllBougth: toggleBougth } = useStore();
 
     const shareData = {
         title: 'Shopping List',

@@ -11,7 +11,8 @@ const Lists: FunctionComponent = () => {
     const [newListName, setNewListName] = useState('');
 
     const handleAdd = () => {
-        store.addList(newListName);
+        if (newListName.length < 2) return;
+        store.addCollection(newListName);
         setNewListName('');
     };
 
@@ -30,19 +31,33 @@ const Lists: FunctionComponent = () => {
                 <button className="btn" type="button" onClick={handleAdd}>Add</button>
             </div>
 
-            {store.lists.map((list) => {
-                const [, name, id] = list.split(':');
+            {store.collectionNames.map((collection) => {
+                const [, name, id] = collection.split(':');
 
                 return (
                     <div key={id}>
                         <button
-                            className={`btn ${list === store.currentList ? 'delete' : ''}`}
+                            className={`btn ${collection === store.currentCollection ? 'delete' : ''}`}
                             type="button"
-                            onClick={() => store.selectList(list)}
+                            onClick={() => store.selectCollection(collection)}
                         >
                             {name}
                         </button>
-                        <button className="btn" type="button">Edit</button>
+                        <button
+                            className="btn"
+                            type="button"
+                        >
+                            Edit
+                        </button>
+                        {store.collectionNames.length > 1 && (
+                            <button
+                                className="btn"
+                                type="button"
+                                onClick={() => store.removeCollection(collection)}
+                            >
+                                Delete
+                            </button>
+                        )}
                     </div>
                 );
             })}

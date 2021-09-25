@@ -5,26 +5,33 @@ import { IProductItem, ProductItemStore } from './ProductItemStore';
 
 
 const STORE_NAME = 'SHOPPING_LIST';
-const CURRENT_LIST_STORE_NAME = 'CURRENT_LIST';
+const CURRENT_COLLECTION_STORE_NAME = 'CURRENT_COLLECTION';
+
+type CollectionName = `${typeof STORE_NAME}:${string}:${string}`;
 
 export class ProductListStore {
-
     constructor() {
-        this.getCurrentList();
+        this.getCurrentCollectionFromStorage();
 
         this.fromLocalStorage();
         this.fromUrl();
 
-        this.getListsFromStorage();
+        this.getCollectionNamesFromStorage();
 
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
     products: IObservableArray<ProductItemStore> = observable.array()
 
-    currentList = `${STORE_NAME}:New list:${v4()}`;
+    currentCollection: CollectionName = `${STORE_NAME}:New collection:${v4()}`;
 
-    lists: IObservableArray<string> = observable.array()
+    collectionNames: IObservableArray<CollectionName> = observable.array()
+
+
+    get base64Products(): string {
+        const productsString = JSON.stringify(this.products);
+        return btoa(productsString);
+    }
 
     addProduct(): void {
         this.products.unshift(new ProductItemStore());
@@ -34,28 +41,15 @@ export class ProductListStore {
         this.products.remove(product);
     }
 
-    clearList(): void {
+    clearProducts(): void {
         this.products.clear();
     }
 
-    toggleBougth(): void {
+    toggleAllBougth(): void {
         const isAllBougth = this.products.every((product) => product.isBought);
         this.products.forEach((product) => {
             product.isBought = !isAllBougth;
         });
-    }
-
-    toFile(): void {
-        const blob = new Blob([JSON.stringify(this.products)]);
-        const fileName = `Product List - ${new Date()}.json`;
-
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        document.body.append(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(link.href), 7000);
     }
 
     async fromFile(files: FileList | null): Promise<void> {
@@ -73,10 +67,23 @@ export class ProductListStore {
         }
     }
 
+    toFile(): void {
+        const blob = new Blob([JSON.stringify(this.products)]);
+        const fileName = `Product List - ${new Date()}.json`;
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+    }
+
     fromLocalStorage(): void {
-        const productsBase64 = localStorage.getItem(`${this.currentList}`);
-        if (!productsBase64 || productsBase64.length === 0) {
-            this.toLocalStorage();
+        const productsBase64 = localStorage.getItem(this.currentCollection);
+        if (!productsBase64) {
+            localStorage.setItem(this.currentCollection, 'W10=');
             return;
         }
         try {
@@ -90,17 +97,14 @@ export class ProductListStore {
     }
 
     toLocalStorage(): void {
-        localStorage.setItem(`${this.currentList}`, this.base64Products);
+        localStorage.setItem(this.currentCollection, this.base64Products);
     }
 
-    toUrl(): void {
-        window.history.replaceState(null, '', `#${this.base64Products}`);
-    }
 
     fromUrl(): void {
         const base64 = location.hash.substring(1);
         if (base64.length === 0) {
-            this.toUrl();
+            window.history.replaceState(null, '', '#W10=');
             return;
         }
         try {
@@ -113,53 +117,67 @@ export class ProductListStore {
         }
     }
 
-    get base64Products(): string {
-        const productsString = JSON.stringify(this.products);
-        return btoa(productsString);
+    toUrl(): void {
+        window.history.replaceState(null, '', `#${this.base64Products}`);
     }
 
-    private getListsFromStorage() {
+
+    private getCollectionNamesFromStorage() {
         let index = 0;
         let storeKey = localStorage.key(0);
         while (storeKey) {
             if (storeKey.startsWith(STORE_NAME)) {
-                this.lists.push(storeKey);
+                this.collectionNames.push(storeKey as CollectionName);
             }
             index += 1;
             storeKey = localStorage.key(index);
         }
     }
 
-    getCurrentList(): void {
-        const currentList = localStorage.getItem(CURRENT_LIST_STORE_NAME);
-        if (currentList) {
-            this.currentList = currentList;
+    getCurrentCollectionFromStorage(): void {
+        const currentCollection = localStorage.getItem(CURRENT_COLLECTION_STORE_NAME) as CollectionName | null;
+        if (currentCollection) {
+            this.currentCollection = currentCollection;
         } else {
-            this.setCurrentListStorage();
+            this.setCurrentCollectionStorage();
+            this.addCollection(this.currentCollection);
         }
     }
 
-    setCurrentListStorage(): void {
-        localStorage.setItem(CURRENT_LIST_STORE_NAME, this.currentList);
+    setCurrentCollectionStorage(): void {
+        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
     }
 
-    renameCurrentListStorage(): void {
-        localStorage.removeItem(CURRENT_LIST_STORE_NAME);
-        localStorage.setItem(CURRENT_LIST_STORE_NAME, this.currentList);
+    renameCurrentCollectionStorage(): void {
+        localStorage.removeItem(CURRENT_COLLECTION_STORE_NAME);
+        localStorage.setItem(CURRENT_COLLECTION_STORE_NAME, this.currentCollection);
     }
 
-    addList(newListName: string): void {
-        this.currentList = `${STORE_NAME}:${newListName}:${v4()}`;
-        this.lists.push(this.currentList);
+    addCollection(newCollectionName: string): void {
+        if (newCollectionName.length < 2) return;
+        this.currentCollection = `${STORE_NAME}:${newCollectionName}:${v4()}`;
+        this.collectionNames.push(this.currentCollection);
+        this.products.clear();
+        localStorage.setItem(this.currentCollection, 'W10=');
+        window.history.replaceState(null, '', '#W10=');
     }
 
-    renameList(newListName: string): void {
-        this.currentList = `${STORE_NAME}:${newListName}:${v4()}`;
-        this.renameCurrentListStorage();
+    removeCollection(collectionName: CollectionName): void {
+        if (this.collectionNames.length < 2) return;
+        localStorage.removeItem(collectionName);
+        this.collectionNames.remove(collectionName);
+
+        const [firstCollection] = this.collectionNames;
+        this.currentCollection = firstCollection;
     }
 
-    selectList(list: string): void {
-        this.currentList = list;
+    renameCollection(newCollectionName: string): void {
+        this.currentCollection = `${STORE_NAME}:${newCollectionName}:${v4()}`;
+        this.renameCurrentCollectionStorage();
+    }
+
+    selectCollection(collectionName: CollectionName): void {
+        this.currentCollection = collectionName;
         this.fromLocalStorage();
     }
 }
