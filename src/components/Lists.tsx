@@ -8,6 +8,11 @@ const Lists: FunctionComponent = () => {
     const store = useStore();
 
     const [newListName, setNewListName] = useState('');
+
+    const handleAdd = () => {
+        store.addList(newListName);
+    };
+
     return (
         <div>
             <div>
@@ -20,7 +25,7 @@ const Lists: FunctionComponent = () => {
                     value={newListName}
                     onInput={(e) => setNewListName(e.currentTarget.value)}
                 />
-                <button className="btn" type="button">Add</button>
+                <button className="btn" type="button" onClick={handleAdd}>Add</button>
             </div>
 
             {store.lists.map((list) => list.split(':')).map(([, name, id]) => (

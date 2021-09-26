@@ -10,15 +10,12 @@ const CURRENT_LIST_STORE_NAME = 'CURRENT_LIST';
 export class ProductListStore {
 
     constructor() {
-        this.getLists();
-
         this.getCurrentList();
 
-        if (location.hash.substring(1).length > 0) this.fromUrl();
-        else {
-            this.fromLocalStorage();
-            this.toUrl();
-        }
+        this.fromLocalStorage();
+        this.fromUrl();
+
+        this.getLists();
 
         makeAutoObservable(this, {}, { autoBind: true });
     }
@@ -75,7 +72,10 @@ export class ProductListStore {
 
     fromLocalStorage(): void {
         const productsBase64 = localStorage.getItem(`${this.currentList}`);
-        if (!productsBase64 || productsBase64.length === 0) return;
+        if (!productsBase64 || productsBase64.length === 0) {
+            this.toLocalStorage();
+            return;
+        }
         try {
             const productsJSONString = atob(productsBase64);
             const productsObjects: IProductItem[] = JSON.parse(productsJSONString);
@@ -96,7 +96,10 @@ export class ProductListStore {
 
     fromUrl(): void {
         const base64 = location.hash.substring(1);
-        if (base64.length === 0) return;
+        if (base64.length === 0) {
+            this.toUrl();
+            return;
+        }
         try {
             const productsString = atob(base64);
             const productsList: IProductItem[] = JSON.parse(productsString);
@@ -139,6 +142,11 @@ export class ProductListStore {
     }
 
     setCurrentList(): void {
-        localStorage.setItem(CURRENT_LIST_STORE_NAME, `${STORE_NAME}:${this.currentList}`);
+        localStorage.setItem(CURRENT_LIST_STORE_NAME, `${this.currentList}`);
+    }
+
+    addList(name: string): void {
+        this.currentList = `${STORE_NAME}:${name}:${v4()}`;
+        this.products.clear();
     }
 }
