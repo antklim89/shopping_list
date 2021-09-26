@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 
@@ -11,6 +12,7 @@ const Lists: FunctionComponent = () => {
 
     const handleAdd = () => {
         store.addList(newListName);
+        setNewListName('');
     };
 
     return (
@@ -28,14 +30,24 @@ const Lists: FunctionComponent = () => {
                 <button className="btn" type="button" onClick={handleAdd}>Add</button>
             </div>
 
-            {store.lists.map((list) => list.split(':')).map(([, name, id]) => (
-                <div key={id}>
-                    <button className="btn" type="button">{name}</button>
-                    <button className="btn" type="button">Edit</button>
-                </div>
-            ))}
+            {store.lists.map((list) => {
+                const [, name, id] = list.split(':');
+
+                return (
+                    <div key={id}>
+                        <button
+                            className={`btn ${list === store.currentList ? 'delete' : ''}`}
+                            type="button"
+                            onClick={() => store.selectList(list)}
+                        >
+                            {name}
+                        </button>
+                        <button className="btn" type="button">Edit</button>
+                    </div>
+                );
+            })}
         </div>
     );
 };
 
-export default Lists;
+export default observer(Lists);

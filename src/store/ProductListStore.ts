@@ -15,13 +15,16 @@ export class ProductListStore {
         this.fromLocalStorage();
         this.fromUrl();
 
-        this.getLists();
+        this.getListsFromStorage();
 
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
     products: IObservableArray<ProductItemStore> = observable.array()
 
+    currentList = `${STORE_NAME}:New list:${v4()}`;
+
+    lists: IObservableArray<string> = observable.array()
 
     addProduct(): void {
         this.products.unshift(new ProductItemStore());
@@ -115,12 +118,7 @@ export class ProductListStore {
         return btoa(productsString);
     }
 
-
-    currentList = `${STORE_NAME}:New list:${v4()}`;
-
-    lists: IObservableArray<string> = observable.array()
-
-    private getLists() {
+    private getListsFromStorage() {
         let index = 0;
         let storeKey = localStorage.key(0);
         while (storeKey) {
@@ -137,16 +135,31 @@ export class ProductListStore {
         if (currentList) {
             this.currentList = currentList;
         } else {
-            this.setCurrentList();
+            this.setCurrentListStorage();
         }
     }
 
-    setCurrentList(): void {
-        localStorage.setItem(CURRENT_LIST_STORE_NAME, `${this.currentList}`);
+    setCurrentListStorage(): void {
+        localStorage.setItem(CURRENT_LIST_STORE_NAME, this.currentList);
     }
 
-    addList(name: string): void {
-        this.currentList = `${STORE_NAME}:${name}:${v4()}`;
-        this.products.clear();
+    renameCurrentListStorage(): void {
+        localStorage.removeItem(CURRENT_LIST_STORE_NAME);
+        localStorage.setItem(CURRENT_LIST_STORE_NAME, this.currentList);
+    }
+
+    addList(newListName: string): void {
+        this.currentList = `${STORE_NAME}:${newListName}:${v4()}`;
+        this.lists.push(this.currentList);
+    }
+
+    renameList(newListName: string): void {
+        this.currentList = `${STORE_NAME}:${newListName}:${v4()}`;
+        this.renameCurrentListStorage();
+    }
+
+    selectList(list: string): void {
+        this.currentList = list;
+        this.fromLocalStorage();
     }
 }
