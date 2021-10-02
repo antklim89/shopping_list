@@ -16,7 +16,10 @@ export default {
     ],
     routes: [],
     packageOptions: {},
-    devOptions: { open: 'none' },
+    devOptions: {
+        open: 'none',
+        port: 3000,
+    },
     buildOptions: {},
     alias: {
         'react': 'preact/compat',
