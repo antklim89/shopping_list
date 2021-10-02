@@ -42,7 +42,7 @@ module.exports = {
                 'alphabetize': { order: 'asc', caseInsensitive: true },
             },
         ],
-        'import/no-extraneous-dependencies': ['error', { devDependencies: ['*.js'] }],
+        'import/no-extraneous-dependencies': ['error', { 'devDependencies': ['**/*.test.*', '**/*.spec.*', '**/*.config.*'] }],
 
         'capitalized-comments': 0,
         'multiline-comment-style': 0,
@@ -75,13 +75,12 @@ module.exports = {
         'jsx-a11y/anchor-is-valid': 0,
         'jsx-a11y/no-onchange': 0,
 
-        'no-underscore-dangle': [2, { 'allow': ['_q'] }],
         '@typescript-eslint/no-var-requires': 0,
         '@typescript-eslint/no-shadow': 2,
         '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: 'h' }],
         '@typescript-eslint/no-empty-interface': 0,
 
-        'no-underscore-dangle': 0,
+        'no-underscore-dangle': [2, { 'allow': ['_q'] }],
         'no-inline-comments': 0,
         'line-comment-position': 0,
         'multiline-ternary': [2, 'always-multiline'],
