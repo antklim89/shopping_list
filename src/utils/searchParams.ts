@@ -1,4 +1,7 @@
+import { isUUID } from './isUUID';
+
 import type { IProductItem } from '~/store/ProductItemStore';
+import type { UUID } from '~/types';
 
 
 interface UrlProducts {
@@ -23,6 +26,7 @@ export function getProductsSearchParam(): IProductItem[] | null {
     return productsList;
 }
 
-export function getIdSearchParam(): string | null {
-    return new URLSearchParams(location.search).get('id');
+export function getIdSearchParam(): UUID | null {
+    const id = new URLSearchParams(location.search).get('id');
+    return isUUID(id) ? id : null;
 }

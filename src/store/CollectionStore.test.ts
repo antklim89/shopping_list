@@ -17,17 +17,21 @@ describe('CollectionStore', () => {
         const react = chai.spy();
 
         const store = new ProductStore();
-        const [, secondCollectionStore, thirdCollectionStore] = store.collections;
+        const [firstCollectionStore, secondCollectionStore, thirdCollectionStore] = store.collections;
 
         reaction(() => store.currentCollection, react);
 
+        expect(store.products[0].name).to.eq(firstCollectionStore.name);
+
         secondCollectionStore.setCurrentCollection();
+        expect(store.products[0].name).to.eq(secondCollectionStore.name);
         expect(secondCollectionStore).eq(store.currentCollection);
         expect(secondCollectionStore.id).eq(store.currentCollection.id);
         expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).eq(store.currentCollection.id);
         expect(getIdSearchParam()).eq(store.currentCollection.id);
 
         thirdCollectionStore.setCurrentCollection();
+        expect(store.products[0].name).to.eq(thirdCollectionStore.name);
         expect(thirdCollectionStore).eq(store.currentCollection);
         expect(thirdCollectionStore.id).eq(store.currentCollection.id);
         expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).eq(store.currentCollection.id);

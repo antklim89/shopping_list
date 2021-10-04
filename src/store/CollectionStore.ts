@@ -2,13 +2,14 @@ import { makeAutoObservable } from 'mobx';
 
 import type { ProductStore } from './ProductStore';
 
+import type { UUID } from '~/types';
 import { setProductsStorage } from '~/utils/storage';
 
 
 export class CollectionStore {
     constructor(
-        public id:string,
-        public name:string,
+        public id: UUID,
+        public name: string,
         public productStore: ProductStore,
     ) {
         makeAutoObservable(this, {}, { autoBind: true });

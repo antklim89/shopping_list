@@ -1,5 +1,8 @@
+import { isUUID } from './isUUID';
+
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import type { IProductItem } from '~/store/ProductItemStore';
+import type { UUID } from '~/types';
 
 
 interface StorageProducts {
@@ -24,8 +27,9 @@ export function setProductsStorage(
 }
 
 
-export function getCurrentCollectionStorage(): string|null {
-    return localStorage.getItem(CURRENT_COLLECTION_STORE_ID);
+export function getCurrentCollectionStorage(): UUID|null {
+    const id = localStorage.getItem(CURRENT_COLLECTION_STORE_ID);
+    return isUUID(id) ? id : null;
 }
 
 export function setCurrentCollectionStorage(newId: string): void {

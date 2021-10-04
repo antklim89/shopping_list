@@ -20,21 +20,21 @@ export const setup = (): void => {
         '111-aaa-aaa-aaa-aaa',
         JSON.stringify({
             name: 'TEST 1',
-            products: [new ProductItemStore({ name: '111' })],
+            products: [new ProductItemStore({ name: 'TEST 1' })],
         }),
     );
     localStorage.setItem(
         '222-bbb-bbb-bbb-bbb',
         JSON.stringify({
             name: '',
-            products: [new ProductItemStore({ name: '222' })],
+            products: [new ProductItemStore({ name: '' })],
         }),
     );
     localStorage.setItem(
         '333-bbb-bbb-bbb-bbb',
         JSON.stringify({
-            name: '',
-            products: [new ProductItemStore({ name: '333' })],
+            name: 'TEST 3',
+            products: [new ProductItemStore({ name: 'TEST 3' })],
         }),
     );
 

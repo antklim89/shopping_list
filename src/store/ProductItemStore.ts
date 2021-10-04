@@ -8,7 +8,7 @@ export type INewProductItem = Partial<ProductItemStore>
 
 export type IProductItem = Pick<INewProductItem, 'id'|'name'|'qty'|'isBought'|'unit'>
 
-export type IUpdateProductItem = Partial<IProductItem>
+export type IUpdateProductItem = Pick<INewProductItem, |'name'|'qty'|'isBought'|'unit'>
 
 
 export class ProductItemStore {
@@ -28,6 +28,7 @@ export class ProductItemStore {
         this.name = product.name || '';
         this.qty = product.qty || 1;
         this.unit = product.unit || Unit.piece;
+
         makeAutoObservable(this, {}, { autoBind: true });
     }
 

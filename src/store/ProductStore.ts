@@ -1,9 +1,10 @@
-import { autorun, IObservableArray, makeAutoObservable, observable } from 'mobx';
+import { autorun, IObservableArray, makeAutoObservable, observable, reaction } from 'mobx';
 import { v4 } from 'uuid';
 
 import { CollectionStore } from './CollectionStore';
 import { ProductItemStore } from './ProductItemStore';
 
+import type { UUID } from '~/types';
 import { getIdSearchParam, getProductsSearchParam, isUUID, setSearchParams } from '~/utils';
 import {
     getCurrentCollectionStorage,
@@ -46,13 +47,18 @@ export class ProductStore {
             setCurrentCollectionStorage(this.currentCollectionId);
             setSearchParams({ id: this.currentCollectionId });
         });
+
+        reaction(
+            () => this.currentCollectionId,
+            () => this.fromLocalStorage(),
+        );
     }
 
     public products: IObservableArray<ProductItemStore> = observable.array()
 
     public collections: IObservableArray<CollectionStore> = observable.array()
 
-    public currentCollectionId: string
+    public currentCollectionId: UUID
 
     public get currentCollection(): CollectionStore {
         const currentCollection = this.collections.find((collection) => (
