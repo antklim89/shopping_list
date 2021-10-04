@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import chai, { expect } from 'chai';
-import { reaction } from 'mobx';
+import { reaction, toJS } from 'mobx';
 
 import { ProductItemStore } from './ProductItemStore';
 import { ProductStore } from './ProductStore';
@@ -101,6 +101,19 @@ describe('ProductStore', () => {
         expect(store.currentCollection.name).to.eq(newCollectionName);
         expect(newCollection.id).to.eq(getCurrentCollectionStorage());
         expect(newCollection.id).to.eq(getIdSearchParam());
+
+        expect(react).to.have.been.called.exactly(1);
+    });
+
+    it('#addProduct', () => {
+        const react = chai.spy();
+
+        const store = new ProductStore();
+
+        reaction(() => toJS(store.products), react);
+
+        store.addProduct();
+        expect(store.products).to.have.length(2);
 
         expect(react).to.have.been.called.exactly(1);
     });

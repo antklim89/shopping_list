@@ -77,6 +77,26 @@ export class ProductStore {
         return currentCollection;
     }
 
+    addProduct(): void {
+        this.products.unshift(new ProductItemStore());
+    }
+
+    // removeProduct(product: ProductItemStore): void {
+    //     this.products.remove(product);
+    // }
+
+    // clearProducts(): void {
+    //     this.products.clear();
+    // }
+
+
+    // toggleAllBougth(): void {
+    //     const isAllBougth = this.products.every((product) => product.isBought);
+    //     this.products.forEach((product) => {
+    //         product.isBought = !isAllBougth;
+    //     });
+    // }
+
     createCollection(name: string): void {
         const newCollectionStore = new CollectionStore(v4(), name, this);
         this.collections.push(newCollectionStore);

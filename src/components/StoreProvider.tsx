@@ -1,32 +1,13 @@
-import { reaction } from 'mobx';
 import { createContext, FunctionalComponent, h } from 'preact';
-import { useContext, useEffect, useMemo } from 'preact/hooks';
+import { useContext, useMemo } from 'preact/hooks';
 
-import { ProductListStore } from '~/store/ProductListStore';
+import { ProductStore } from '~/store/ProductStore';
 
 
-const Context = createContext({} as ProductListStore);
+const Context = createContext({} as ProductStore);
 
 const StoreProvider: FunctionalComponent = ({ children }) => {
-    const store = useMemo(() => new ProductListStore(), []);
-
-    useEffect(() => reaction(
-        () => store.base64Products,
-        () => {
-            store.toLocalStorage();
-            store.toUrl();
-        },
-    ), []);
-
-    useEffect(() => reaction(
-        () => store.currentCollection.storeName,
-        () => store.currentCollection.setCollectionToStorage(),
-    ), []);
-
-    useEffect(() => reaction(
-        () => store.currentCollection.id,
-        () => store.fromLocalStorage(),
-    ), []);
+    const store = useMemo(() => new ProductStore(), []);
 
     return (
         <Context.Provider value={store}>
@@ -35,6 +16,6 @@ const StoreProvider: FunctionalComponent = ({ children }) => {
     );
 };
 
-export const useStore = (): ProductListStore => useContext(Context);
+export const useStore = (): ProductStore => useContext(Context);
 
 export default StoreProvider;
