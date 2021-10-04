@@ -1,8 +1,10 @@
-import { autorun, IObservableArray, makeAutoObservable, observable, reaction } from 'mobx';
+import {
+    autorun, IObservableArray, makeAutoObservable, observable, reaction, runInAction,
+} from 'mobx';
 import { v4 } from 'uuid';
 
 import { CollectionStore } from './CollectionStore';
-import { ProductItemStore } from './ProductItemStore';
+import { IProductItem, ProductItemStore } from './ProductItemStore';
 
 import type { UUID } from '~/types';
 import { getIdSearchParam, getProductsSearchParam, isUUID, setSearchParams } from '~/utils';
@@ -110,5 +112,33 @@ export class ProductStore {
         } catch (error) {
             console.error('Load from url Error: \n');
         }
+    }
+
+    async fromFile(files: FileList | null): Promise<void> {
+        if (!files || files.length < 1) return;
+        const [file] = files;
+        if (file.type !== 'application/json' || !(/.*\.json$/i).test(file.name)) return;
+        try {
+            const fileText = await file.text();
+            const fileJson: IProductItem[] = JSON.parse(fileText);
+            const products = fileJson.map((product) => new ProductItemStore(product));
+            runInAction(() => this.products.replace(products));
+
+        } catch (error) {
+            console.error('Load from file Error: \n', error);
+        }
+    }
+
+    toFile(): void {
+        const blob = new Blob([JSON.stringify(this.products)]);
+        const fileName = `Product List - ${new Date()}.json`;
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(link.href), 7000);
     }
 }

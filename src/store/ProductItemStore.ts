@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { v4 } from 'uuid';
 
+import type { UUID } from '~/types';
 import { Unit } from '~/types/Unit';
 
 
@@ -12,7 +13,7 @@ export type IUpdateProductItem = Pick<INewProductItem, |'name'|'qty'|'isBought'|
 
 
 export class ProductItemStore {
-    id: string
+    id: UUID
 
     name: string;
 
