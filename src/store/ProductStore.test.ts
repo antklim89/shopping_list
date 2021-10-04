@@ -117,4 +117,22 @@ describe('ProductStore', () => {
 
         expect(react).to.have.been.called.exactly(1);
     });
+
+    it('#clearProducts', () => {
+        const react = chai.spy();
+
+        const store = new ProductStore();
+
+        reaction(() => toJS(store.products), react);
+
+        store.addProduct();
+        store.addProduct();
+
+        expect(store.products).to.have.length(3);
+
+        store.clearProducts();
+
+        expect(store.products).to.have.length(0);
+        expect(react).to.have.been.called.exactly(3);
+    });
 });

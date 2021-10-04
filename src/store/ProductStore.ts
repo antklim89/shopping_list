@@ -85,9 +85,9 @@ export class ProductStore {
     //     this.products.remove(product);
     // }
 
-    // clearProducts(): void {
-    //     this.products.clear();
-    // }
+    clearProducts(): void {
+        this.products.clear();
+    }
 
 
     // toggleAllBougth(): void {
