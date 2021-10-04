@@ -1,6 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import { v4 } from 'uuid';
 
+import type { ProductStore } from './ProductStore';
+
 import type { UUID } from '~/types';
 import { Unit } from '~/types/Unit';
 
@@ -23,7 +25,7 @@ export class ProductItemStore {
 
     unit: Unit;
 
-    constructor(product: INewProductItem = {}) {
+    constructor(product: INewProductItem, public productStore: ProductStore) {
         this.id = product.id || v4();
         this.isBought = product.isBought || false;
         this.name = product.name || '';
@@ -35,5 +37,9 @@ export class ProductItemStore {
 
     update(product: IUpdateProductItem): void {
         Object.assign(this, product);
+    }
+
+    remove(): void {
+        this.productStore.products.remove(this);
     }
 }

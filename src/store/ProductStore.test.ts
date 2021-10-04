@@ -15,8 +15,8 @@ const storeIdFromStorage = 'aaa-aaa-aaa-aaa-aaa';
 const storeIdNotFromStorage = 'bbb-aaa-aaa-aaa-aaa';
 const storeIdFromURL = 'ccc-aaa-aaa-aaa-aaa';
 
-const productFromStorage = new ProductItemStore({ name: 'fromStorage' });
-const productFromURL = new ProductItemStore({ name: 'fromURL' });
+const productFromStorage = new ProductItemStore({ name: 'fromStorage' }, {} as ProductStore);
+const productFromURL = new ProductItemStore({ name: 'fromURL' }, {} as ProductStore);
 
 
 describe('ProductStore', () => {

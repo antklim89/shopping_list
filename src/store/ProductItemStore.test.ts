@@ -29,4 +29,14 @@ describe('ProductItemStore', () => {
         expect(react).to.have.been.called.exactly(1);
         expect(react2).to.have.been.called.exactly(2);
     });
+
+    it('#remove', () => {
+        const store = new ProductStore();
+
+        const [product] = store.products;
+
+        expect(store.products).to.have.length(1);
+        product.remove();
+        expect(store.products).to.have.length(0);
+    });
 });

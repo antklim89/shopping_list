@@ -78,17 +78,12 @@ export class ProductStore {
     }
 
     addProduct(): void {
-        this.products.unshift(new ProductItemStore());
+        this.products.unshift(new ProductItemStore({}, this));
     }
-
-    // removeProduct(product: ProductItemStore): void {
-    //     this.products.remove(product);
-    // }
 
     clearProducts(): void {
         this.products.clear();
     }
-
 
     toggleAllBougth(): void {
         const isAllBougth = this.products.every((product) => product.isBought);
@@ -112,7 +107,7 @@ export class ProductStore {
                 return;
             }
 
-            const productStores = data.products.map((prod) => new ProductItemStore(prod));
+            const productStores = data.products.map((product) => new ProductItemStore(product, this));
             this.products.replace(productStores);
         } catch (error) {
             console.error('Load from localStorage Error: \n', error);
@@ -127,7 +122,7 @@ export class ProductStore {
                 setSearchParams({ products: [] });
                 return;
             }
-            const productsListStore = productsList.map((product) => new ProductItemStore(product));
+            const productsListStore = productsList.map((product) => new ProductItemStore(product, this));
             this.products.replace(productsListStore);
         } catch (error) {
             console.error('Load from url Error: \n');
@@ -141,7 +136,7 @@ export class ProductStore {
         try {
             const fileText = await file.text();
             const fileJson: IProductItem[] = JSON.parse(fileText);
-            const products = fileJson.map((product) => new ProductItemStore(product));
+            const products = fileJson.map((product) => new ProductItemStore(product, this));
             runInAction(() => this.products.replace(products));
 
         } catch (error) {
