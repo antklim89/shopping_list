@@ -9,12 +9,12 @@ import { useStore } from './StoreProvider';
 const CollectionList: FunctionComponent = () => {
     const store = useStore();
 
-    const [newListName, setNewListName] = useState('');
+    const [newCollectionName, setNewCollectionName] = useState('');
 
     const handleAdd = () => {
-        if (newListName.length < 2) return;
-        store.currentCollection.add(newListName);
-        setNewListName('');
+        if (newCollectionName.length < 2) return;
+        store.createCollection(newCollectionName);
+        setNewCollectionName('');
     };
 
     return (
@@ -26,14 +26,14 @@ const CollectionList: FunctionComponent = () => {
                     className="input"
                     id="add-list"
                     type="text"
-                    value={newListName}
-                    onInput={(e) => setNewListName(e.currentTarget.value)}
+                    value={newCollectionName}
+                    onInput={(e) => setNewCollectionName(e.currentTarget.value)}
                 />
                 <button className="btn" type="button" onClick={handleAdd}>Add</button>
             </div>
 
-            {store.currentCollection.storeNames.map((storeName) => (
-                <CollectionItem key={storeName.split(':').pop()} storeName={storeName} />
+            {store.collections.map((collection) => (
+                <CollectionItem collection={collection} key={collection.id} />
             ))}
         </div>
     );

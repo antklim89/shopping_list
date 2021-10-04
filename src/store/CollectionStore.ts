@@ -15,7 +15,7 @@ export class CollectionStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    setCurrentCollection(): void {
+    select(): void {
         this.productStore.currentCollectionId = this.id;
     }
 

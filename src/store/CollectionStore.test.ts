@@ -13,7 +13,7 @@ import { getProductsFromStorage } from '~/utils/storage';
 describe('CollectionStore', () => {
     beforeEach(setup);
 
-    it('#setCurrentCollection', () => {
+    it('#select', () => {
         const react = chai.spy();
 
         const store = new ProductStore();
@@ -23,14 +23,14 @@ describe('CollectionStore', () => {
 
         expect(store.products[0].name).to.eq(firstCollectionStore.name);
 
-        secondCollectionStore.setCurrentCollection();
+        secondCollectionStore.select();
         expect(store.products[0].name).to.eq(secondCollectionStore.name);
         expect(secondCollectionStore).eq(store.currentCollection);
         expect(secondCollectionStore.id).eq(store.currentCollection.id);
         expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).eq(store.currentCollection.id);
         expect(getIdSearchParam()).eq(store.currentCollection.id);
 
-        thirdCollectionStore.setCurrentCollection();
+        thirdCollectionStore.select();
         expect(store.products[0].name).to.eq(thirdCollectionStore.name);
         expect(thirdCollectionStore).eq(store.currentCollection);
         expect(thirdCollectionStore.id).eq(store.currentCollection.id);

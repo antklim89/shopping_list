@@ -1,42 +1,35 @@
 import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 
 import { useStore } from './StoreProvider';
 
-import type { CollectionName } from '~/types/CollectionName';
+import type { CollectionStore } from '~/store/CollectionStore';
 
 
-const CollectionItem: FunctionComponent<{storeName: CollectionName}> = ({ storeName }) => {
-    const [, name, id] = storeName.split(':');
-
+const CollectionItem: FunctionComponent<{collection: CollectionStore}> = ({ collection }) => {
     const [isEdit, setIsEdit] = useState(false);
-    // const [newName, setNewName] = useState(name);
 
     const store = useStore();
 
-    // useEffect(() => {
-    //     store.currentCollection.rename(storeName, newName);
-    // }, [newName, storeName]);
-
     return (
-        <div key={id}>
+        <div>
             {isEdit
                 ? (
                     <input
                         className="input"
                         type="text"
-                        value={name}
-                        onChange={(e) => store.currentCollection.rename(storeName, e.currentTarget.value)}
+                        value={collection.name}
+                        onChange={(e) => collection.rename(e.currentTarget.value)}
                     />
                 )
                 : (
                     <button
-                        className={`btn ${storeName === store.currentCollection.storeName ? 'delete' : ''}`}
+                        className={`btn ${collection.id === store.currentCollection.id ? 'delete' : ''}`}
                         type="button"
-                        onClick={() => store.currentCollection.select(storeName)}
+                        onClick={() => collection.select()}
                     >
-                        {name}
+                        {collection.name}
                     </button>
                 )}
             <button
@@ -46,15 +39,15 @@ const CollectionItem: FunctionComponent<{storeName: CollectionName}> = ({ storeN
             >
                 Edit
             </button>
-            {/* {store.collectionNames.length > 1 && (
+            {collection.canDelete && (
                 <button
                     className="btn"
                     type="button"
-                    onClick={() => store.removeCollection(storeName)}
+                    onClick={() => collection.delete()}
                 >
                     Delete
                 </button>
-            )} */}
+            )}
         </div>
     );
 };

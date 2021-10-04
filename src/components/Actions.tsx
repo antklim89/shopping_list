@@ -6,7 +6,7 @@ import { copyTextToClipboard } from '~/utils';
 
 
 const Actions: FunctionComponent = () => {
-    const { toFile, fromFile, clearProducts: clearList, toggleAllBougth: toggleBougth } = useStore();
+    const { toFile, fromFile, clearProducts, toggleAllBougth } = useStore();
 
     const shareData = {
         title: 'Shopping List',
@@ -30,7 +30,7 @@ const Actions: FunctionComponent = () => {
                 <button
                     className="Actions__action btn"
                     type="button"
-                    onClick={() => toggleBougth()}
+                    onClick={() => toggleAllBougth()}
                 >
                     Toggle all bought
                 </button>
@@ -44,7 +44,7 @@ const Actions: FunctionComponent = () => {
                 <button
                     className="Actions__action btn"
                     type="button"
-                    onClick={() => clearList()}
+                    onClick={() => clearProducts()}
                 >
                     Clear List
                 </button>

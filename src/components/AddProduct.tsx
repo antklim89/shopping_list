@@ -6,6 +6,7 @@ import { useStore } from './StoreProvider';
 
 const AddProduct: FunctionalComponent<h.JSX.HTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => {
     const store = useStore();
+
     return (
         <button
             className={`AddProduct btn ${className}`}
