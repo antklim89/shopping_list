@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-expressions */
 import chai, { expect } from 'chai';
-import { v4 } from 'uuid';
+import { reaction } from 'mobx';
 
 import { ProductItemStore } from './ProductItemStore';
 import { ProductStore } from './ProductStore';
 
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
+import { getIdSearchParam } from '~/utils';
+import { getCurrentCollectionStorage } from '~/utils/storage';
 
 
 const storeIdFromStorage = 'aaa-aaa-aaa-aaa-aaa';
@@ -27,7 +30,7 @@ describe('ProductStore', () => {
             const store = new ProductStore();
 
             expect(store.currentCollection.id).eq(storeIdFromStorage);
-            expect(store.collections.length).eq(3);
+            expect(store.collections.length).eq(4);
         });
 
         it('not in localStorage', () => {
@@ -73,8 +76,32 @@ describe('ProductStore', () => {
             const store = new ProductStore();
 
             expect(store.products).to.have.length(1);
-            expect(store.collections).to.have.length(3);
+            expect(store.collections).to.have.length(4);
             expect(store.products[0]).to.have.property('id', productFromURL.id);
         });
+    });
+
+    it('#createCollection', () => {
+        const react = chai.spy();
+
+        const store = new ProductStore();
+
+        reaction(() => store.currentCollection, react);
+        const newCollectionName = 'NEW_COLLECTION';
+
+        store.createCollection(newCollectionName);
+
+        expect(store.collections).to.have.length(4);
+        const newCollection = store.collections.find((col) => col.name === newCollectionName);
+
+        expect(newCollection).not.null;
+        if (!newCollection) throw new Error('ERRROR');
+
+        expect(store.currentCollectionId).to.eq(newCollection.id);
+        expect(store.currentCollection.name).to.eq(newCollectionName);
+        expect(newCollection.id).to.eq(getCurrentCollectionStorage());
+        expect(newCollection.id).to.eq(getIdSearchParam());
+
+        expect(react).to.have.been.called.exactly(1);
     });
 });

@@ -2,10 +2,15 @@ import { autorun, IObservableArray, makeAutoObservable, observable } from 'mobx'
 import { v4 } from 'uuid';
 
 import { CollectionStore } from './CollectionStore';
-import { IProductItem, ProductItemStore } from './ProductItemStore';
+import { ProductItemStore } from './ProductItemStore';
 
-import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
-import isUUID from '~/utils/isUUID';
+import { getIdSearchParam, getProductsSearchParam, isUUID, setSearchParams } from '~/utils';
+import {
+    getCurrentCollectionStorage,
+    getProductsFromStorage,
+    setCurrentCollectionStorage,
+    setProductsStorage,
+} from '~/utils/storage';
 
 
 export class ProductStore {
@@ -26,8 +31,9 @@ export class ProductStore {
             }
         }
 
-        this.currentCollectionId = new URLSearchParams(location.search).get('id')
-            || localStorage.getItem(CURRENT_COLLECTION_STORE_ID)
+
+        this.currentCollectionId = getIdSearchParam()
+            || getCurrentCollectionStorage()
             || this.collections[0].id
             || v4();
 
@@ -37,13 +43,14 @@ export class ProductStore {
         makeAutoObservable(this, {}, { autoBind: true });
 
         autorun(() => {
-            localStorage.setItem(CURRENT_COLLECTION_STORE_ID, this.currentCollectionId);
+            setCurrentCollectionStorage(this.currentCollectionId);
+            setSearchParams({ id: this.currentCollectionId });
         });
     }
 
     public products: IObservableArray<ProductItemStore> = observable.array()
 
-    public collections: CollectionStore[] = observable.array()
+    public collections: IObservableArray<CollectionStore> = observable.array()
 
     public currentCollectionId: string
 
@@ -62,46 +69,40 @@ export class ProductStore {
         return currentCollection;
     }
 
+    createCollection(name: string): void {
+        const newCollectionStore = new CollectionStore(v4(), name, this);
+        this.collections.push(newCollectionStore);
+        this.currentCollectionId = newCollectionStore.id;
+    }
 
     private fromLocalStorage(): void {
-        const productsString = localStorage.getItem(this.currentCollection.id);
-        if (!productsString) {
-            localStorage.setItem(
-                this.currentCollection.id,
-                JSON.stringify({ name: '', products: [] }),
-            );
-            return;
-        }
         try {
-            const { products }: {products: IProductItem[]} = JSON.parse(productsString);
-            const productStores = products.map((prod) => new ProductItemStore(prod));
+            const data = getProductsFromStorage(this.currentCollection.id);
+
+            if (!data) {
+                setProductsStorage(this.currentCollection.id, {});
+                return;
+            }
+
+            const productStores = data.products.map((prod) => new ProductItemStore(prod));
             this.products.replace(productStores);
         } catch (error) {
             console.error('Load from localStorage Error: \n', error);
         }
     }
 
-    private toLocalStorage(): void {
-        localStorage.setItem(this.currentCollection.id, JSON.stringify(this.products));
-    }
 
     private fromUrl(): void {
-        const base64 = new URLSearchParams(location.search).get('products');
-        if (!base64 || base64.length === 0) {
-            window.history.replaceState(null, '', btoa('[]'));
-            return;
-        }
         try {
-            const productsString = atob(base64);
-            const productsList: IProductItem[] = JSON.parse(productsString);
+            const productsList = getProductsSearchParam();
+            if (!productsList || productsList.length === 0) {
+                setSearchParams({ products: [] });
+                return;
+            }
             const productsListStore = productsList.map((product) => new ProductItemStore(product));
             this.products.replace(productsListStore);
         } catch (error) {
             console.error('Load from url Error: \n');
         }
-    }
-
-    private toUrl(): void {
-        window.history.replaceState(null, '', `#${btoa(JSON.stringify(this.products))}`);
     }
 }

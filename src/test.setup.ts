@@ -30,6 +30,13 @@ export const setup = (): void => {
             products: [new ProductItemStore({ name: '222' })],
         }),
     );
+    localStorage.setItem(
+        '333-bbb-bbb-bbb-bbb',
+        JSON.stringify({
+            name: '',
+            products: [new ProductItemStore({ name: '333' })],
+        }),
+    );
 
     localStorage.setItem('444-ddd-ddd-ddd-ddd', '[]');
 };

@@ -6,7 +6,7 @@ import { Unit } from '~/types/Unit';
 
 export type INewProductItem = Partial<ProductItemStore>
 
-export type IProductItem = Pick<INewProductItem, 'name'|'qty'|'isBought'|'unit'>
+export type IProductItem = Pick<INewProductItem, 'id'|'name'|'qty'|'isBought'|'unit'>
 
 export type IUpdateProductItem = Partial<IProductItem>
 
