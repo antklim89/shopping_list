@@ -42,7 +42,7 @@ module.exports = {
                 'alphabetize': { order: 'asc', caseInsensitive: true },
             },
         ],
-        'import/no-extraneous-dependencies': ['error', { 'devDependencies': ['**/*.test.*', '**/*.spec.*', '**/*.config.*'] }],
+        'import/no-extraneous-dependencies': ['error', { 'devDependencies': ['**/*.test.*', '**/*.spec.*', '**/*.config.*', '**/*.setup.*'] }],
 
         'capitalized-comments': 0,
         'multiline-comment-style': 0,
@@ -80,6 +80,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: 'h' }],
         '@typescript-eslint/no-empty-interface': 0,
 
+        'no-continue': 0,
         'no-underscore-dangle': [2, { 'allow': ['_q'] }],
         'no-inline-comments': 0,
         'line-comment-position': 0,
