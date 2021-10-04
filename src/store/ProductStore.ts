@@ -90,12 +90,12 @@ export class ProductStore {
     }
 
 
-    // toggleAllBougth(): void {
-    //     const isAllBougth = this.products.every((product) => product.isBought);
-    //     this.products.forEach((product) => {
-    //         product.isBought = !isAllBougth;
-    //     });
-    // }
+    toggleAllBougth(): void {
+        const isAllBougth = this.products.every((product) => product.isBought);
+        this.products.forEach((product) => {
+            product.isBought = !isAllBougth;
+        });
+    }
 
     createCollection(name: string): void {
         const newCollectionStore = new CollectionStore(v4(), name, this);

@@ -135,4 +135,20 @@ describe('ProductStore', () => {
         expect(store.products).to.have.length(0);
         expect(react).to.have.been.called.exactly(3);
     });
+
+    it('#toggleAllBougth', () => {
+        const store = new ProductStore();
+
+        store.addProduct();
+        store.addProduct();
+
+        store.products[1].update({ isBought: true });
+        expect(store.products.every((prod) => prod.isBought)).to.be.false;
+
+        store.toggleAllBougth();
+        expect(store.products.every((prod) => prod.isBought)).to.be.true;
+
+        store.toggleAllBougth();
+        expect(store.products.every((prod) => prod.isBought)).to.be.false;
+    });
 });
