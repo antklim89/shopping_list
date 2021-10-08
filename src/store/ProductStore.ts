@@ -54,6 +54,11 @@ export class ProductStore {
             () => this.currentCollectionId,
             () => this.fromLocalStorage(),
         );
+
+        // reaction(
+        //     () => JSON.stringify(this.products),
+        //     (json) => setProductsStorage(this.currentCollectionId, { products: this.products }),
+        // );
     }
 
     public products: IObservableArray<ProductItemStore> = observable.array()

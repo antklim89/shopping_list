@@ -8,7 +8,7 @@ import { ProductStore } from './ProductStore';
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
 import { getIdSearchParam } from '~/utils';
-import { getCurrentCollectionStorage } from '~/utils/storage';
+import { getCurrentCollectionStorage, getProductsFromStorage } from '~/utils/storage';
 
 
 const storeIdFromStorage = 'aaa-aaa-aaa-aaa-aaa';
@@ -112,6 +112,7 @@ describe('ProductStore', () => {
 
         reaction(() => toJS(store.products), react);
 
+        // console.debug('getProd: \n', getProductsFromStorage(store.c))
         store.addProduct();
         expect(store.products).to.have.length(2);
 
