@@ -55,7 +55,7 @@ button {
     color: $light-color;
     fill: $light-color;
     transition: 100ms transform;
-    min-width: 70px;
+    min-width: 50px;
     padding: $sp-1 $sp-2;
     font-size: 100%;
 
@@ -77,7 +77,7 @@ button {
 .input {
     background: none;
     border: 2px solid $primary-color;
-    padding: $sp-1;
+    padding: $sp-1 $sp-2;
     border-radius: $radius;
     min-width: 70px;
     color: $primary-color;
@@ -123,4 +123,6 @@ button {
 @import './ProductList.scss';
 @import './Actions';
 @import './Drawer';
+@import './CollectionList';
+@import './CollectionItem';
 

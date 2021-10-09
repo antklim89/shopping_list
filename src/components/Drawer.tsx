@@ -1,24 +1,18 @@
 import { AnimatePresence, m } from 'framer-motion';
-import { observer, useLocalObservable } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
 
-import { ListIcon } from './icons/ListIcon';
 
+interface Props {
+    state: {
+        show: boolean;
+        toggle(): void;
+    };
+}
 
-const Drawer: FunctionComponent = ({ children }) => {
-    const state = useLocalObservable(() => ({
-        show: false,
-        toggle() {
-            this.show = !this.show;
-        },
-    }));
-
+const Drawer: FunctionComponent<Props> = ({ children, state }) => {
     return (
         <div className="Drawer">
-            <button className="Drawer__open-button btn" type="button" onClick={() => state.toggle()}>
-                <div className="sm-hide">Open</div>
-                <div className="lg-hide"><ListIcon /></div>
-            </button>
             <AnimatePresence>
                 {state.show && (
                     <m.div

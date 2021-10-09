@@ -1,0 +1,30 @@
+
+
+.CollectionItem {
+    display: flex;
+    
+    margin-bottom: $sp-2;
+
+    button {
+        margin: 0 0.2rem;
+    }
+
+    &__select {
+        border: 4px solid $select-color;
+    }
+
+    &__btn {
+        align-self: center;
+        padding: $sp-1 0;
+    }
+
+    &__name-btn {
+        width: 100%;
+        text-align: start;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 0 $sp-2;
+    }
+}
