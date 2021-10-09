@@ -94,6 +94,8 @@ describe('ProductStore', () => {
 
         store.createCollection(newCollectionName);
 
+        expect(getProductsSearchParam()).to.have.length(0);
+        expect(store.products).to.have.length(0);
         expect(store.collections).to.have.length(4);
         const newCollection = store.collections.find((col) => col.name === newCollectionName);
 
