@@ -26,6 +26,10 @@ export function setStorage(
     localStorage.setItem(id, JSON.stringify({ ...prev, ...newData }));
 }
 
+export function removeStorage(id: string): void {
+    localStorage.removeItem(id);
+}
+
 
 export function getCurrentCollectionStorage(): UUID|null {
     const id = localStorage.getItem(CURRENT_COLLECTION_STORE_ID);

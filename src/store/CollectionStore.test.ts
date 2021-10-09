@@ -64,6 +64,8 @@ describe('CollectionStore', () => {
 
         const { currentCollection } = store;
         currentCollection.delete();
+
+        expect(getFromStorage(currentCollection.id)).to.be.null;
         expect(currentCollection.id).not.eq(store.currentCollection.id);
         expect(store.collections.length).eq(2);
 
@@ -73,9 +75,11 @@ describe('CollectionStore', () => {
         firstCollectionStore.delete();
         expect(store.collections.length).eq(1);
         expect(firstCollectionStore.canDelete).to.be.false;
+        expect(getFromStorage(firstCollectionStore.id)).to.be.null;
 
         secondCollectionStore.delete();
         expect(store.collections.length).eq(1);
+        expect(getFromStorage(secondCollectionStore.id)).to.be.exist;
 
 
         expect(react).to.have.been.called.exactly(2);

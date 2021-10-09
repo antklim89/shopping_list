@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import type { ProductStore } from './ProductStore';
 
 import type { UUID } from '~/types';
-import { setStorage } from '~/utils/storage';
+import { removeStorage, setStorage } from '~/utils/storage';
 
 
 export class CollectionStore {
@@ -37,6 +37,7 @@ export class CollectionStore {
 
         const [firstCollection] = this.productStore.collections;
         this.productStore.currentCollectionId = firstCollection.id;
+        removeStorage(this.id);
     }
 
     get canDelete(): boolean {
