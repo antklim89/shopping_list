@@ -1,7 +1,7 @@
 import { FunctionComponent, h } from 'preact';
 
 
-export const AddIcon: FunctionComponent = (props) => {
+export const DoneAllIcon: FunctionComponent = (props) => {
     return (
         <svg
             height="24"
@@ -11,7 +11,7 @@ export const AddIcon: FunctionComponent = (props) => {
             {...props}
         >
             <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" />
         </svg>
     );
 };

@@ -1,5 +1,8 @@
 import { h, FunctionComponent } from 'preact';
 
+import {
+    ClearIcon, CopyIcon, DoneAllIcon, LoadIcon, SaveIcon, ShareIcon,
+} from './icons';
 import { useStore } from './StoreProvider';
 
 import { copyTextToClipboard } from '~/utils';
@@ -32,21 +35,25 @@ const Actions: FunctionComponent = () => {
                     type="button"
                     onClick={() => toggleAllBougth()}
                 >
-                    Toggle all bought
+                    <div className="sm-hide">Toggle all bought</div>
+                    <div className="lg-hide"><DoneAllIcon /></div>
                 </button>
                 <button
                     className="Actions__action btn"
                     type="button"
                     onClick={() => copyTextToClipboard(location.href)}
                 >
-                    Copy link
+                    <div className="sm-hide">Copy link</div>
+                    <div className="lg-hide"><CopyIcon /></div>
                 </button>
                 <button
                     className="Actions__action btn"
                     type="button"
                     onClick={() => clearProducts()}
                 >
-                    Clear List
+                    <div className="sm-hide">Clear List</div>
+                    <div className="lg-hide"><ClearIcon /></div>
+
                 </button>
             </div>
             <div className="Actions__group">
@@ -56,7 +63,9 @@ const Actions: FunctionComponent = () => {
                         type="button"
                         onClick={() => share()}
                     >
-                        Share
+                        <div className="sm-hide">Share</div>
+                        <div className="lg-hide"><ShareIcon /></div>
+
                     </button>
                 )}
                 <button
@@ -64,11 +73,14 @@ const Actions: FunctionComponent = () => {
                     type="button"
                     onClick={() => toFile()}
                 >
-                    Save to File
+                    <div className="sm-hide">Save to File</div>
+                    <div className="lg-hide"><SaveIcon /></div>
                 </button>
 
                 <label className="Actions__action btn" htmlFor="load-file">
-                    Load from file
+                    <div className="sm-hide">Load from file</div>
+                    <div className="lg-hide"><LoadIcon /></div>
+
                 </label>
                 <input
                     accept="application/json"
