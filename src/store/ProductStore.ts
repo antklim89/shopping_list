@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import {
     autorun, IObservableArray, makeAutoObservable, observable, reaction, runInAction,
 } from 'mobx';
@@ -33,7 +34,6 @@ export class ProductStore {
                 continue;
             }
         }
-
 
         this.currentCollectionId = getIdSearchParam()
             || getCurrentCollectionStorage()

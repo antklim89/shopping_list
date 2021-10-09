@@ -7,8 +7,8 @@ import { ProductStore } from './ProductStore';
 
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
-import { getIdSearchParam } from '~/utils';
-import { getCurrentCollectionStorage, getProductsFromStorage } from '~/utils/storage';
+import { getIdSearchParam, setSearchParams } from '~/utils';
+import { getCurrentCollectionStorage } from '~/utils/storage';
 
 
 const storeIdFromStorage = 'aaa-aaa-aaa-aaa-aaa';
@@ -41,10 +41,9 @@ describe('ProductStore', () => {
         });
 
         it('from URL', () => {
-            const searchParams = new URLSearchParams('');
-            searchParams.set('id', storeIdFromURL);
 
-            history.pushState(null, '', `?${searchParams}`);
+
+            history.pushState(null, '', `#${btoa(JSON.stringify({ id: storeIdFromURL, products: [] }))}`);
             const store = new ProductStore();
 
             expect(store.currentCollection.id).eq(storeIdFromURL);
@@ -68,10 +67,7 @@ describe('ProductStore', () => {
         });
 
         it('get products from url', () => {
-            const base64Products = new URLSearchParams('');
-            base64Products.set('products', btoa(JSON.stringify([productFromURL])));
-            base64Products.set('id', 'url-xxx-xxx-xxx-xxx');
-            history.pushState(null, '', `?${base64Products}`);
+            setSearchParams({ id: 'url-xxx-xxx-xxx-xxx', products: [productFromURL] });
 
             const store = new ProductStore();
 
