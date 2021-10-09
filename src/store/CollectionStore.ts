@@ -15,6 +15,12 @@ export class CollectionStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
+
+    toJSON(): Omit<this, 'productStore'> {
+        const { productStore: _, ...rest } = this;
+        return rest;
+    }
+
     select(): void {
         this.productStore.currentCollectionId = this.id;
     }

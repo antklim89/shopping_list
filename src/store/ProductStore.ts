@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import {
     autorun, IObservableArray, makeAutoObservable, observable, reaction, runInAction,
 } from 'mobx';
@@ -19,33 +18,15 @@ import {
 
 export class ProductStore {
     constructor() {
-        for (let index = 0; index < localStorage.length; index += 1) {
-            const storeId = localStorage.key(index);
-            if (!isUUID(storeId)) continue;
-            const productsString = localStorage.getItem(storeId);
-            if (!productsString) continue;
-
-            try {
-                const data = JSON.parse(productsString);
-                if ('name' in data && 'products' in data) {
-                    this.collections.push(new CollectionStore(storeId, data.name, this));
-                }
-            } catch (error) {
-                continue;
-            }
-        }
-
-        this.currentCollectionId = getIdSearchParam()
-            || getCurrentCollectionStorage()
-            || this.collections[0].id
-            || v4();
+        this.currentCollectionId = getIdSearchParam() || getCurrentCollectionStorage() || v4();
 
         const searchParams = getSearchParam();
         const storage = getFromStorage(this.currentCollectionId);
 
+
         if (searchParams) {
             this.fromUrl();
-            setStorage(this.currentCollection.id, { products: searchParams.products });
+            setStorage(this.currentCollectionId, { products: searchParams.products });
         } else if (storage) {
             this.fromLocalStorage();
             setSearchParams({ products: storage.products });
@@ -53,6 +34,8 @@ export class ProductStore {
             setSearchParams({});
             setStorage(this.currentCollectionId, {});
         }
+
+        this.initCollections();
 
         makeAutoObservable(this, {}, { autoBind: true });
 
@@ -73,6 +56,24 @@ export class ProductStore {
                 setSearchParams({ products: this.products });
             },
         );
+    }
+
+    private initCollections(): void {
+        for (let index = 0; index < localStorage.length; index += 1) {
+            const storeId = localStorage.key(index);
+            if (!isUUID(storeId)) continue;
+            const productsString = localStorage.getItem(storeId);
+            if (!productsString) continue;
+
+            try {
+                const data = JSON.parse(productsString);
+                if ('name' in data && 'products' in data) {
+                    this.collections.push(new CollectionStore(storeId, data.name, this));
+                }
+            } catch (error) {
+                continue;
+            }
+        }
     }
 
     public products: IObservableArray<ProductItemStore> = observable.array()
@@ -119,12 +120,8 @@ export class ProductStore {
 
     private fromLocalStorage(): void {
         try {
-            const data = getFromStorage(this.currentCollection.id);
-
-            if (!data) {
-                return;
-            }
-
+            const data = getFromStorage(this.currentCollectionId);
+            if (!data) return;
             const productStores = data.products.map((product) => new ProductItemStore(product, this));
             this.products.replace(productStores);
         } catch (error) {

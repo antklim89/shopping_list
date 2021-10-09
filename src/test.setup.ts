@@ -38,5 +38,5 @@ export const setup = (): void => {
         }),
     );
 
-    localStorage.setItem('444-ddd-ddd-ddd-ddd', '[]');
+    localStorage.setItem('invalid-ddd-ddd-ddd-ddd', '[]');
 };

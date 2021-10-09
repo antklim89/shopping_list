@@ -77,7 +77,7 @@ module.exports = {
 
         '@typescript-eslint/no-var-requires': 0,
         '@typescript-eslint/no-shadow': 2,
-        '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: 'h' }],
+        '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: '^_|h' }],
         '@typescript-eslint/no-empty-interface': 0,
 
         'no-continue': 0,

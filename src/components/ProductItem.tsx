@@ -3,15 +3,12 @@ import { observer } from 'mobx-react-lite';
 import { FunctionalComponent, h } from 'preact';
 
 import { CartIcon, DeleteIcon, DoneIcon } from './icons';
-import { useStore } from './StoreProvider';
 
 import type { ProductItemStore } from '~/store/ProductItemStore';
 import type { Unit } from '~/types/Unit';
 
 
 const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ product }) => {
-    const store = useStore();
-
     return (
         <m.li
             animate={{ x: 0, opacity: 1 }}
@@ -74,7 +71,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                 <button
                     className="btn delete"
                     type="button"
-                    onClick={() => store.remove(product)}
+                    onClick={() => product.remove()}
                 >
                     <DeleteIcon />
                 </button>

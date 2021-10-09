@@ -23,6 +23,15 @@ describe('ProductStore', () => {
     beforeEach(setup);
 
     describe('constructor', () => {
+        beforeEach(setup);
+        it('normal init', () => {
+            localStorage.clear();
+            history.pushState(null, '', '/');
+            const store = new ProductStore();
+
+            expect(store.collections).to.have.length(1);
+        });
+
         it('in localStorage', () => {
             localStorage.setItem(storeIdFromStorage, JSON.stringify({ name: '', products: [] }));
             localStorage.setItem(CURRENT_COLLECTION_STORE_ID, storeIdFromStorage);
