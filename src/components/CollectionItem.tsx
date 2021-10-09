@@ -2,8 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
-import { DeleteIcon, DoneIcon } from './icons';
-import { EditIcon } from './icons/EditIcon';
+import { DeleteIcon, DoneIcon, EditIcon } from './icons';
 import { useStore } from './StoreProvider';
 
 import type { CollectionStore } from '~/store/CollectionStore';
