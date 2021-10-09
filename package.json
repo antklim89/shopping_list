@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "snowpack dev",
-    "build": "rm -rf ./build && web-test-runner \"src/**/*.test.*\" && snowpack build",
+    "build": "rm -rf ./build && snowpack build",
     "serve": "snowpack serve",
     "test": "web-test-runner \"src/**/*.test.*\"  --watch",
     "jest": "jest",
