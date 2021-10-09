@@ -10,7 +10,7 @@ interface StorageProducts {
     products: IProductItem[];
 }
 
-export function getProductsFromStorage(id: string): StorageProducts|null {
+export function getFromStorage(id: string): StorageProducts|null {
     const productsString = localStorage.getItem(id);
     if (!productsString) return null;
     const data = JSON.parse(productsString);
@@ -18,11 +18,11 @@ export function getProductsFromStorage(id: string): StorageProducts|null {
     return data as StorageProducts;
 }
 
-export function setProductsStorage(
+export function setStorage(
     id: string,
     newData: Partial<StorageProducts>,
 ): void {
-    const prev = getProductsFromStorage(id) || { name: 'Products collection', products: [] };
+    const prev = getFromStorage(id) || { name: 'Products collection', products: [] };
     localStorage.setItem(id, JSON.stringify({ ...prev, ...newData }));
 }
 

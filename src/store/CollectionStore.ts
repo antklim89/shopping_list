@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import type { ProductStore } from './ProductStore';
 
 import type { UUID } from '~/types';
-import { setProductsStorage } from '~/utils/storage';
+import { setStorage } from '~/utils/storage';
 
 
 export class CollectionStore {
@@ -22,7 +22,7 @@ export class CollectionStore {
     rename(newName: string): void {
         this.name = newName;
 
-        setProductsStorage(this.id, { name: newName });
+        setStorage(this.id, { name: newName });
     }
 
     delete(): void {

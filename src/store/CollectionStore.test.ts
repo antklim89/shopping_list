@@ -7,7 +7,7 @@ import { ProductStore } from './ProductStore';
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
 import { getIdSearchParam } from '~/utils';
-import { getProductsFromStorage } from '~/utils/storage';
+import { getFromStorage } from '~/utils/storage';
 
 
 describe('CollectionStore', () => {
@@ -53,7 +53,7 @@ describe('CollectionStore', () => {
 
         expect(react).to.have.been.called.exactly(1);
         expect(collectionStore.name).to.equal(newName);
-        expect(getProductsFromStorage(collectionStore.id)).to.have.property('name', newName);
+        expect(getFromStorage(collectionStore.id)).to.have.property('name', newName);
     });
 
     it('#delete', () => {

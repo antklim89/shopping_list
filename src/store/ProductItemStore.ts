@@ -35,6 +35,11 @@ export class ProductItemStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
+    toJSON(): IProductItem {
+        const { id, name, qty, isBought, unit } = this;
+        return { id, name, qty, isBought, unit };
+    }
+
     update(product: IUpdateProductItem): void {
         Object.assign(this, product);
     }

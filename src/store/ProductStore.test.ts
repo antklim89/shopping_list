@@ -7,16 +7,16 @@ import { ProductStore } from './ProductStore';
 
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
-import { getIdSearchParam, setSearchParams } from '~/utils';
-import { getCurrentCollectionStorage } from '~/utils/storage';
+import { getIdSearchParam, getProductsSearchParam, setSearchParams } from '~/utils';
+import { getCurrentCollectionStorage, getFromStorage } from '~/utils/storage';
 
 
 const storeIdFromStorage = 'aaa-aaa-aaa-aaa-aaa';
 const storeIdNotFromStorage = 'bbb-aaa-aaa-aaa-aaa';
 const storeIdFromURL = 'ccc-aaa-aaa-aaa-aaa';
 
-const productFromStorage = new ProductItemStore({ name: 'fromStorage' }, {} as ProductStore);
-const productFromURL = new ProductItemStore({ name: 'fromURL' }, {} as ProductStore);
+const productFromStorage = new ProductItemStore({ name: 'fromStorage' }, { } as ProductStore);
+const productFromURL = new ProductItemStore({ name: 'fromURL' }, { } as ProductStore);
 
 
 describe('ProductStore', () => {
@@ -41,8 +41,6 @@ describe('ProductStore', () => {
         });
 
         it('from URL', () => {
-
-
             history.pushState(null, '', `#${btoa(JSON.stringify({ id: storeIdFromURL, products: [] }))}`);
             const store = new ProductStore();
 
@@ -108,9 +106,13 @@ describe('ProductStore', () => {
 
         reaction(() => toJS(store.products), react);
 
-        // console.debug('getProd: \n', getProductsFromStorage(store.c))
+        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(1);
+        expect(getProductsSearchParam()).to.have.length(1);
+
         store.addProduct();
         expect(store.products).to.have.length(2);
+        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(2);
+        expect(getProductsSearchParam()).to.have.length(2);
 
         expect(react).to.have.been.called.exactly(1);
     });
@@ -122,13 +124,17 @@ describe('ProductStore', () => {
 
         reaction(() => toJS(store.products), react);
 
+        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(1);
+        expect(store.products).to.have.length(1);
         store.addProduct();
         store.addProduct();
 
+        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(3);
         expect(store.products).to.have.length(3);
 
         store.clearProducts();
 
+        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(0);
         expect(store.products).to.have.length(0);
         expect(react).to.have.been.called.exactly(3);
     });

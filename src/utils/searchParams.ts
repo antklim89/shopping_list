@@ -10,7 +10,7 @@ interface UrlProducts {
 }
 
 export function setSearchParams(newParams: Partial<UrlProducts>): void {
-    const prev = getSearchParam() || { name: v4(), products: [] as IProductItem[] };
+    const prev: UrlProducts = getSearchParam() || { id: v4(), products: [] };
     const stringParams = JSON.stringify({ ...prev, ...newParams });
     const base64Params = btoa(stringParams);
     window.history.replaceState(null, '', `#${base64Params}`);

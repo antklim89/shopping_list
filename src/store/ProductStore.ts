@@ -8,12 +8,12 @@ import { CollectionStore } from './CollectionStore';
 import { IProductItem, ProductItemStore } from './ProductItemStore';
 
 import type { UUID } from '~/types';
-import { getIdSearchParam, getProductsSearchParam, isUUID, setSearchParams } from '~/utils';
+import { getIdSearchParam, getProductsSearchParam, getSearchParam, isUUID, setSearchParams } from '~/utils';
 import {
     getCurrentCollectionStorage,
-    getProductsFromStorage,
+    getFromStorage,
     setCurrentCollectionStorage,
-    setProductsStorage,
+    setStorage,
 } from '~/utils/storage';
 
 
@@ -40,8 +40,19 @@ export class ProductStore {
             || this.collections[0].id
             || v4();
 
-        this.fromLocalStorage();
-        this.fromUrl();
+        const searchParams = getSearchParam();
+        const storage = getFromStorage(this.currentCollectionId);
+
+        if (searchParams) {
+            this.fromUrl();
+            setStorage(this.currentCollection.id, { products: searchParams.products });
+        } else if (storage) {
+            this.fromLocalStorage();
+            setSearchParams({ products: storage.products });
+        } else {
+            setSearchParams({});
+            setStorage(this.currentCollectionId, {});
+        }
 
         makeAutoObservable(this, {}, { autoBind: true });
 
@@ -55,10 +66,13 @@ export class ProductStore {
             () => this.fromLocalStorage(),
         );
 
-        // reaction(
-        //     () => JSON.stringify(this.products),
-        //     (json) => setProductsStorage(this.currentCollectionId, { products: this.products }),
-        // );
+        reaction(
+            () => JSON.stringify(this.products),
+            () => {
+                setStorage(this.currentCollectionId, { products: this.products });
+                setSearchParams({ products: this.products });
+            },
+        );
     }
 
     public products: IObservableArray<ProductItemStore> = observable.array()
@@ -105,10 +119,9 @@ export class ProductStore {
 
     private fromLocalStorage(): void {
         try {
-            const data = getProductsFromStorage(this.currentCollection.id);
+            const data = getFromStorage(this.currentCollection.id);
 
             if (!data) {
-                setProductsStorage(this.currentCollection.id, {});
                 return;
             }
 
@@ -123,10 +136,11 @@ export class ProductStore {
     private fromUrl(): void {
         try {
             const productsList = getProductsSearchParam();
+
             if (!productsList || productsList.length === 0) {
-                setSearchParams({ products: [] });
                 return;
             }
+
             const productsListStore = productsList.map((product) => new ProductItemStore(product, this));
             this.products.replace(productsListStore);
         } catch (error) {
