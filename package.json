@@ -1,4 +1,8 @@
 {
+  "name": "shopping_list",
+  "private": true,
+  "description": "Created for training web development.",
+  "version": "0.1.0",
   "scripts": {
     "dev": "snowpack dev",
     "build": "rm -rf ./build && snowpack build",
@@ -42,5 +46,22 @@
     "snowpack": "^3.3.7",
     "testcafe": "^1.16.0",
     "typescript": "4.4.3"
+  },
+  "license": "0BSD",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:antklim89/shopping_list.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antklim89/shopping_list/issues"
+  },
+  "keywords": [
+    "preact",
+    "sass",
+    "framer-motion",
+    "mobx"
+  ],
+  "author": {
+      "name": "Me"
   }
 }
