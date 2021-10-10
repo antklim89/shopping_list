@@ -4,10 +4,18 @@ import {
 import { v4 } from 'uuid';
 
 import { CollectionStore } from './CollectionStore';
-import { IProductItem, ProductItemStore } from './ProductItemStore';
+import { ProductItemStore } from './ProductItemStore';
 
 import type { UUID } from '~/types';
-import { getIdSearchParam, getProductsSearchParam, getSearchParam, isUUID, setSearchParams } from '~/utils';
+import {
+    getProductsFromFile,
+    getIdSearchParam,
+    getProductsSearchParam,
+    getSearchParam,
+    isUUID,
+    setSearchParams,
+    saveProductsToFile,
+} from '~/utils';
 import {
     getCurrentCollectionStorage,
     getFromStorage,
@@ -151,27 +159,24 @@ export class ProductStore {
         if (!files || files.length < 1) return;
         const [file] = files;
         if (file.type !== 'application/json' || !(/.*\.json$/i).test(file.name)) return;
-        try {
-            const fileText = await file.text();
-            const fileJson: IProductItem[] = JSON.parse(fileText);
-            const products = fileJson.map((product) => new ProductItemStore(product, this));
-            runInAction(() => this.products.replace(products));
 
+        try {
+            const fileProducts = await getProductsFromFile(file);
+            runInAction(() => {
+                const newCollectionStore = new CollectionStore(v4(), fileProducts.name, this);
+                this.collections.push(newCollectionStore);
+                setStorage(newCollectionStore.id, { name: fileProducts.name, products: fileProducts.products });
+                this.currentCollectionId = newCollectionStore.id;
+
+                const productStores = fileProducts.products.map((product) => new ProductItemStore(product, this));
+                this.products.replace(productStores);
+            });
         } catch (error) {
-            console.error('Load from file Error: \n', error);
+            console.error('Load from file error: \n', error);
         }
     }
 
     toFile(): void {
-        const blob = new Blob([JSON.stringify(this.products)]);
-        const fileName = `Product List - ${new Date()}.json`;
-
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        document.body.append(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+        saveProductsToFile(this.currentCollection.name, this.products);
     }
 }
