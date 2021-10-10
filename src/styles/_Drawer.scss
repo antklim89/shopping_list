@@ -12,7 +12,7 @@ $zIndex: 100;
         box-shadow: $shadow;
         z-index: $zIndex;
         height: 100vh;
-        overflow: scroll;
+        overflow: hidden;
         
         @media screen and (max-width: $breakpoint) {
             width: 100vw;

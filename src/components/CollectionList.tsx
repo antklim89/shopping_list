@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
 
@@ -34,15 +35,18 @@ const CollectionList: FunctionComponent = () => {
                     type="text"
                     value={state.newCollectionName}
                     onChange={state.handleSetName}
+                    onKeyDown={(e) => e.key === 'Enter' && state.handleAdd()}
                 />
                 <button className="btn" type="button" onClick={state.handleAdd}>Add</button>
             </div>
 
-            <div className="CollectionList__items">
-                {store.collections.map((collection) => (
-                    <CollectionItem collection={collection} key={collection.id} />
-                ))}
-            </div>
+            <ul className="CollectionList__items">
+                <AnimatePresence>
+                    {store.collections.map((collection) => (
+                        <CollectionItem collection={collection} key={collection.id} />
+                    ))}
+                </AnimatePresence>
+            </ul>
         </div>
     );
 };

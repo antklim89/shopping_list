@@ -122,7 +122,7 @@ export class ProductStore {
 
     createCollection(name: string): void {
         const newCollectionStore = new CollectionStore(v4(), name, this);
-        this.collections.push(newCollectionStore);
+        this.collections.unshift(newCollectionStore);
         setStorage(newCollectionStore.id, { name });
         this.currentCollectionId = newCollectionStore.id;
         this.products.clear();

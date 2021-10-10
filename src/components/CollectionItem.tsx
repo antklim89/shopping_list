@@ -1,3 +1,4 @@
+import { m } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
@@ -25,7 +26,12 @@ const CollectionItem: FunctionComponent<Props> = ({ collection }) => {
         if (ref.current) ref.current.focus();
     }, [isEdit]);
     return (
-        <div className="CollectionItem">
+        <m.li
+            animate={{ x: 0, opacity: 1 }}
+            className="CollectionItem"
+            exit={{ x: '100vh', opacity: 0 }}
+            initial={{ x: '100vh', opacity: 0 }}
+        >
             {isEdit
                 ? (
                     <input
@@ -63,7 +69,7 @@ const CollectionItem: FunctionComponent<Props> = ({ collection }) => {
                     <DeleteIcon />
                 </button>
             )}
-        </div>
+        </m.li>
     );
 };
 
