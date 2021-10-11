@@ -36,7 +36,12 @@ const Drawer: FunctionComponent<Props> = ({ children, state }) => {
                         transition={{ type: 'tween' }}
                     >
                         <div className="Drawer__close-button">
-                            <button className="btn delete" type="button" onClick={() => state.toggle()}>
+                            <button
+                                aria-label="Close drawer"
+                                className="btn delete"
+                                type="button"
+                                onClick={() => state.toggle()}
+                            >
                                 x
                             </button>
                         </div>
