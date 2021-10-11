@@ -31,6 +31,7 @@ const Actions: FunctionComponent = () => {
         <div className="Actions">
             <div className="Actions__group">
                 <button
+                    aria-label="Toggle all bought"
                     className="Actions__action btn"
                     type="button"
                     onClick={() => toggleAllBougth()}
@@ -39,6 +40,7 @@ const Actions: FunctionComponent = () => {
                     <div className="lg-hide"><DoneAllIcon /></div>
                 </button>
                 <button
+                    aria-label="Copy link"
                     className="Actions__action btn"
                     type="button"
                     onClick={() => copyTextToClipboard(location.href)}
@@ -47,6 +49,7 @@ const Actions: FunctionComponent = () => {
                     <div className="lg-hide"><CopyIcon /></div>
                 </button>
                 <button
+                    aria-label="Clear List"
                     className="Actions__action btn"
                     type="button"
                     onClick={() => clearProducts()}
@@ -59,16 +62,17 @@ const Actions: FunctionComponent = () => {
             <div className="Actions__group">
                 {typeof window !== 'undefined' && window.navigator.share && (
                     <button
+                        aria-label="Share"
                         className="Actions__action btn"
                         type="button"
                         onClick={() => share()}
                     >
                         <div className="sm-hide">Share</div>
                         <div className="lg-hide"><ShareIcon /></div>
-
                     </button>
                 )}
                 <button
+                    aria-label="Save to File"
                     className="Actions__action btn"
                     type="button"
                     onClick={() => toFile()}
@@ -77,21 +81,28 @@ const Actions: FunctionComponent = () => {
                     <div className="lg-hide"><SaveIcon /></div>
                 </button>
 
-                <label className="Actions__action btn" htmlFor="load-file">
-                    <div className="sm-hide">Load from file</div>
-                    <div className="lg-hide"><LoadIcon /></div>
-
+                <label htmlFor="load-file">
+                    <span
+                        aria-controls="filename"
+                        aria-label="Load from file"
+                        className="Actions__action btn"
+                        role="button"
+                        tabIndex={0}
+                    >
+                        <div className="sm-hide">Load from file</div>
+                        <div className="lg-hide"><LoadIcon /></div>
+                    </span>
+                    <input
+                        accept="application/json"
+                        className="hidden"
+                        id="load-file"
+                        type="file"
+                        onInput={(e) => {
+                            fromFile(e.currentTarget.files);
+                            e.currentTarget.value = '';
+                        }}
+                    />
                 </label>
-                <input
-                    accept="application/json"
-                    className="hidden"
-                    id="load-file"
-                    type="file"
-                    onInput={(e) => {
-                        fromFile(e.currentTarget.files);
-                        e.currentTarget.value = '';
-                    }}
-                />
             </div>
         </div>
     );

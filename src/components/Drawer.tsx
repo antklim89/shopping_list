@@ -1,6 +1,7 @@
 import { AnimatePresence, m } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import { FunctionComponent, h } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 
 interface Props {
@@ -11,6 +12,14 @@ interface Props {
 }
 
 const Drawer: FunctionComponent<Props> = ({ children, state }) => {
+    useEffect(() => {
+        const listener = (e: KeyboardEvent) => {
+            if (state.show && e.key === 'Escape') state.toggle();
+        };
+        window.addEventListener('keydown', listener);
+        return () => window.removeEventListener('keydown', listener);
+    }, []);
+
     return (
         <div className="Drawer">
             <AnimatePresence>
