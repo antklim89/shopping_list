@@ -26,7 +26,7 @@ import {
 
 export class ProductStore {
     constructor() {
-        this.currentCollectionId = getIdSearchParam() || getCurrentCollectionStorage() || v4();
+        this.currentCollectionId = getIdSearchParam() || getCurrentCollectionStorage() || v4() as UUID;
 
         const searchParams = getSearchParam();
         const storage = getFromStorage(this.currentCollectionId);
@@ -121,7 +121,7 @@ export class ProductStore {
     }
 
     createCollection(name: string): void {
-        const newCollectionStore = new CollectionStore(v4(), name, this);
+        const newCollectionStore = new CollectionStore(v4() as UUID, name, this);
         this.collections.unshift(newCollectionStore);
         setStorage(newCollectionStore.id, { name });
         this.currentCollectionId = newCollectionStore.id;
@@ -163,7 +163,7 @@ export class ProductStore {
         try {
             const fileProducts = await getProductsFromFile(file);
             runInAction(() => {
-                const newCollectionStore = new CollectionStore(v4(), fileProducts.name, this);
+                const newCollectionStore = new CollectionStore(v4() as UUID, fileProducts.name, this);
                 this.collections.push(newCollectionStore);
                 setStorage(newCollectionStore.id, { name: fileProducts.name, products: fileProducts.products });
                 this.currentCollectionId = newCollectionStore.id;

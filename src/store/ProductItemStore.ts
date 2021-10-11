@@ -26,7 +26,7 @@ export class ProductItemStore {
     unit: Unit;
 
     constructor(product: INewProductItem, public productStore: ProductStore) {
-        this.id = product.id || v4();
+        this.id = product.id || v4() as UUID;
         this.isBought = product.isBought || false;
         this.name = product.name || '';
         this.qty = product.qty || 1;
