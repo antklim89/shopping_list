@@ -23,7 +23,7 @@ const Drawer: FunctionComponent<Props> = ({ children, state }) => {
     return (
         <div className="Drawer">
             <AnimatePresence>
-                {/* @ts-expect-error library error */}
+                {/* @ts-expect-error preact type error */}
                 {state.show
                     ? (
                         <m.div
@@ -39,7 +39,7 @@ const Drawer: FunctionComponent<Props> = ({ children, state }) => {
                     : <div />}
             </AnimatePresence>
             <AnimatePresence>
-                {/* @ts-expect-error library error */}
+                {/* @ts-expect-error preact type error */}
                 {state.show
                     ? (
                         <m.div
@@ -49,7 +49,7 @@ const Drawer: FunctionComponent<Props> = ({ children, state }) => {
                             initial={{ y: 0, x: '100vh' }}
                             transition={{ type: 'tween' }}
                         >
-                            {/* @ts-expect-error library error */}
+                            {/* @ts-expect-error preact type error */}
                             <>
                                 <div className="Drawer__close-button">
                                     <button

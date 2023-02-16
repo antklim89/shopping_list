@@ -15,6 +15,7 @@ const ProductList: FunctionalComponent = observer(() => {
             <Actions />
             <ul className="ProductList__list">
                 <AnimatePresence>
+                    {/* @ts-expect-error preact type error */}
                     {products.map((product) => (
                         <ProductItem key={product.id} product={product} />
                     ))}

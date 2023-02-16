@@ -16,9 +16,9 @@ export class CollectionStore {
     }
 
 
-    toJSON(): Omit<this, 'productStore'> {
-        const { productStore: _, ...rest } = this;
-        return rest;
+    toJSON() {
+        const { id, name } = this;
+        return { id, name };
     }
 
     public select(): void {

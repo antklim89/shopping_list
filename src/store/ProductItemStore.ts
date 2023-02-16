@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { makeAutoObservable } from 'mobx';
 import { v4 } from 'uuid';
 

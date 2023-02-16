@@ -1,12 +1,6 @@
-import chai from 'chai';
-import spies from 'chai-spies';
-
 import { ProductItemStore } from './store/ProductItemStore';
 import type { ProductStore } from './store/ProductStore';
 import { setCollectionToStorage, setCurrentCollectionToStorage } from './utils/storageHandlers';
-
-
-chai.use(spies);
 
 
 export const setup = (): void => {

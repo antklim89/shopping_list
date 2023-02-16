@@ -9,7 +9,7 @@ import StoreProvider from './components/StoreProvider';
 const App: FunctionComponent = () => {
     return (
         <LazyMotion strict features={domAnimation}>
-            {/* @ts-expect-error library error */}
+            {/* @ts-expect-error preact type error */}
             <StoreProvider>
                 <Header />
                 <ProductList />

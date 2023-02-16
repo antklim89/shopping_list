@@ -42,6 +42,7 @@ const CollectionList: FunctionComponent = () => {
 
             <ul className="CollectionList__items">
                 <AnimatePresence>
+                    {/* @ts-expect-error preact type error */}
                     <>
                         {store.collections.map((collection) => (
                             <CollectionItem collection={collection} key={collection.id} />

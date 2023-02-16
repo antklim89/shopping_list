@@ -32,7 +32,7 @@ const CollectionItem: FunctionComponent<Props> = ({ collection }) => {
             exit={{ x: '100vh', opacity: 0 }}
             initial={{ x: '100vh', opacity: 0 }}
         >
-            {/* @ts-expect-error library error */}
+            {/* @ts-expect-error preact type error */}
             <>
                 {isEdit
                     ? (
