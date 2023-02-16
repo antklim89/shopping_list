@@ -7,7 +7,9 @@
     box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
@@ -51,7 +53,6 @@ button {
     background: $primary-color;
     border: none;
     border-radius: $radius;
-    box-shadow: $shadow;
     color: $light-color;
     fill: $light-color;
     transition: 100ms transform;
@@ -61,12 +62,15 @@ button {
 
     &.delete {
         background: $delete-color;
-        &:hover, &:focus {
+
+        &:hover,
+        &:focus {
             background: darken($color: $delete-color, $amount: 10);
         }
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         box-shadow: 1px 1px 2px black;
         transform: translate(1px, 1px);
         background: darken($color: $primary-color, $amount: 10);
@@ -80,10 +84,11 @@ button {
     padding: $sp-1 $sp-2;
     border-radius: $radius;
     min-width: 70px;
-    color: $primary-color;
+    color: black;
     font-size: 1.4rem;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         box-shadow: 0 0 10px darken($color: $primary-color, $amount: 20);
         outline: none;
     }
@@ -91,7 +96,9 @@ button {
     &:disabled {
         color: $disabled-color;
         border: 2px solid $disabled-color;
-        &:hover, &:focus {
+
+        &:hover,
+        &:focus {
             box-shadow: none;
             outline: none;
         }
@@ -110,7 +117,7 @@ button {
     }
 }
 
-@media (max-width: $breakpoint - 1) {
+@media (max-width: ($breakpoint - 1)) {
     .sm-hide {
         display: none;
     }
@@ -125,4 +132,3 @@ button {
 @import './Drawer';
 @import './CollectionList';
 @import './CollectionItem';
-

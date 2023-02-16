@@ -1,22 +1,27 @@
-/* eslint-disable no-unused-expressions */
-import chai, { expect } from 'chai';
 import { reaction, toJS } from 'mobx';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { ProductItemStore } from './ProductItemStore';
 import { ProductStore } from './ProductStore';
 
-import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
-import { getIdSearchParam, getProductsSearchParam, setSearchParams } from '~/utils';
-import { getCurrentCollectionStorage, getFromStorage } from '~/utils/storage';
+import {
+    getCollectionIdFromUrl,
+    getProductsFromUrl,
+    setCollectionToUrl,
+    getCurrentCollectionFromStorage,
+    getCollectionFromStorage,
+    setCollectionToStorage,
+    setCurrentCollectionToStorage,
+} from '~/utils';
 
 
 const storeIdFromStorage = 'aaa-aaa-aaa-aaa-aaa';
 const storeIdNotFromStorage = 'bbb-aaa-aaa-aaa-aaa';
 const storeIdFromURL = 'ccc-aaa-aaa-aaa-aaa';
 
-const productFromStorage = new ProductItemStore({ name: 'fromStorage' }, { } as ProductStore);
-const productFromURL = new ProductItemStore({ name: 'fromURL' }, { } as ProductStore);
+const productFromStorage = new ProductItemStore({ name: 'fromStorage' }, {} as ProductStore);
+const productFromURL = new ProductItemStore({ name: 'fromURL' }, {} as ProductStore);
 
 
 describe('ProductStore', () => {
@@ -29,63 +34,64 @@ describe('ProductStore', () => {
             history.pushState(null, '', '/');
             const store = new ProductStore();
 
-            expect(store.collections).to.have.length(1);
+            expect(store.collections).toHaveLength(1);
         });
 
         it('in localStorage', () => {
-            localStorage.setItem(storeIdFromStorage, JSON.stringify({ name: '', products: [] }));
-            localStorage.setItem(CURRENT_COLLECTION_STORE_ID, storeIdFromStorage);
+            setCollectionToStorage(storeIdFromStorage, {});
+            setCurrentCollectionToStorage(storeIdFromStorage);
 
             const store = new ProductStore();
 
-            expect(store.currentCollection.id).eq(storeIdFromStorage);
-            expect(store.collections.length).eq(4);
+            expect(store.currentCollection.id).toEqual(storeIdFromStorage);
+            expect(store.collections.length).toEqual(4);
         });
 
         it('not in localStorage', () => {
-            localStorage.setItem(CURRENT_COLLECTION_STORE_ID, storeIdNotFromStorage);
+            setCurrentCollectionToStorage(storeIdNotFromStorage);
             const store = new ProductStore();
 
-            expect(store.currentCollection.id).eq(storeIdNotFromStorage);
+            expect(store.currentCollection.id).toEqual(storeIdNotFromStorage);
         });
 
         it('from URL', () => {
             history.pushState(null, '', `#${btoa(JSON.stringify({ id: storeIdFromURL, products: [] }))}`);
             const store = new ProductStore();
 
-            expect(store.currentCollection.id).eq(storeIdFromURL);
+            expect(store.currentCollection.id).toEqual(storeIdFromURL);
         });
 
         it('get products from local storage', () => {
-            localStorage.setItem(
-                storeIdFromStorage,
-                JSON.stringify({ name: 'new product', products: [productFromStorage] }),
-            );
-            localStorage.setItem(CURRENT_COLLECTION_STORE_ID, storeIdFromStorage);
+            setCollectionToStorage(storeIdFromStorage, {
+                id: storeIdFromStorage,
+                name: 'new product',
+                products: [productFromStorage],
+            });
+            setCurrentCollectionToStorage(storeIdFromStorage);
 
             const store = new ProductStore();
 
-            expect(store.products).to.have.length(1);
-            expect(store.products[0]).to.have.property('id', productFromStorage.id);
-            expect(store.products[0]).to.have.property('name', productFromStorage.name);
-            expect(store.products[0]).to.have.property('qty', productFromStorage.qty);
-            expect(store.products[0]).to.have.property('unit', productFromStorage.unit);
-            expect(store.products[0]).to.have.property('isBought', productFromStorage.isBought);
+            expect(store.products).toHaveLength(1);
+            expect(store.products[0]).toHaveProperty('id', productFromStorage.id);
+            expect(store.products[0]).toHaveProperty('name', productFromStorage.name);
+            expect(store.products[0]).toHaveProperty('qty', productFromStorage.qty);
+            expect(store.products[0]).toHaveProperty('unit', productFromStorage.unit);
+            expect(store.products[0]).toHaveProperty('isBought', productFromStorage.isBought);
         });
 
         it('get products from url', () => {
-            setSearchParams({ id: 'url-xxx-xxx-xxx-xxx', products: [productFromURL] });
+            setCollectionToUrl({ id: 'url-xxx-xxx-xxx-xxx', products: [productFromURL] });
 
             const store = new ProductStore();
 
-            expect(store.products).to.have.length(1);
-            expect(store.collections).to.have.length(4);
-            expect(store.products[0]).to.have.property('id', productFromURL.id);
+            expect(store.products).toHaveLength(1);
+            expect(store.collections).toHaveLength(4);
+            expect(store.products[0]).toHaveProperty('id', productFromURL.id);
         });
     });
 
     it('#createCollection', () => {
-        const react = chai.spy();
+        const react = vi.fn();
 
         const store = new ProductStore();
 
@@ -94,60 +100,60 @@ describe('ProductStore', () => {
 
         store.createCollection(newCollectionName);
 
-        expect(getProductsSearchParam()).to.have.length(0);
-        expect(store.products).to.have.length(0);
-        expect(store.collections).to.have.length(4);
+        expect(getProductsFromUrl()).toHaveLength(0);
+        expect(store.products).toHaveLength(0);
+        expect(store.collections).toHaveLength(4);
         const newCollection = store.collections.find((col) => col.name === newCollectionName);
 
-        expect(newCollection).not.null;
+        expect(newCollection).not.toBeNull();
         if (!newCollection) throw new Error('ERRROR');
 
-        expect(store.currentCollectionId).to.eq(newCollection.id);
-        expect(store.currentCollection.name).to.eq(newCollectionName);
-        expect(newCollection.id).to.eq(getCurrentCollectionStorage());
-        expect(newCollection.id).to.eq(getIdSearchParam());
+        expect(store.currentCollectionId).toEqual(newCollection.id);
+        expect(store.currentCollection.name).toEqual(newCollectionName);
+        expect(newCollection.id).toEqual(getCurrentCollectionFromStorage());
+        expect(newCollection.id).toEqual(getCollectionIdFromUrl());
 
-        expect(react).to.have.been.called.exactly(1);
+        expect(react).toHaveBeenCalledTimes(1);
     });
 
     it('#addProduct', () => {
-        const react = chai.spy();
+        const react = vi.fn();
 
         const store = new ProductStore();
 
         reaction(() => toJS(store.products), react);
 
-        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(1);
-        expect(getProductsSearchParam()).to.have.length(1);
+        expect(getCollectionFromStorage(store.currentCollectionId)?.products).toHaveLength(1);
+        expect(getProductsFromUrl()).toHaveLength(1);
 
         store.addProduct();
-        expect(store.products).to.have.length(2);
-        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(2);
-        expect(getProductsSearchParam()).to.have.length(2);
+        expect(store.products).toHaveLength(2);
+        expect(getCollectionFromStorage(store.currentCollectionId)?.products).toHaveLength(2);
+        expect(getProductsFromUrl()).toHaveLength(2);
 
-        expect(react).to.have.been.called.exactly(1);
+        expect(react).toHaveBeenCalledTimes(1);
     });
 
     it('#clearProducts', () => {
-        const react = chai.spy();
+        const react = vi.fn();
 
         const store = new ProductStore();
 
         reaction(() => toJS(store.products), react);
 
-        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(1);
-        expect(store.products).to.have.length(1);
+        expect(getCollectionFromStorage(store.currentCollectionId)?.products).toHaveLength(1);
+        expect(store.products).toHaveLength(1);
         store.addProduct();
         store.addProduct();
 
-        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(3);
-        expect(store.products).to.have.length(3);
+        expect(getCollectionFromStorage(store.currentCollectionId)?.products).toHaveLength(3);
+        expect(store.products).toHaveLength(3);
 
         store.clearProducts();
 
-        expect(getFromStorage(store.currentCollectionId)?.products).to.have.length(0);
-        expect(store.products).to.have.length(0);
-        expect(react).to.have.been.called.exactly(3);
+        expect(getCollectionFromStorage(store.currentCollectionId)?.products).toHaveLength(0);
+        expect(store.products).toHaveLength(0);
+        expect(react).toHaveBeenCalledTimes(3);
     });
 
     it('#toggleAllBougth', () => {
@@ -157,12 +163,12 @@ describe('ProductStore', () => {
         store.addProduct();
 
         store.products[1].update({ isBought: true });
-        expect(store.products.every((prod) => prod.isBought)).to.be.false;
+        expect(store.products.every((prod) => prod.isBought)).toBeFalsy();
 
         store.toggleAllBougth();
-        expect(store.products.every((prod) => prod.isBought)).to.be.true;
+        expect(store.products.every((prod) => prod.isBought)).toBeTruthy();
 
         store.toggleAllBougth();
-        expect(store.products.every((prod) => prod.isBought)).to.be.false;
+        expect(store.products.every((prod) => prod.isBought)).toBeFalsy();
     });
 });

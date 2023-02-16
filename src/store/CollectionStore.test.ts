@@ -1,47 +1,45 @@
-/* eslint-disable no-unused-expressions */
-import chai, { expect } from 'chai';
 import { reaction } from 'mobx';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { ProductStore } from './ProductStore';
 
 import { CURRENT_COLLECTION_STORE_ID } from '~/constants';
 import { setup } from '~/test.setup';
-import { getIdSearchParam } from '~/utils';
-import { getFromStorage } from '~/utils/storage';
+import { getCollectionIdFromUrl, getCollectionFromStorage } from '~/utils';
 
 
 describe('CollectionStore', () => {
     beforeEach(setup);
 
     it('#select', () => {
-        const react = chai.spy();
+        const react = vi.fn();
 
         const store = new ProductStore();
         const [firstCollectionStore, secondCollectionStore, thirdCollectionStore] = store.collections;
 
         reaction(() => store.currentCollection, react);
 
-        expect(store.products[0].name).to.eq(firstCollectionStore.name);
+        expect(store.products[0].name).toEqual(firstCollectionStore.name);
 
         secondCollectionStore.select();
-        expect(store.products[0].name).to.eq(secondCollectionStore.name);
-        expect(secondCollectionStore).eq(store.currentCollection);
-        expect(secondCollectionStore.id).eq(store.currentCollection.id);
-        expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).eq(store.currentCollection.id);
-        expect(getIdSearchParam()).eq(store.currentCollection.id);
+        expect(store.products[0].name).toEqual(secondCollectionStore.name);
+        expect(secondCollectionStore).toEqual(store.currentCollection);
+        expect(secondCollectionStore.id).toEqual(store.currentCollection.id);
+        expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).toEqual(store.currentCollection.id);
+        expect(getCollectionIdFromUrl()).toEqual(store.currentCollection.id);
 
         thirdCollectionStore.select();
-        expect(store.products[0].name).to.eq(thirdCollectionStore.name);
-        expect(thirdCollectionStore).eq(store.currentCollection);
-        expect(thirdCollectionStore.id).eq(store.currentCollection.id);
-        expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).eq(store.currentCollection.id);
-        expect(getIdSearchParam()).eq(store.currentCollection.id);
+        expect(store.products[0].name).toEqual(thirdCollectionStore.name);
+        expect(thirdCollectionStore).toEqual(store.currentCollection);
+        expect(thirdCollectionStore.id).toEqual(store.currentCollection.id);
+        expect(localStorage.getItem(CURRENT_COLLECTION_STORE_ID)).toEqual(store.currentCollection.id);
+        expect(getCollectionIdFromUrl()).toEqual(store.currentCollection.id);
 
-        expect(react).to.have.been.called.exactly(2);
+        expect(react).toHaveBeenCalledTimes(2);
     });
 
     it('#rename', () => {
-        const react = chai.spy();
+        const react = vi.fn();
 
         const store = new ProductStore();
         const [collectionStore] = store.collections;
@@ -51,13 +49,13 @@ describe('CollectionStore', () => {
         const newName = 'NEW_NAME';
         collectionStore.rename(newName);
 
-        expect(react).to.have.been.called.exactly(1);
-        expect(collectionStore.name).to.equal(newName);
-        expect(getFromStorage(collectionStore.id)).to.have.property('name', newName);
+        expect(react).toHaveBeenCalledTimes(1);
+        expect(collectionStore.name).toEqual(newName);
+        expect(getCollectionFromStorage(collectionStore.id)).toHaveProperty('name', newName);
     });
 
     it('#delete', () => {
-        const react = chai.spy();
+        const react = vi.fn();
         const store = new ProductStore();
 
         reaction(() => store.collections.length, react);
@@ -65,23 +63,23 @@ describe('CollectionStore', () => {
         const { currentCollection } = store;
         currentCollection.delete();
 
-        expect(getFromStorage(currentCollection.id)).to.be.null;
-        expect(currentCollection.id).not.eq(store.currentCollection.id);
-        expect(store.collections.length).eq(2);
+        expect(getCollectionFromStorage(currentCollection.id)).toBeNull();
+        expect(currentCollection.id).not.toEqual(store.currentCollection.id);
+        expect(store.collections.length).toEqual(2);
 
         const [firstCollectionStore, secondCollectionStore] = store.collections;
-        expect(firstCollectionStore.canDelete).to.be.true;
+        expect(firstCollectionStore.canDelete).toBeTruthy();
 
         firstCollectionStore.delete();
-        expect(store.collections.length).eq(1);
-        expect(firstCollectionStore.canDelete).to.be.false;
-        expect(getFromStorage(firstCollectionStore.id)).to.be.null;
+        expect(store.collections.length).toEqual(1);
+        expect(firstCollectionStore.canDelete).toBeFalsy();
+        expect(getCollectionFromStorage(firstCollectionStore.id)).toBeNull();
 
         secondCollectionStore.delete();
-        expect(store.collections.length).eq(1);
-        expect(getFromStorage(secondCollectionStore.id)).to.be.exist;
+        expect(store.collections.length).toEqual(1);
+        expect(getCollectionFromStorage(secondCollectionStore.id)).not.toBeNull();
 
 
-        expect(react).to.have.been.called.exactly(2);
+        expect(react).toHaveBeenCalledTimes(2);
     });
 });

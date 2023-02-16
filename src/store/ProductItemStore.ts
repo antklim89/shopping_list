@@ -9,13 +9,13 @@ import { Unit } from '~/types/Unit';
 
 export type INewProductItem = Partial<ProductItemStore>
 
-export type IProductItem = Pick<INewProductItem, 'id'|'name'|'qty'|'isBought'|'unit'>
+export type IProductItem = Pick<INewProductItem, 'id' | 'name' | 'qty' | 'isBought' | 'unit'>
 
-export type IUpdateProductItem = Pick<INewProductItem, |'name'|'qty'|'isBought'|'unit'>
+export type IUpdateProductItem = Pick<INewProductItem, | 'name' | 'qty' | 'isBought' | 'unit'>
 
 
 export class ProductItemStore {
-    id: UUID
+    id: UUID;
 
     name: string;
 
@@ -26,7 +26,7 @@ export class ProductItemStore {
     unit: Unit;
 
     constructor(product: INewProductItem, public productStore: ProductStore) {
-        this.id = product.id || v4();
+        this.id = product.id || v4() as UUID;
         this.isBought = product.isBought || false;
         this.name = product.name || '';
         this.qty = product.qty || 1;
@@ -35,16 +35,16 @@ export class ProductItemStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    toJSON(): IProductItem {
+    public toJSON(): IProductItem {
         const { id, name, qty, isBought, unit } = this;
         return { id, name, qty, isBought, unit };
     }
 
-    update(product: IUpdateProductItem): void {
+    public update(product: IUpdateProductItem): void {
         Object.assign(this, product);
     }
 
-    remove(): void {
+    public remove(): void {
         this.productStore.products.remove(this);
     }
 }

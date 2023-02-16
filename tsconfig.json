@@ -1,27 +1,26 @@
 {
-    "include": ["src", "types"],
-    "compilerOptions": {
-        "module": "esnext",
-        "target": "esnext",
-        "moduleResolution": "node",
-        "jsx": "preserve",
-        "jsxFactory": "h",
-        "jsxFragmentFactory": "Fragment",
-        "baseUrl": "./",
-        /* paths - import rewriting/resolving */
-        "paths": {
-            "~": ["./src"],
-            "~/*": ["./src/*"]
-        },
-        /* noEmit - Snowpack builds (emits) files, not tsc. */
-        "noEmit": true,
-        /* Additional Options */
-        "strict": true,
-        "skipLibCheck": true,
-        "types": ["mocha", "snowpack-env"],
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "importsNotUsedAsValues": "error"
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
     }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

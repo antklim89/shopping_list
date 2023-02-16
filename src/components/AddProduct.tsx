@@ -1,4 +1,4 @@
-import { FunctionalComponent, h } from 'preact';
+import { FunctionalComponent } from 'preact';
 
 import { AddIcon } from './icons';
 import { useStore } from './StoreProvider';

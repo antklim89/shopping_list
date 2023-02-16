@@ -1,6 +1,6 @@
 import { m } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
-import { FunctionalComponent, h } from 'preact';
+import { FunctionalComponent } from 'preact';
 
 import { CartIcon, DeleteIcon, DoneIcon } from './icons';
 
@@ -17,6 +17,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
             initial={{ x: '-100vh', opacity: 0 }}
         >
             <input
+                aria-label="Product name"
                 className="ProductItem__name input item"
                 disabled={product.isBought}
                 placeholder="Enter product name..."
@@ -29,6 +30,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
             />
 
             <input
+                aria-label="Product quantity"
                 className="ProductItem__qty item input"
                 disabled={product.isBought}
                 min={1}
@@ -42,6 +44,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
             />
 
             <select
+                aria-label="Product unit"
                 className="ProductItem__unit item input"
                 disabled={product.isBought}
                 value={product.unit}
@@ -57,6 +60,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
 
             <div className="ProductItem__actions item" >
                 <button
+                    aria-label={product.isBought ? 'Mark the product as not bought' : 'Mark the product as bought'}
                     className="btn"
                     type="button"
                     onClick={() => product.update({ isBought: !product.isBought })}
@@ -69,6 +73,7 @@ const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ produ
                 </button>
 
                 <button
+                    aria-label="Delete product"
                     className="btn delete"
                     type="button"
                     onClick={() => product.remove()}

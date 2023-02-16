@@ -1,4 +1,4 @@
-import { createContext, FunctionalComponent, h } from 'preact';
+import { createContext, FunctionalComponent } from 'preact';
 import { useContext, useMemo } from 'preact/hooks';
 
 import { ProductStore } from '~/store/ProductStore';

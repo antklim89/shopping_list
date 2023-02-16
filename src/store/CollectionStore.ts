@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import type { ProductStore } from './ProductStore';
 
 import type { UUID } from '~/types';
-import { removeStorage, setStorage } from '~/utils/storage';
+import { removeCollectionFromStorage, setCollectionToStorage } from '~/utils';
 
 
 export class CollectionStore {
@@ -21,23 +21,23 @@ export class CollectionStore {
         return rest;
     }
 
-    select(): void {
+    public select(): void {
         this.productStore.currentCollectionId = this.id;
     }
 
-    rename(newName: string): void {
+    public rename(newName: string): void {
         this.name = newName;
 
-        setStorage(this.id, { name: newName });
+        setCollectionToStorage(this.id, { name: newName });
     }
 
-    delete(): void {
+    public delete(): void {
         if (!this.canDelete) return;
         this.productStore.collections.remove(this);
 
         const [firstCollection] = this.productStore.collections;
         this.productStore.currentCollectionId = firstCollection.id;
-        removeStorage(this.id);
+        removeCollectionFromStorage(this.id);
     }
 
     get canDelete(): boolean {

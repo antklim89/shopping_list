@@ -1,5 +1,6 @@
+import { m } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
-import { FunctionComponent, h } from 'preact';
+import { Fragment, FunctionComponent } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import { DeleteIcon, DoneIcon, EditIcon } from './icons';
@@ -25,45 +26,55 @@ const CollectionItem: FunctionComponent<Props> = ({ collection }) => {
         if (ref.current) ref.current.focus();
     }, [isEdit]);
     return (
-        <div className="CollectionItem">
-            {isEdit
-                ? (
-                    <input
-                        className="CollectionItem__input input"
-                        maxLength={18}
-                        ref={ref}
-                        type="text"
-                        value={collection.name}
-                        onBlur={() => setIsEdit(false)}
-                        onChange={(e) => collection.rename(e.currentTarget.value)}
-                    />
-                )
-                : (
-                    <button
-                        className={`btn CollectionItem__name-btn ${collection.id === store.currentCollection.id ? 'CollectionItem__select' : ''}`}
-                        type="button"
-                        onClick={() => collection.select()}
-                    >
-                        {collection.name}
-                    </button>
-                )}
-            <button
-                className="CollectionItem__btn btn"
-                type="button"
-                onClick={toggleIsEdit}
-            >
-                {isEdit ? <DoneIcon /> : <EditIcon />}
-            </button>
-            {collection.canDelete && (
+        <m.li
+            animate={{ x: 0, opacity: 1 }}
+            className="CollectionItem"
+            exit={{ x: '100vh', opacity: 0 }}
+            initial={{ x: '100vh', opacity: 0 }}
+        >
+            {/* @ts-expect-error library error */}
+            <>
+                {isEdit
+                    ? (
+                        <input
+                            className="CollectionItem__input input"
+                            maxLength={18}
+                            ref={ref}
+                            type="text"
+                            value={collection.name}
+                            onBlur={() => setIsEdit(false)}
+                            onChange={(e) => collection.rename(e.currentTarget.value)}
+                        />
+                    )
+                    : (
+                        <button
+                            className={`btn CollectionItem__name-btn ${collection.id === store.currentCollection.id ? 'CollectionItem__select' : ''}`}
+                            type="button"
+                            onClick={() => collection.select()}
+                        >
+                            {collection.name}
+                        </button>
+                    )}
                 <button
-                    className="CollectionItem__btn btn delete"
+                    className="CollectionItem__btn btn"
                     type="button"
-                    onClick={() => collection.delete()}
+                    onClick={toggleIsEdit}
                 >
-                    <DeleteIcon />
+                    {isEdit ? <DoneIcon /> : <EditIcon />}
                 </button>
-            )}
-        </div>
+                {collection.canDelete
+                    ? (
+                        <button
+                            className="CollectionItem__btn btn delete"
+                            type="button"
+                            onClick={() => collection.delete()}
+                        >
+                            <DeleteIcon />
+                        </button>
+                    )
+                    : null}
+            </>
+        </m.li>
     );
 };
 

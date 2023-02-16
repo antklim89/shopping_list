@@ -1,3 +1,5 @@
 export * from './copyToClipboard';
 export * from './isUUID';
-export * from './searchParams';
+export * from './urlHandlers';
+export * from './files';
+export * from './storageHandlers';

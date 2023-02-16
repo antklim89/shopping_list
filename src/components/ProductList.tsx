@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
-import { FunctionalComponent, h } from 'preact';
+import { FunctionalComponent } from 'preact';
 
 import Actions from './Actions';
 import ProductItem from './ProductItem';

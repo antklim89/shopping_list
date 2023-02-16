@@ -4,44 +4,52 @@ import {
 import { v4 } from 'uuid';
 
 import { CollectionStore } from './CollectionStore';
-import { IProductItem, ProductItemStore } from './ProductItemStore';
+import { ProductItemStore } from './ProductItemStore';
 
 import type { UUID } from '~/types';
-import { getIdSearchParam, getProductsSearchParam, getSearchParam, isUUID, setSearchParams } from '~/utils';
 import {
-    getCurrentCollectionStorage,
-    getFromStorage,
-    setCurrentCollectionStorage,
-    setStorage,
-} from '~/utils/storage';
+    getProductsFromFile,
+    getCollectionIdFromUrl,
+    getProductsFromUrl,
+    getCollectionFromUrl,
+    setCollectionToUrl,
+    saveProductsToFile,
+    getAllCollectionsFromStorage,
+    getCurrentCollectionFromStorage,
+    getCollectionFromStorage,
+    setCurrentCollectionToStorage,
+    setCollectionToStorage,
+} from '~/utils';
 
 
 export class ProductStore {
     constructor() {
-        this.currentCollectionId = getIdSearchParam() || getCurrentCollectionStorage() || v4();
+        this.currentCollectionId = getCollectionIdFromUrl() || getCurrentCollectionFromStorage() || v4() as UUID;
 
-        const searchParams = getSearchParam();
-        const storage = getFromStorage(this.currentCollectionId);
+        const urlProducts = getCollectionFromUrl();
+        const storageProducts = getCollectionFromStorage(this.currentCollectionId);
 
 
-        if (searchParams) {
+        if (urlProducts) {
             this.fromUrl();
-            setStorage(this.currentCollectionId, { products: searchParams.products });
-        } else if (storage) {
+            setCollectionToStorage(this.currentCollectionId, { products: urlProducts.products });
+        } else if (storageProducts) {
             this.fromLocalStorage();
-            setSearchParams({ products: storage.products });
+            setCollectionToUrl({ products: storageProducts.products });
         } else {
-            setSearchParams({});
-            setStorage(this.currentCollectionId, {});
+            setCollectionToUrl({});
+            setCollectionToStorage(this.currentCollectionId, {});
         }
 
-        this.initCollections();
+        getAllCollectionsFromStorage().forEach(({ id, name }) => {
+            this.collections.push(new CollectionStore(id, name, this));
+        });
 
         makeAutoObservable(this, {}, { autoBind: true });
 
         autorun(() => {
-            setCurrentCollectionStorage(this.currentCollectionId);
-            setSearchParams({ id: this.currentCollectionId });
+            setCurrentCollectionToStorage(this.currentCollectionId);
+            setCollectionToUrl({ id: this.currentCollectionId });
         });
 
         reaction(
@@ -52,35 +60,17 @@ export class ProductStore {
         reaction(
             () => JSON.stringify(this.products),
             () => {
-                setStorage(this.currentCollectionId, { products: this.products });
-                setSearchParams({ products: this.products });
+                setCollectionToStorage(this.currentCollectionId, { products: this.products });
+                setCollectionToUrl({ products: this.products });
             },
         );
     }
 
-    private initCollections(): void {
-        for (let index = 0; index < localStorage.length; index += 1) {
-            const storeId = localStorage.key(index);
-            if (!isUUID(storeId)) continue;
-            const productsString = localStorage.getItem(storeId);
-            if (!productsString) continue;
+    public products: IObservableArray<ProductItemStore> = observable.array();
 
-            try {
-                const data = JSON.parse(productsString);
-                if ('name' in data && 'products' in data) {
-                    this.collections.push(new CollectionStore(storeId, data.name, this));
-                }
-            } catch (error) {
-                continue;
-            }
-        }
-    }
+    public collections: IObservableArray<CollectionStore> = observable.array();
 
-    public products: IObservableArray<ProductItemStore> = observable.array()
-
-    public collections: IObservableArray<CollectionStore> = observable.array()
-
-    public currentCollectionId: UUID
+    public currentCollectionId: UUID;
 
     public get currentCollection(): CollectionStore {
         const currentCollection = this.collections.find((collection) => (
@@ -97,32 +87,32 @@ export class ProductStore {
         return currentCollection;
     }
 
-    addProduct(): void {
+    public addProduct(): void {
         this.products.unshift(new ProductItemStore({}, this));
     }
 
-    clearProducts(): void {
+    public clearProducts(): void {
         this.products.clear();
     }
 
-    toggleAllBougth(): void {
+    public toggleAllBougth(): void {
         const isAllBougth = this.products.every((product) => product.isBought);
         this.products.forEach((product) => {
             product.isBought = !isAllBougth;
         });
     }
 
-    createCollection(name: string): void {
-        const newCollectionStore = new CollectionStore(v4(), name, this);
-        this.collections.push(newCollectionStore);
-        setStorage(newCollectionStore.id, { name });
+    public createCollection(name: string): void {
+        const newCollectionStore = new CollectionStore(v4() as UUID, name, this);
+        this.collections.unshift(newCollectionStore);
+        setCollectionToStorage(newCollectionStore.id, { name });
         this.currentCollectionId = newCollectionStore.id;
         this.products.clear();
     }
 
     private fromLocalStorage(): void {
         try {
-            const data = getFromStorage(this.currentCollectionId);
+            const data = getCollectionFromStorage(this.currentCollectionId);
             if (!data) return;
             const productStores = data.products.map((product) => new ProductItemStore(product, this));
             this.products.replace(productStores);
@@ -134,7 +124,7 @@ export class ProductStore {
 
     private fromUrl(): void {
         try {
-            const productsList = getProductsSearchParam();
+            const productsList = getProductsFromUrl();
 
             if (!productsList || productsList.length === 0) {
                 return;
@@ -147,31 +137,31 @@ export class ProductStore {
         }
     }
 
-    async fromFile(files: FileList | null): Promise<void> {
+    public async fromFile(files: FileList | null): Promise<void> {
         if (!files || files.length < 1) return;
         const [file] = files;
         if (file.type !== 'application/json' || !(/.*\.json$/i).test(file.name)) return;
-        try {
-            const fileText = await file.text();
-            const fileJson: IProductItem[] = JSON.parse(fileText);
-            const products = fileJson.map((product) => new ProductItemStore(product, this));
-            runInAction(() => this.products.replace(products));
 
+        try {
+            const fileProducts = await getProductsFromFile(file);
+            runInAction(() => {
+                const newCollectionStore = new CollectionStore(v4() as UUID, fileProducts.name, this);
+                this.collections.push(newCollectionStore);
+                setCollectionToStorage(
+                    newCollectionStore.id,
+                    { name: fileProducts.name, products: fileProducts.products },
+                );
+                this.currentCollectionId = newCollectionStore.id;
+
+                const productStores = fileProducts.products.map((product) => new ProductItemStore(product, this));
+                this.products.replace(productStores);
+            });
         } catch (error) {
-            console.error('Load from file Error: \n', error);
+            console.error('Load from file error: \n', error);
         }
     }
 
-    toFile(): void {
-        const blob = new Blob([JSON.stringify(this.products)]);
-        const fileName = `Product List - ${new Date()}.json`;
-
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        document.body.append(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+    public toFile(): void {
+        saveProductsToFile(this.currentCollection.name, this.products);
     }
 }

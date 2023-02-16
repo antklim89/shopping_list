@@ -1,5 +1,5 @@
 import { LazyMotion, domAnimation } from 'framer-motion';
-import { FunctionComponent, h } from 'preact';
+import { FunctionComponent } from 'preact';
 
 import Header from './components/Header';
 import ProductList from './components/ProductList';
@@ -7,9 +7,9 @@ import StoreProvider from './components/StoreProvider';
 
 
 const App: FunctionComponent = () => {
-
     return (
         <LazyMotion strict features={domAnimation}>
+            {/* @ts-expect-error library error */}
             <StoreProvider>
                 <Header />
                 <ProductList />
