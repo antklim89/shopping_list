@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import { FunctionComponent } from 'preact';
+import { FunctionComponent, h } from 'preact';
 
 import CollectionItem from './CollectionItem';
 import { useStore } from './StoreProvider';
@@ -42,9 +42,11 @@ const CollectionList: FunctionComponent = () => {
 
             <ul className="CollectionList__items">
                 <AnimatePresence>
-                    {store.collections.map((collection) => (
-                        <CollectionItem collection={collection} key={collection.id} />
-                    ))}
+                    <>
+                        {store.collections.map((collection) => (
+                            <CollectionItem collection={collection} key={collection.id} />
+                        ))}
+                    </>
                 </AnimatePresence>
             </ul>
         </div>
