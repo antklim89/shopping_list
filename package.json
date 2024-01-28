@@ -9,28 +9,28 @@
     "test": "vitest"
   },
   "dependencies": {
-    "framer-motion": "^9.0.4",
-    "mobx": "^6.8.0",
-    "mobx-react-lite": "^3.4.0",
-    "preact": "^10.12.1",
-    "uuid": "^9.0.0"
+    "framer-motion": "^11.0.3",
+    "mobx": "^6.12.0",
+    "mobx-react-lite": "^4.0.5",
+    "preact": "^10.19.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.5.0",
-    "@testing-library/react": "^13.4.0",
-    "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
-    "eslint": "^8.34.0",
+    "@preact/preset-vite": "^2.8.1",
+    "@testing-library/react": "^14.1.2",
+    "@types/uuid": "^9.0.8",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "jsdom": "^21.1.0",
-    "sass": "^1.58.1",
-    "typescript": "^4.9.5",
-    "vite": "^4.1.1",
-    "vitest": "^0.28.5"
+    "jsdom": "^24.0.0",
+    "sass": "^1.70.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vitest": "^1.2.2"
   }
 }
