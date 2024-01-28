@@ -38,15 +38,16 @@ export function setCurrentCollectionToStorage(newId: string): void {
 
 export function getAllCollectionsFromStorage(): ProductsCollection[] {
     const collections: ProductsCollection[] = [];
+
     for (let index = 0; index < localStorage.length; index += 1) {
         const storeId = localStorage.key(index);
 
-        if (!isUUID(storeId)) continue;
-        const productsString = localStorage.getItem(storeId);
-        if (!productsString) continue;
+        const productsString = isUUID(storeId) && localStorage.getItem(storeId);
 
-        const collection = getCollectionFromStorage(storeId);
-        if (collection) collections.push(collection);
+        if (productsString) {
+            const collection = getCollectionFromStorage(storeId);
+            if (collection) collections.push(collection);
+        }
     }
     return collections;
 }
