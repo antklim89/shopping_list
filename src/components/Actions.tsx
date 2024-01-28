@@ -26,7 +26,6 @@ const Actions: FunctionComponent = () => {
         }
     };
 
-
     return (
         <div className="Actions">
             <div className="Actions__group">
@@ -60,6 +59,7 @@ const Actions: FunctionComponent = () => {
                 </button>
             </div>
             <div className="Actions__group">
+                {/* @ts-expect-error share can be undefined */}
                 {(typeof window !== 'undefined' && window.navigator.share)
                     ? (
                         <button
