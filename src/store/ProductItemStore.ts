@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 import type { ProductStore } from './ProductStore';
 
 import type { UUID } from '~/types';
-import { Unit } from '~/types/Unit';
+import { Unit } from '~/types/units';
 
 
 export type INewProductItem = Partial<ProductItemStore>

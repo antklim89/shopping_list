@@ -5,7 +5,7 @@ import { FunctionalComponent } from 'preact';
 import { CartIcon, DeleteIcon, DoneIcon } from './icons';
 
 import type { ProductItemStore } from '~/store/ProductItemStore';
-import type { Unit } from '~/types/Unit';
+import type { Unit } from '~/types/units';
 
 
 const ProductItem: FunctionalComponent<{ product: ProductItemStore }> = ({ product }) => {
