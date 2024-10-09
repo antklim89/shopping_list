@@ -1,12 +1,12 @@
 import './index.css';
-import { Header } from './components/layout/Header';
+import { Header } from './components/layout/header';
 
 
 function App() {
   return (
-    <div>
+    <main>
       <Header />
-    </div>
+    </main>
   );
 }
 
