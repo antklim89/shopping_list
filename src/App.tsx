@@ -1,5 +1,5 @@
 import './index.css';
-import { Header } from './components/layout/header';
+import { Header } from './components/header';
 
 
 function App() {

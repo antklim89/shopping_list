@@ -1,4 +1,4 @@
-import { CollectionDrawer } from '@/components/layout/collection-drawer';
+import { CollectionDrawer } from '@/components/collection-drawer';
 import { Button } from '@/components/ui/button';
 
 
