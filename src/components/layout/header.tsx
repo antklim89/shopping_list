@@ -1,3 +1,4 @@
+import { CollectionDrawer } from '@/components/layout/collection-drawer';
 import { Button } from '@/components/ui/button';
 
 
@@ -8,14 +9,12 @@ export function Header() {
       <nav>
         <ul className="flex space-x-4">
           <li>
-            <Button className="">
+            <Button>
               Create New List
             </Button>
           </li>
           <li>
-            <Button className="">
-              Collection
-            </Button>
+            <CollectionDrawer />
           </li>
         </ul>
       </nav>
