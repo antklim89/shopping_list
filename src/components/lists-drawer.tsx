@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/drawer';
 
 
-export function CollectionDrawer() {
+export function ListsDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>

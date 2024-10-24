@@ -1,4 +1,4 @@
-import { CollectionDrawer } from '@/components/collection-drawer';
+import { ListsDrawer } from '@/components/lists-drawer';
 
 
 export function Header() {
@@ -9,7 +9,7 @@ export function Header() {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <CollectionDrawer />
+              <ListsDrawer />
             </li>
           </ul>
         </nav>
