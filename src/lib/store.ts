@@ -45,10 +45,12 @@ export const useStore = create(persist<ListStore>(set => ({
   lists: {},
   currentListId: generateId(),
 
-  listCreate: () => set(() => {
+  listCreate: () => set((state) => {
     const listId = generateId();
+
     return {
       lists: {
+        ...state.lists,
         [listId]: defaultList,
       },
       currentListId: listId,

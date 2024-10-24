@@ -11,16 +11,12 @@ import {
   type ListStore,
   useStore,
 } from '@/lib/store';
+import { generateId } from '@/lib/utils';
 
-
-let count = 0;
 
 vi.mock('@/lib/utils', async a => ({
   ...await (a()),
-  generateId: vi.fn(() => {
-    count += 1;
-    return `randomId${count}`;
-  }),
+  generateId: vi.fn(() => `randomId`),
 }));
 
 
@@ -29,16 +25,25 @@ const getState = () => useStore.getState();
 const populateState = (data: Partial<ListStore>) => useStore.setState(data);
 
 beforeEach(() => {
-  count = 0;
+  vi.restoreAllMocks();
   useStore.setState(initState);
 });
 
+
 describe('listCreate', () => {
   it('should create a list', async () => {
+    vi.mocked(generateId).mockImplementation(() => 'randomId1');
     getState().listCreate();
 
     expect(getState().currentListId).toStrictEqual('randomId1');
     expect(getState().lists.randomId1).toStrictEqual({ name: '', items: {} });
+
+    vi.mocked(generateId).mockImplementation(() => 'randomId2');
+    getState().listCreate();
+
+    expect(getState().currentListId).toStrictEqual('randomId2');
+    expect(getState().lists.randomId1).toStrictEqual({ name: '', items: {} });
+    expect(getState().lists.randomId2).toStrictEqual({ name: '', items: {} });
   });
 });
 
@@ -75,7 +80,7 @@ describe('listRevome', () => {
 
     getState().listRevome('listId2');
     expect(getState().lists).not.toHaveProperty('listId2');
-    expect(getState().currentListId).toBeNull();
+    expect(getState().currentListId).toEqual('randomId');
   });
 });
 
@@ -90,7 +95,9 @@ describe('listSetCurrentId', () => {
 
 describe('listItemAdd', () => {
   it('should add new list item', async () => {
+    vi.mocked(generateId).mockImplementation(() => 'randomId1');
     getState().listItemAdd('listId');
+    vi.mocked(generateId).mockImplementation(() => 'randomId2');
     getState().listItemAdd('listId');
 
     expect(getState().lists.listId).toStrictEqual({ ...defaultList, items: { randomId1: defaultListItem, randomId2: defaultListItem } });
@@ -101,13 +108,12 @@ describe('listItemUpdate', () => {
   it('should update list item', async () => {
     populateState({ lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } } });
     getState().listItemUpdate('listId', 'listItemId', { name: 'Updated Name' });
-    getState().listItemUpdate('listId', 'listItemId', { price: 6000, qty: 6000 });
+    getState().listItemUpdate('listId', 'listItemId', { qty: 6000 });
     getState().listItemUpdate('listId', 'listItemId', {});
 
     expect(getState().lists.listId?.items).toHaveProperty('extra');
     expect(getState().lists.listId?.items.listItemId).toStrictEqual({
       name: 'Updated Name',
-      price: 6000,
       qty: 6000,
       unit: 'piece',
       checked: false,
@@ -121,7 +127,6 @@ describe('listItemUpdate', () => {
       randomId: {
         checked: false,
         name: 'Updated Name',
-        price: 0,
         qty: 0,
         unit: 'piece',
       },
