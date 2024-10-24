@@ -21,6 +21,7 @@ export interface ListStore {
   lists: Record<string, List>;
   currentListId: string;
   listCreate: () => void;
+  listLoad: (listId: string, list: List) => void;
   listSetName: (listId: string, newName: string) => void;
   listRevome: (listId: string) => void;
   listItemAdd: (listId: string) => void;
@@ -43,6 +44,15 @@ export const useStore = create(persist<ListStore>(set => ({
         [listId]: defaultList,
       },
       currentListId: listId,
+    };
+  }),
+
+  listLoad: (listId: string, list: List) => set((state) => {
+    return {
+      lists: {
+        ...state.lists,
+        [listId]: list,
+      },
     };
   }),
 

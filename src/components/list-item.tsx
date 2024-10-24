@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import { units } from '@/lib/constants';
-import { type ListItem as ListItemType, useStore } from '@/lib/store';
+import { useStore } from '@/lib/store';
+import type { ListItem as ListItemType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 
@@ -51,7 +52,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       </select>
 
       <Button
-        className={cn(' p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.selected })}
+        className={cn('p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.selected })}
         onClick={() => handleChange({ selected: !items.selected })}
       >
         {items.selected ? <FaCheck /> : <FaO />}
