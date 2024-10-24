@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Lists } from '@/components/lists';
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -29,7 +30,7 @@ export function ListsDrawer() {
           initial={{ x: 400 }}
           transition={{ duration: 0.5 }}
         >
-          CONTENT
+          <Lists />
         </motion.div>
         <DrawerClose asChild>
           <Button>Close</Button>
