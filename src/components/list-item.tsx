@@ -18,13 +18,13 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   return (
     <motion.div
       animate={{ x: 0, opacity: 1 }}
-      className={cn('flex border border-slate-400 shadow-xl', { 'border-green-800': items.checked })}
+      className={cn('flex border border-slate-400 shadow-xl', { 'border-green-800': items.selected })}
       exit={{ x: 50, opacity: 0 }}
       initial={{ x: -50, opacity: 0 }}
     >
       <input
         className="flex-[5] p-2"
-        disabled={items.checked}
+        disabled={items.selected}
         placeholder="Product name..."
         type="text"
         value={items.name}
@@ -32,7 +32,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       />
       <input
         className="flex-[1] p-2 text-center"
-        disabled={items.checked}
+        disabled={items.selected}
         max={90000000}
         min={1}
         type="number"
@@ -41,7 +41,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       />
       <select
         className="flex-[1] p-2 text-center"
-        disabled={items.checked}
+        disabled={items.selected}
         value={items.unit}
         onChange={e => handleChange({ unit: e.target.value as typeof units[number] })}
       >
@@ -51,10 +51,10 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       </select>
 
       <Button
-        className={cn(' p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.checked })}
-        onClick={() => handleChange({ checked: !items.checked })}
+        className={cn(' p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.selected })}
+        onClick={() => handleChange({ selected: !items.selected })}
       >
-        {items.checked ? <FaCheck /> : <FaO />}
+        {items.selected ? <FaCheck /> : <FaO />}
       </Button>
 
       <Button

@@ -116,7 +116,7 @@ describe('listItemUpdate', () => {
       name: 'Updated Name',
       qty: 6000,
       unit: 'piece',
-      checked: false,
+      selected: false,
     });
   });
 
@@ -125,7 +125,7 @@ describe('listItemUpdate', () => {
 
     expect(getState().lists.listId?.items).toEqual({
       randomId: {
-        checked: false,
+        selected: false,
         name: 'Updated Name',
         qty: 0,
         unit: 'piece',
