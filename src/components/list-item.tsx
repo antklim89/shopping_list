@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import { units } from '@/lib/constants';
@@ -15,7 +16,12 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   };
 
   return (
-    <div className={cn('flex border border-slate-400 shadow-xl', { 'border-green-800': items.checked })}>
+    <motion.div
+      animate={{ x: 0, opacity: 1 }}
+      className={cn('flex border border-slate-400 shadow-xl', { 'border-green-800': items.checked })}
+      exit={{ x: 50, opacity: 0 }}
+      initial={{ x: -50, opacity: 0 }}
+    >
       <input
         className="flex-[5] p-2"
         disabled={items.checked}
@@ -57,6 +63,6 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       >
         <FaTrash />
       </Button>
-    </div>
+    </motion.div>
   );
 }
