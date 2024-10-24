@@ -14,7 +14,7 @@ export function CollectionDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button>Collection</Button>
+        <Button>Lists</Button>
       </DrawerTrigger>
       <DrawerContent className="flex flex-col justify-between">
         <DrawerTitle>
