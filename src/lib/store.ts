@@ -1,20 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { units } from './constants';
+import type { List, ListItem } from './types';
 import { generateId } from './utils';
 
-
-export interface ListItem {
-  name: string;
-  qty: number;
-  unit: typeof units[number];
-  selected: boolean;
-}
-
-export interface List {
-  name: string;
-  items: Record<string, ListItem>;
-}
 
 export const defaultListItem: ListItem = {
   name: '',
