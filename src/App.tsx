@@ -1,12 +1,18 @@
 import './index.css';
+import { ActionsPanel } from './components/actions-panel';
 import { Header } from './components/header';
+import { List } from './components/list';
 
 
 function App() {
   return (
-    <main>
+    <>
       <Header />
-    </main>
+      <main className="container">
+        <ActionsPanel />
+        <List />
+      </main>
+    </>
   );
 }
 
