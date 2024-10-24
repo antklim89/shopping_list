@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import type { units } from './constants';
 import { generateId } from './utils';
 
 
 export interface ListItem {
   name: string;
-  price: number;
   qty: number;
-  unit: 'kg' | 'mg' | 'l' | 'g' | 'ml' | 'piece';
+  unit: typeof units[number];
   checked: boolean;
 }
 
@@ -18,7 +18,6 @@ export interface List {
 
 export const defaultListItem: ListItem = {
   name: '',
-  price: 0,
   qty: 0,
   unit: 'piece',
   checked: false,
