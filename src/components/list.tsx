@@ -13,7 +13,7 @@ export function List() {
     <div className=" overflow-hidden">
       <div className="text-2xl font-bold my-4">
         <input
-          className="bg-white border border-slate-400 shadow-xl p-2 w-full max-w-[50rem]"
+          className="bg-white border border-slate-400 p-2 w-full max-w-[50rem]"
           placeholder="List name"
           type="text"
           value={list.name}

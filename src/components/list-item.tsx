@@ -19,7 +19,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   return (
     <motion.div
       animate={{ x: 0, opacity: 1 }}
-      className={cn('flex justify-between border bg-white border-slate-400 shadow-xl flex-wrap sm:flex-nowrap', { 'border-green-800': items.selected })}
+      className={cn('flex justify-between border bg-white border-slate-400 flex-wrap sm:flex-nowrap', { 'border-green-800': items.selected })}
       exit={{ x: 50, opacity: 0 }}
       initial={{ x: -50, opacity: 0 }}
     >
