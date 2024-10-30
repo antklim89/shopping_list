@@ -10,6 +10,9 @@ export function LoadFromFile() {
   const currentListId = useStore(state => state.currentListId);
   const lists = useStore(state => state.lists[currentListId]);
   const listLoad = useStore(state => state.listLoad);
+  const listsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
+
+  if (listsLength === 0) return null;
   if (!lists) return null;
 
   const handleFileLoad = async (e: ChangeEvent<HTMLInputElement>) => {
