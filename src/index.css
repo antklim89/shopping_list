@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-100;
+  @apply bg-primary-500;
 }
 
 input:disabled,
 select:disabled {
   @apply text-slate-400;
+}
+
+input,
+select {
+  @apply bg-primary-600 text-white;
 }

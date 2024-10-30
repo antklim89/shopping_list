@@ -1,4 +1,4 @@
-import { slate } from 'tailwindcss/colors';
+import { zinc } from 'tailwindcss/colors';
 
 
 /** @type {import('tailwindcss').Config} */
@@ -15,8 +15,8 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: slate[500],
-          ...slate,
+          DEFAULT: zinc[500],
+          ...zinc,
         },
       },
     },

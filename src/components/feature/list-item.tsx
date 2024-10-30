@@ -19,11 +19,11 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   return (
     <motion.div
       animate={{ x: 0, opacity: 1 }}
-      className={cn('flex justify-between border bg-white border-slate-400 flex-wrap sm:flex-nowrap', { 'border-green-800': items.selected })}
+      className={cn('flex gap-2 justify-between border bg-primary-500 border-primary-600 flex-wrap sm:flex-nowrap', { 'border-green-800': items.selected })}
       exit={{ x: 50, opacity: 0 }}
       initial={{ x: -50, opacity: 0 }}
     >
-      <div className="flex w-full sm:w-auto sm:flex-[5_0_auto]">
+      <div className="flex gap-2 w-full sm:w-auto sm:flex-[5_0_auto]">
         <input
           className="w-full p-2"
           disabled={items.selected}
@@ -33,7 +33,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           onChange={e => handleChange({ name: e.target.value })}
         />
       </div>
-      <div className="flex flex-[1] justify-end">
+      <div className="flex gap-2 flex-[1] justify-end">
         <input
           className="p-2 text-center"
           disabled={items.selected}

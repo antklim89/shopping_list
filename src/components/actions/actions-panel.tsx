@@ -8,7 +8,7 @@ import { ShareList } from './share-list';
 
 export function ActionsPanel() {
   return (
-    <div className="bg-primary flex justify-end border border-slate-400">
+    <div className="bg-primary flex justify-end gap-2">
       <ListCreate />
       <SelectAll />
       <SaveToFile />
