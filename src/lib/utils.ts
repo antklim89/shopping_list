@@ -48,3 +48,16 @@ export function saveListToFile(id: string, list: ListType): void {
   link.remove();
   setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 }
+
+export function loadListFromUrl(): ListShareType | null {
+  const listString = new URLSearchParams(location.search).get('share');
+  if (listString == null) return null;
+  history.replaceState(null, '', location.origin);
+
+  try {
+    const listJson = JSON.parse(listString) as ListShareType;
+    return listJson;
+  } catch {
+    return null;
+  }
+}
