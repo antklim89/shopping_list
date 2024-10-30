@@ -1,3 +1,4 @@
+import { FaDownload } from 'react-icons/fa6';
 import { useStore } from '@/lib/store';
 import { saveListToFile } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -10,7 +11,8 @@ export function SaveToFile() {
 
   return (
     <Button onClick={() => saveListToFile(currentListId, lists)}>
-      Save To File
+      <FaDownload />
+      <span className="ml-2 hidden md:inline">Save To File</span>
     </Button>
   );
 }

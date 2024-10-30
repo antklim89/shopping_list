@@ -1,4 +1,5 @@
 import { type ChangeEvent, useRef } from 'react';
+import { FaUpload } from 'react-icons/fa6';
 import { useStore } from '@/lib/store';
 import { loadListFromFile } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -22,7 +23,8 @@ export function LoadFromFile() {
 
   return (
     <Button className="btn" onClick={() => inputRef.current?.click()}>
-      Load From File
+      <FaUpload />
+      <span className="ml-2 hidden md:inline">Load From File</span>
       <input
         accept=".json"
         className="hidden"
