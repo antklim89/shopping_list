@@ -3,7 +3,7 @@ import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import { units } from '@/lib/constants';
 import { useStore } from '@/lib/store';
-import type { ListItemType as ListItemType } from '@/lib/types';
+import type { ListItemType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 

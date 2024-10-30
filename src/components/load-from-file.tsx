@@ -4,7 +4,7 @@ import { loadListFromFile } from '@/lib/utils';
 import { Button } from './ui/button';
 
 
-export default function LoadFromFile() {
+export function LoadFromFile() {
   const inputRef = useRef<HTMLInputElement>(null);
   const currentListId = useStore(state => state.currentListId);
   const lists = useStore(state => state.lists[currentListId]);

@@ -1,6 +1,6 @@
 import { ListCreate } from './list-create';
-import LoadFromFile from './load-from-file';
-import SaveToFile from './save-to-file';
+import { LoadFromFile } from './load-from-file';
+import { SaveToFile } from './save-to-file';
 import { SelectAll } from './select-all';
 import { ShareList } from './share-list';
 
