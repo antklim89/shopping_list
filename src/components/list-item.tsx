@@ -19,51 +19,55 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   return (
     <motion.div
       animate={{ x: 0, opacity: 1 }}
-      className={cn('flex border border-slate-400 shadow-xl', { 'border-green-800': items.selected })}
+      className={cn('flex justify-between border bg-white border-slate-400 shadow-xl flex-wrap sm:flex-nowrap', { 'border-green-800': items.selected })}
       exit={{ x: 50, opacity: 0 }}
       initial={{ x: -50, opacity: 0 }}
     >
-      <input
-        className="flex-[5] p-2"
-        disabled={items.selected}
-        placeholder="Product name..."
-        type="text"
-        value={items.name}
-        onChange={e => handleChange({ name: e.target.value })}
-      />
-      <input
-        className="flex-[1] p-2 text-center"
-        disabled={items.selected}
-        max={90000000}
-        min={1}
-        type="number"
-        value={items.qty}
-        onChange={e => handleChange({ qty: e.target.valueAsNumber })}
-      />
-      <select
-        className="flex-[1] p-2 text-center"
-        disabled={items.selected}
-        value={items.unit}
-        onChange={e => handleChange({ unit: e.target.value as typeof units[number] })}
-      >
-        {units.map(unit => (
-          <option key={unit} value={unit}>{unit}</option>
-        ))}
-      </select>
+      <div className="flex w-full sm:w-auto sm:flex-[5_0_auto]">
+        <input
+          className="w-full p-2"
+          disabled={items.selected}
+          placeholder="Product name..."
+          type="text"
+          value={items.name}
+          onChange={e => handleChange({ name: e.target.value })}
+        />
+      </div>
+      <div className="flex flex-[1] justify-end">
+        <input
+          className="p-2 text-center"
+          disabled={items.selected}
+          max={90000000}
+          min={1}
+          type="number"
+          value={items.qty}
+          onChange={e => handleChange({ qty: e.target.valueAsNumber })}
+        />
+        <select
+          className="p-2 text-center"
+          disabled={items.selected}
+          value={items.unit}
+          onChange={e => handleChange({ unit: e.target.value as typeof units[number] })}
+        >
+          {units.map(unit => (
+            <option key={unit} value={unit}>{unit}</option>
+          ))}
+        </select>
 
-      <Button
-        className={cn('p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.selected })}
-        onClick={() => handleChange({ selected: !items.selected })}
-      >
-        {items.selected ? <FaCheck /> : <FaO />}
-      </Button>
+        <Button
+          className={cn('p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.selected })}
+          onClick={() => handleChange({ selected: !items.selected })}
+        >
+          {items.selected ? <FaCheck /> : <FaO />}
+        </Button>
 
-      <Button
-        className="bg-red-800 hover:bg-red-900 p-2 w-24 flex justify-center"
-        onClick={() => listItemDelete(currentListId, listItemId)}
-      >
-        <FaTrash />
-      </Button>
+        <Button
+          className="bg-red-800 hover:bg-red-900 p-2 w-24 flex justify-center"
+          onClick={() => listItemDelete(currentListId, listItemId)}
+        >
+          <FaTrash />
+        </Button>
+      </div>
     </motion.div>
   );
 }
