@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import './index.css';
-import { ActionsPanel } from './components/actions-panel';
-import { Header } from './components/header';
-import { List } from './components/list';
-import { useStore } from './lib/store';
-import { loadListFromUrl } from './lib/utils';
+import { ActionsPanel } from '@/components/actions/actions-panel';
+import { List } from '@/components/feature/list';
+import { Header } from '@/components/layout/header';
+import { useStore } from '@/lib/store';
+import { loadListFromUrl } from '@/lib/utils';
 
 
 function App() {

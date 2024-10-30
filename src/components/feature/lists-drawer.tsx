@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Lists } from '@/components/lists';
+import { Lists } from '@/components/feature/lists';
 import { Button } from '@/components/ui/button';
 import {
   Drawer,

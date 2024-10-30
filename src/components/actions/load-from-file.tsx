@@ -1,8 +1,8 @@
 import { type ChangeEvent, useRef } from 'react';
 import { FaUpload } from 'react-icons/fa6';
+import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 import { loadListFromFile } from '@/lib/utils';
-import { Button } from './ui/button';
 
 
 export function LoadFromFile() {
