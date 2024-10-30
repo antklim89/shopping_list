@@ -6,7 +6,7 @@ import { useStore } from '@/lib/store';
 export function SelectAll() {
   const currentListId = useStore(state => state.currentListId);
   const listItemSelectAll = useStore(state => state.listItemSelectAll);
-  const listsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
+  const listItemsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
 
   const isAllSelected = useStore((state) => {
     const list = state.lists[currentListId];
@@ -14,10 +14,11 @@ export function SelectAll() {
     return Object.entries(list.items).every(([_, listItem]) => listItem.selected);
   });
 
-  if (listsLength === 0) return null;
-
   return (
-    <Button onClick={() => listItemSelectAll(currentListId)}>
+    <Button
+      disabled={listItemsLength === 0}
+      onClick={() => listItemSelectAll(currentListId)}
+    >
       {isAllSelected
         ? (
             <>

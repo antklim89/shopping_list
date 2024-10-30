@@ -9,11 +9,11 @@ export function SaveToFile() {
   const list = useStore(state => state.lists[currentListId]);
   const listsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
 
-  if (listsLength === 0) return null;
-  if (!list) return null;
-
   return (
-    <Button onClick={() => saveListToFile(currentListId, list)}>
+    <Button
+      disabled={listsLength === 0 || list == null}
+      onClick={() => list && saveListToFile(currentListId, list)}
+    >
       <FaDownload />
       <span className="ml-2 hidden md:inline">Save To File</span>
     </Button>

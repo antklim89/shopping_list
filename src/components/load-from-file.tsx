@@ -8,12 +8,10 @@ import { Button } from './ui/button';
 export function LoadFromFile() {
   const inputRef = useRef<HTMLInputElement>(null);
   const currentListId = useStore(state => state.currentListId);
-  const lists = useStore(state => state.lists[currentListId]);
+  const list = useStore(state => state.lists[currentListId]);
   const listLoad = useStore(state => state.listLoad);
-  const listsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
+  const listsItemsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
 
-  if (listsLength === 0) return null;
-  if (!lists) return null;
 
   const handleFileLoad = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -25,7 +23,11 @@ export function LoadFromFile() {
 
 
   return (
-    <Button className="btn" onClick={() => inputRef.current?.click()}>
+    <Button
+      className="btn"
+      disabled={listsItemsLength === 0 || list == null}
+      onClick={() => inputRef.current?.click()}
+    >
       <FaUpload />
       <span className="ml-2 hidden md:inline">Load From File</span>
       <input

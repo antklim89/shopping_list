@@ -9,11 +9,12 @@ export function RemoveList() {
   const listsLength = useStore(state => Object.keys(state.lists).length);
   const list = useStore(state => state.lists[currentListId]);
 
-  if (!list) return null;
-  if (listsLength <= 1) return null;
-
   return (
-    <Button onClick={() => listRevome(currentListId)}>
+    <Button
+      className="bg-red-800 hover:bg-red-900"
+      disabled={listsLength <= 1 || list == null}
+      onClick={() => listRevome(currentListId)}
+    >
       <FaTrash />
       <span className="ml-2 hidden md:inline">Remove List</span>
     </Button>
