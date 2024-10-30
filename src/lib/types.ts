@@ -1,19 +1,19 @@
 import type { units } from './constants';
 
 
-export interface List {
+export interface ListType {
   name: string;
-  items: Record<string, ListItem>;
+  items: Record<string, ListItemType>;
 }
 
-export interface ListItem {
+export interface ListItemType {
   name: string;
   qty: number;
   unit: typeof units[number];
   selected: boolean;
 }
 
-export interface FileList {
+export interface ListShareType {
   id: string;
-  list: List;
+  list: ListType;
 }

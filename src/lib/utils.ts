@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import type { FileList, List } from './types';
+import type { ListShareType, ListType } from './types';
 
 
 export function cn(...inputs: ClassValue[]) {
@@ -11,7 +11,7 @@ export function generateId(): string {
   return (Math.random() * 1000).toString(36);
 }
 
-export async function loadListFromFile(file: File): Promise<FileList> {
+export async function loadListFromFile(file: File): Promise<ListShareType> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -19,7 +19,7 @@ export async function loadListFromFile(file: File): Promise<FileList> {
       try {
         const fileText = reader.result;
         if (typeof fileText !== 'string') return;
-        const fileJson = JSON.parse(fileText) as FileList;
+        const fileJson = JSON.parse(fileText) as ListShareType;
 
         resolve(fileJson);
       } catch (error) {
@@ -31,7 +31,7 @@ export async function loadListFromFile(file: File): Promise<FileList> {
   });
 }
 
-export function saveListToFile(id: string, list: List): void {
+export function saveListToFile(id: string, list: ListType): void {
   const blob = new Blob([
     JSON.stringify({
       id,

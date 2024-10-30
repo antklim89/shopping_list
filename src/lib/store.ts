@@ -1,32 +1,32 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { List, ListItem } from './types';
+import type { ListItemType, ListType } from './types';
 import { generateId } from './utils';
 
 
-export const defaultListItem: ListItem = {
+export const defaultListItem: ListItemType = {
   name: '',
   qty: 0,
   unit: 'piece',
   selected: false,
 };
 
-export const defaultList: List = {
+export const defaultList: ListType = {
   name: '',
   items: {},
 };
 
 
 export interface ListStore {
-  lists: Record<string, List>;
+  lists: Record<string, ListType>;
   currentListId: string;
   listCreate: () => void;
-  listLoad: (listId: string, list: List) => void;
+  listLoad: (listId: string, list: ListType) => void;
   listSetName: (listId: string, newName: string) => void;
   listRevome: (listId: string) => void;
   listItemAdd: (listId: string) => void;
   listSetCurrentId: (listId: string) => void;
-  listItemUpdate: (listId: string, listItemId: string, newData: Partial<ListItem>) => void;
+  listItemUpdate: (listId: string, listItemId: string, newData: Partial<ListItemType>) => void;
   listItemDelete: (listId: string, listItemId: string) => void;
   listItemSelectAll: (listId: string) => void;
 }
@@ -47,7 +47,7 @@ export const useStore = create(persist<ListStore>(set => ({
     };
   }),
 
-  listLoad: (listId: string, list: List) => set((state) => {
+  listLoad: (listId: string, list: ListType) => set((state) => {
     return {
       lists: {
         ...state.lists,
