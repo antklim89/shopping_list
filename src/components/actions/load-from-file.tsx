@@ -1,6 +1,5 @@
 import { type ChangeEvent, useRef } from 'react';
 import { FaUpload } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 import { loadListFromFile } from '@/lib/utils';
 
@@ -23,9 +22,10 @@ export function LoadFromFile() {
 
 
   return (
-    <Button
-      className="btn"
+    <button
+      className="btn-primary"
       disabled={listsItemsLength === 0 || list == null}
+      type="button"
       onClick={() => inputRef.current?.click()}
     >
       <FaUpload />
@@ -37,6 +37,6 @@ export function LoadFromFile() {
         type="file"
         onChange={handleFileLoad}
       />
-    </Button>
+    </button>
   );
 }

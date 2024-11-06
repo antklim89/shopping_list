@@ -1,5 +1,4 @@
 import { FaTrash } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 
 
@@ -10,13 +9,14 @@ export function RemoveList() {
   const list = useStore(state => state.lists[currentListId]);
 
   return (
-    <Button
+    <button
       className="btn-error"
       disabled={listsLength <= 1 || list == null}
+      type="button"
       onClick={() => listRevome(currentListId)}
     >
       <FaTrash />
       <span className="ml-2 hidden md:inline">Remove List</span>
-    </Button>
+    </button>
   );
 }

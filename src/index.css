@@ -25,7 +25,7 @@ button.btn-error {
 
 @layer base {
   :root {
-    --primary-foreground: 240 5% 95%;
+    --primary-foreground: 240 5% 88%;
     --primary-light: 240 5% 70%;
     --primary: 240 5% 34%;
     --primary-dark: 240 5% 26%;

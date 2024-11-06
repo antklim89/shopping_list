@@ -1,5 +1,4 @@
 import { FaCheckDouble, FaMinus } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 
 
@@ -15,8 +14,10 @@ export function SelectAll() {
   });
 
   return (
-    <Button
+    <button
+      className="btn-primary"
       disabled={listItemsLength === 0}
+      type="button"
       onClick={() => listItemSelectAll(currentListId)}
     >
       {isAllSelected
@@ -32,6 +33,6 @@ export function SelectAll() {
               <span className="ml-2 hidden md:inline">All Bought</span>
             </>
           )}
-    </Button>
+    </button>
   );
 }

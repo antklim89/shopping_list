@@ -1,5 +1,4 @@
 import { FaPlus } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 
 
@@ -11,14 +10,19 @@ export function Lists() {
 
   return (
     <div className="flex flex-col gap-2 my-8">
-      <Button className="bg-green-600 hover:bg-green-700" onClick={() => listCreate()}>
+      <button className="btn-success" type="button" onClick={() => listCreate()}>
         <FaPlus className="mr-2" />
         Add New List
-      </Button>
+      </button>
       {Object.entries(lists).map(([id, list]) => (
-        <Button key={id} onClick={() => listSetCurrentId(id)}>
+        <button
+          className="btn-primary"
+          key={id}
+          type="button"
+          onClick={() => listSetCurrentId(id)}
+        >
           {list.name || 'List'}
-        </Button>
+        </button>
       ))}
     </div>
   );

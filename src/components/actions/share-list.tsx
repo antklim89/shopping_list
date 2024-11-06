@@ -1,5 +1,4 @@
 import { FaCopy, FaShare } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 import type { ListShareType } from '@/lib/types';
 
@@ -24,7 +23,7 @@ export function ShareList() {
   };
 
   return (
-    <Button onClick={async () => share()}>
+    <button className="btn-primary" type="button" onClick={async () => share()}>
       {navigator.share == null
         ? (
             <>
@@ -38,6 +37,6 @@ export function ShareList() {
               <span className="ml-2 hidden md:inline">Share</span>
             </>
           )}
-    </Button>
+    </button>
   );
 }

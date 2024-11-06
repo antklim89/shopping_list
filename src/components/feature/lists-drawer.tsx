@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Lists } from '@/components/feature/lists';
-import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -15,7 +14,7 @@ export function ListsDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button>Lists</Button>
+        <button className="btn-primary" type="button">Lists</button>
       </DrawerTrigger>
       <DrawerContent className="flex flex-col justify-between">
         <DrawerTitle>
@@ -33,7 +32,7 @@ export function ListsDrawer() {
           <Lists />
         </motion.div>
         <DrawerClose asChild>
-          <Button>Close</Button>
+          <button className="btn-primary" type="button">Close</button>
         </DrawerClose>
       </DrawerContent>
     </Drawer>

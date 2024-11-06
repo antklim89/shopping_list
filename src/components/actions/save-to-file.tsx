@@ -1,5 +1,4 @@
 import { FaDownload } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { useStore } from '@/lib/store';
 import { saveListToFile } from '@/lib/utils';
 
@@ -10,12 +9,14 @@ export function SaveToFile() {
   const listsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
 
   return (
-    <Button
+    <button
+      className="btn-primary"
       disabled={listsLength === 0 || list == null}
+      type="button"
       onClick={() => list && saveListToFile(currentListId, list)}
     >
       <FaDownload />
       <span className="ml-2 hidden md:inline">Save To File</span>
-    </Button>
+    </button>
   );
 }
