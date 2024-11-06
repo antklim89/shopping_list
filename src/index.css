@@ -4,11 +4,11 @@
 
 input,
 select {
-  @apply w-full min-w-20 p-2 border bg-primary text-primary-foreground border-primary-border placeholder:text-primary-light disabled:bg-gray-400 disabled:text-gray-600;
+  @apply w-full min-w-20 sm:min-w-24 p-2 border bg-primary text-primary-foreground border-primary-border placeholder:text-primary-light disabled:bg-gray-400 disabled:text-gray-600;
 }
 
 button {
-  @apply flex min-w-24 justify-center items-center border px-6 py-2 transition-colors uppercase;
+  @apply flex min-w-16 sm:min-w-20 justify-center items-center border px-6 py-2 transition-colors uppercase;
 }
 
 button.btn-primary {
