@@ -11,7 +11,7 @@ export function RemoveList() {
 
   return (
     <Button
-      className="bg-red-800 hover:bg-red-900"
+      className="btn-error"
       disabled={listsLength <= 1 || list == null}
       onClick={() => listRevome(currentListId)}
     >

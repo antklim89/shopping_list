@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
-import { Button } from '@/components/ui/button';
 import { units } from '@/lib/constants';
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
@@ -19,13 +18,12 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   return (
     <motion.div
       animate={{ x: 0, opacity: 1 }}
-      className={cn('flex gap-2 justify-between border bg-primary-500 border-primary-600 flex-wrap sm:flex-nowrap', { 'border-green-800': items.selected })}
+      className={cn('flex gap-2 justify-between flex-wrap sm:flex-nowrap')}
       exit={{ x: 50, opacity: 0 }}
       initial={{ x: -50, opacity: 0 }}
     >
-      <div className="flex gap-2 w-full sm:w-auto sm:flex-[5_0_auto]">
+      <div className="flex gap-2 w-full sm:w-auto sm:flex-[2_0_auto]">
         <input
-          className="w-full p-2"
           disabled={items.selected}
           placeholder="Product name..."
           type="text"
@@ -35,7 +33,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       </div>
       <div className="flex gap-2 flex-[1] justify-end">
         <input
-          className="p-2 text-center"
+          className="text-center"
           disabled={items.selected}
           max={90000000}
           min={1}
@@ -44,7 +42,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           onChange={e => handleChange({ qty: e.target.valueAsNumber })}
         />
         <select
-          className="p-2 text-center"
+          className="text-center"
           disabled={items.selected}
           value={items.unit}
           onChange={e => handleChange({ unit: e.target.value as typeof units[number] })}
@@ -54,19 +52,21 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           ))}
         </select>
 
-        <Button
-          className={cn('p-2 w-24 flex justify-center', { 'bg-green-800 hover:bg-green-900': items.selected })}
+        <button
+          className={cn('btn-primary', { 'btn-success': items.selected })}
+          type="button"
           onClick={() => handleChange({ selected: !items.selected })}
         >
           {items.selected ? <FaCheck /> : <FaO />}
-        </Button>
+        </button>
 
-        <Button
-          className="bg-red-800 hover:bg-red-900 p-2 w-24 flex justify-center"
+        <button
+          className="btn-error"
+          type="button"
           onClick={() => listItemDelete(currentListId, listItemId)}
         >
           <FaTrash />
-        </Button>
+        </button>
       </div>
     </motion.div>
   );
