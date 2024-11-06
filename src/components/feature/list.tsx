@@ -20,7 +20,7 @@ export function List() {
           onChange={e => listSetName(currentListId, e.target.value)}
         />
       </div>
-      <div className="flex flex-col gap-2 my-8">
+      <div className="flex flex-col gap-10 sm:gap-4 my-8">
         <AnimatePresence initial={false}>
           {Object.entries(list?.items).map(([id, items]) => (
             <ListItem items={items} key={id} listItemId={id} />
