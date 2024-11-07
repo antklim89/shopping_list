@@ -21,7 +21,7 @@ export function List() {
         />
       </div>
       <div className="flex flex-col gap-10 sm:gap-4 my-8">
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} key={currentListId}>
           {Object.entries(list?.items).map(([id, items]) => (
             <ListItem items={items} key={id} listItemId={id} />
           ))}
