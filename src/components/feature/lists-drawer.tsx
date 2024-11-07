@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Lists } from '@/components/feature/lists';
 import {
   Drawer,
@@ -23,14 +23,14 @@ export function ListsDrawer() {
         <DrawerDescription className="hidden">
           Here you can see all of your lists
         </DrawerDescription>
-        <motion.div
+        <m.div
           animate={{ x: 0 }}
           className=""
           initial={{ x: 400 }}
           transition={{ duration: 0.5 }}
         >
           <Lists />
-        </motion.div>
+        </m.div>
         <DrawerClose asChild>
           <button className="btn-primary" type="button">Close</button>
         </DrawerClose>

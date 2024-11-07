@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 import { units } from '@/lib/constants';
 import { useStore } from '@/lib/store';
@@ -16,7 +16,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   };
 
   return (
-    <motion.div
+    <m.div
       animate={{ x: 0, opacity: 1 }}
       className={cn('flex gap-2 justify-between flex-wrap sm:flex-nowrap')}
       exit={{ x: 50, opacity: 0 }}
@@ -68,6 +68,6 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           <FaTrash />
         </button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
