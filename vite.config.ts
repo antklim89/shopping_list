@@ -1,4 +1,5 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
+
 import { resolve } from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
@@ -11,6 +12,7 @@ export default defineConfig({
       '@': resolve(new URL('.', import.meta.url).pathname, './src'),
     },
   },
+  // @ts-expect-error vitest type is not working
   test: {
     environment: 'jsdom',
   },
