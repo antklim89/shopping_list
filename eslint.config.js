@@ -45,6 +45,7 @@ export default antfu(
     ],
 
     rules: {
+      'ts/no-non-null-assertion': 'error',
       'unused-imports/no-unused-imports': 'error',
       'import/newline-after-import': ['error', { count: 2 }],
       'perfectionist/sort-imports': [
