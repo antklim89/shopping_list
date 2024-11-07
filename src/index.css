@@ -33,11 +33,11 @@ button.btn-error {
 }
 
 :root {
-  --primary-foreground: 240 5% 88%;
-  --primary-light: 240 5% 70%;
-  --primary: 240 5% 34%;
-  --primary-dark: 240 5% 26%;
-  --primary-border: 240 5% 22%;
+  --primary-foreground: 210 40% 25%;
+  --primary-light: 210 40% 92%;
+  --primary: 210 40% 75%;
+  --primary-dark: 210 40% 65%;
+  --primary-border: 210 40% 50%;
 
   --success-foreground: 143 64% 88%;
   --success-light: 143 64% 60%;
@@ -51,11 +51,19 @@ button.btn-error {
   --error-dark: 0 74% 34%;
   --error-border: 0 74% 26%;
 
+  --background: 240 5% 92%;
+  --foreground: 240 5% 10%;
+}
+
+.dark {
+  --primary-foreground: 240 5% 88%;
+  --primary-light: 240 5% 70%;
+  --primary: 240 5% 34%;
+  --primary-dark: 240 5% 26%;
+  --primary-border: 240 5% 22%;
+
   --background: 240 5% 52%;
   --foreground: 240 5% 90%;
-
-  --border: 240 5% 28%;
-  --input: 240 5% 38%;
 }
 
 * {

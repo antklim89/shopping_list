@@ -1,18 +1,28 @@
+import { FaMoon, FaSun } from 'react-icons/fa6';
 import { ListsDrawer } from '@/components/feature/lists-drawer';
+import { useTheme } from '@/lib/hooks';
 
 
 export function Header() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="bg-primary p-4 mb-8 shadow-lg">
       <div className="container flex items-center justify-between">
-        <h1 className="text-primary-foreground text-2xl font-bold">Shopping List</h1>
-        <nav>
-          <ul className="flex space-x-4">
-            <li>
-              <ListsDrawer />
-            </li>
-          </ul>
-        </nav>
+        <h1 className="text-primary-foreground text-2xl font-bold uppercase">
+          Shopping List
+        </h1>
+        <div className="flex space-x-4">
+          <ListsDrawer />
+          <button
+            aria-label="Toggle dark mode"
+            className="btn-primary"
+            type="button"
+            onClick={() => toggleTheme()}
+          >
+            {theme === 'dark' ? <FaSun /> : <FaMoon />}
+          </button>
+        </div>
       </div>
     </header>
   );
