@@ -1,4 +1,4 @@
-import { m } from 'framer-motion';
+import { Reorder } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 import { units } from '@/lib/constants';
 import { useStore } from '@/lib/store';
@@ -16,15 +16,17 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
   };
 
   return (
-    <m.div
+    <Reorder.Item
       animate={{ x: 0, opacity: 1 }}
+      as="div"
       className={cn('flex gap-2 justify-between flex-wrap sm:flex-nowrap')}
+      dragListener={false}
       exit={{ x: 50, opacity: 0 }}
       initial={{ x: -50, opacity: 0 }}
+      value={listItemId}
     >
       <div className="flex gap-2 w-full sm:w-auto sm:flex-[2_0_auto]">
         <input
-          disabled={items.selected}
           placeholder="Product name..."
           type="text"
           value={items.name}
@@ -34,7 +36,6 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       <div className="flex gap-2 flex-[1] justify-end">
         <input
           className="text-center"
-          disabled={items.selected}
           max={90000000}
           min={1}
           type="number"
@@ -43,7 +44,6 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
         />
         <select
           className="text-center"
-          disabled={items.selected}
           value={items.unit}
           onChange={e => handleChange({ unit: e.target.value as typeof units[number] })}
         >
@@ -68,6 +68,6 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           <FaTrash />
         </button>
       </div>
-    </m.div>
+    </Reorder.Item>
   );
 }
