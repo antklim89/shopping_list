@@ -37,19 +37,22 @@ export function List() {
         />
       </div>
       <div className="flex flex-col gap-10 sm:gap-4 my-8">
-        <AnimatePresence initial={false}>
-          <Reorder.Group
-            axis="y"
-            values={Object.entries(list?.items)}
-            onReorder={() => null}
-          >
-            {notSelected.length === 0
-              ? (
-                  <div className="flex justify-center">
-                    <span className="text-2xl my-4 font-bold">All products bought</span>
-                  </div>
-                )
-              : null}
+
+        {notSelected.length === 0
+          ? (
+              <div className="flex justify-center">
+                <span className="text-2xl my-4 font-bold">All products bought</span>
+              </div>
+            )
+          : null}
+
+        <Reorder.Group
+          axis="y"
+          values={Object.entries(list?.items)}
+          onReorder={() => null}
+        >
+          <AnimatePresence initial={false}>
+
             {notSelected.map(([id, items]) => (
               <ListItem items={items} key={id} listItemId={id} />
             ))}
@@ -57,8 +60,8 @@ export function List() {
             {selected.map(([id, items]) => (
               <ListItem items={items} key={id} listItemId={id} />
             ))}
-          </Reorder.Group>
-        </AnimatePresence>
+          </AnimatePresence>
+        </Reorder.Group>
       </div>
     </div>
   );

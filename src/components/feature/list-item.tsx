@@ -21,8 +21,11 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       as="div"
       className={cn('flex gap-2 justify-between flex-wrap sm:flex-nowrap')}
       dragListener={false}
-      exit={{ x: 50, opacity: 0 }}
-      initial={{ x: -50, opacity: 0 }}
+      exit={{ x: 20, opacity: 0 }}
+      initial={{ x: -20, opacity: 0 }}
+      transition={{
+        duration: 0.18,
+      }}
       value={listItemId}
     >
       <div className="flex gap-2 w-full sm:w-auto sm:flex-[2_0_auto]">
