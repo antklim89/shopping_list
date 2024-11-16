@@ -36,8 +36,7 @@ export function List() {
           onChange={e => listSetName(currentListId, e.target.value)}
         />
       </div>
-      <div className="flex flex-col gap-10 sm:gap-4 my-8">
-
+      <div>
         {notSelected.length === 0
           ? (
               <div className="flex justify-center">
@@ -47,7 +46,9 @@ export function List() {
           : null}
 
         <Reorder.Group
+          as="div"
           axis="y"
+          className="flex flex-col gap-8 sm:gap-1 my-8"
           values={Object.entries(list?.items)}
           onReorder={() => null}
         >
