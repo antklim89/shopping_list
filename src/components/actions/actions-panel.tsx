@@ -8,7 +8,7 @@ import { ShareList } from './share-list';
 
 export function ActionsPanel() {
   return (
-    <div className="flex justify-end gap-2">
+    <div className="flex flex-wrap justify-end gap-2">
       <ListCreate />
       <SelectAll />
       <SaveToFile />
