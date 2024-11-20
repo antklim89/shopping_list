@@ -1,3 +1,4 @@
+import { CopyLink } from './copy-link';
 import { ListItemCreate } from './list-item-create';
 import { LoadFromFile } from './load-from-file';
 import { SaveToFile } from './save-to-file';
@@ -7,12 +8,13 @@ import { ShareList } from './share-list';
 
 export function ActionsPanel() {
   return (
-    <div className="flex flex-wrap justify-end gap-2">
+    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1">
       <ListItemCreate />
       <SelectAll />
       <SaveToFile />
       <LoadFromFile />
       <ShareList />
+      <CopyLink />
     </div>
   );
 }
