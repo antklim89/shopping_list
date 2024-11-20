@@ -3,7 +3,6 @@ import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 import { units } from '@/lib/constants';
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
-import { cn } from '@/lib/utils';
 
 
 export function ListItem({ items, listItemId }: { items: ListItemType; listItemId: string }) {
@@ -19,7 +18,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
     <Reorder.Item
       animate={{ x: 0, opacity: 1 }}
       as="div"
-      className={cn('flex gap-2 justify-between flex-wrap sm:flex-nowrap')}
+      className="flex gap-2 justify-between flex-wrap sm:flex-nowrap"
       dragListener={false}
       exit={{ x: 20, opacity: 0 }}
       initial={{ x: -20, opacity: 0 }}
@@ -56,7 +55,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
         </select>
 
         <button
-          className={cn('btn-primary', { 'btn-success': items.selected })}
+          className={`btn-primary ${items.selected ? 'btn-success' : ''}`}
           type="button"
           onClick={() => handleChange({ selected: !items.selected })}
         >
