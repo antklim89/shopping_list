@@ -1,6 +1,5 @@
 import { ListCreate } from './list-create';
 import { LoadFromFile } from './load-from-file';
-import { RemoveList } from './remove-list';
 import { SaveToFile } from './save-to-file';
 import { SelectAll } from './select-all';
 import { ShareList } from './share-list';
@@ -14,7 +13,6 @@ export function ActionsPanel() {
       <SaveToFile />
       <LoadFromFile />
       <ShareList />
-      <RemoveList />
     </div>
   );
 }

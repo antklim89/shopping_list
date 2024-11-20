@@ -3,11 +3,11 @@ import { AnimatePresence, Reorder } from 'framer-motion';
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
 import { ListItem } from './list-item';
+import { ListSelect } from './list-select';
 
 
 export function List() {
   const currentListId = useStore(state => state.currentListId);
-  const listSetName = useStore(state => state.listSetName);
   const list = useStore(state => state.lists[currentListId]);
 
   const [selected, notSelected] = useMemo(() => {
@@ -27,16 +27,9 @@ export function List() {
 
   return (
     <div className=" overflow-hidden">
-      <div className="text-2xl font-bold my-4">
-        <input
-          className="border p-2 w-full max-w-[50rem]"
-          placeholder="List name"
-          type="text"
-          value={list.name}
-          onChange={e => listSetName(currentListId, e.target.value)}
-        />
-      </div>
-      <div>
+      <ListSelect />
+
+      <div key={currentListId}>
         {notSelected.length === 0
           ? (
               <div className="flex justify-center">

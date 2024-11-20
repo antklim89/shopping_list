@@ -1,5 +1,4 @@
 import { FaMoon, FaSun } from 'react-icons/fa6';
-import { ListsDrawer } from '@/components/feature/lists-drawer';
 import { useTheme } from '@/lib/hooks';
 
 
@@ -13,7 +12,6 @@ export function Header() {
           Shopping List
         </h1>
         <div className="flex space-x-4">
-          <ListsDrawer />
           <button
             aria-label="Toggle dark mode"
             className="btn-primary"
