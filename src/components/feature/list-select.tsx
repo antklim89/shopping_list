@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { FaList, FaPlus } from 'react-icons/fa6';
+import { FaList } from 'react-icons/fa6';
+import { ListCreate } from '@/components/actions/list-create';
 import { RemoveList } from '@/components/actions/remove-list';
 import { useStore } from '@/lib/store';
 
@@ -12,7 +13,6 @@ export function ListSelect() {
   const listSetName = useStore(state => state.listSetName);
   const listSetCurrentId = useStore(state => state.listSetCurrentId);
   const list = useStore(state => state.lists[currentListId]);
-  const listCreate = useStore(state => state.listCreate);
 
   useEffect(() => {
     if (open === false) return;
@@ -89,12 +89,10 @@ export function ListSelect() {
         <span className="ml-2 hidden md:inline">Show lists</span>
       </button>
 
-      <button className="btn-primary" type="button" onClick={() => listCreate()}>
-        <FaPlus />
-        <span className="ml-2 hidden md:inline">Add New List</span>
-      </button>
-
+      <ListCreate />
       <RemoveList />
     </div>
   );
 }
+
+
