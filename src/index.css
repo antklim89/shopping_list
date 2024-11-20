@@ -17,7 +17,7 @@ select {
 }
 
 button {
-  @apply flex text-nowrap min-w-16 sm:min-w-20 justify-center items-center border px-6 py-2 transition-colors uppercase;
+  @apply flex text-nowrap justify-center items-center border px-6 py-2 transition-colors uppercase;
 }
 
 button.btn-primary {
