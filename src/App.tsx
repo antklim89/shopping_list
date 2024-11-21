@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import './index.css';
 import { ActionsPanel } from '@/components/actions/actions-panel';
-import { List } from '@/components/feature/list';
 import { Header } from '@/components/layout/header';
+import { List } from '@/components/list/list';
 import { useStore } from '@/lib/store';
 import { loadListFromUrl } from '@/lib/utils';
 
