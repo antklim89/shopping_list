@@ -9,10 +9,14 @@ import { loadListFromUrl } from '@/lib/utils';
 
 function App() {
   const listLoad = useStore(state => state.listLoad);
-  const list = loadListFromUrl();
+  const listSetCurrentId = useStore(state => state.listSetCurrentId);
 
   useEffect(() => {
-    if (list != null) listLoad(list.id, list.list);
+    const list = loadListFromUrl();
+    if (list == null) return;
+
+    listLoad(list.id, list.list);
+    listSetCurrentId(list.id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
