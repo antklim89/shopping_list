@@ -41,7 +41,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           max={90000000}
           min={1}
           type="number"
-          value={items.qty}
+          value={(items.qty == null || Number.isNaN(items.qty)) ? '' : items.qty}
           onChange={e => handleChange({ qty: e.target.valueAsNumber })}
         />
         <select
