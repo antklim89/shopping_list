@@ -3,6 +3,11 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "description": "Shopping list app",
+  "author": "Anton Klimenkov",
+  "license": "MIT",
+  "repository": "https://github.com/antklim89/shopping_list",
+  "keywords": ["react", "typescript", "vitest", "tailwindcss"],
   "scripts": {
     "dev": "vite --host --port 3000",
     "build": "tsc -b && vite build",
