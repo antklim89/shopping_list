@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaList } from 'react-icons/fa6';
+
 import { ListCreate } from '@/components/actions/list-create';
 import { RemoveList } from '@/components/actions/remove-list';
 import { useStore } from '@/lib/store';
-
 
 export function ListSelect() {
   const [open, setOpen] = useState(false);
@@ -26,10 +26,10 @@ export function ListSelect() {
   if (!list) return null;
 
   return (
-    <div className="flex gap-1 md:gap-4 items-center">
+    <div className="flex items-center gap-1 md:gap-4">
       <div className="relative my-4 w-full max-w-[50rem]">
         <input
-          className="text-2xl font-bold border p-2 w-full"
+          className="w-full border p-2 font-bold text-2xl"
           placeholder="List name"
           type="text"
           value={list.name}
@@ -48,7 +48,7 @@ export function ListSelect() {
               />
               <motion.div
                 animate="animate"
-                className="fixed w-full max-w-[50rem] flex flex-col gap-2 my-8"
+                className="fixed my-8 flex w-full max-w-[50rem] flex-col gap-2"
                 exit="exit"
                 initial="initial"
               >
@@ -94,5 +94,3 @@ export function ListSelect() {
     </div>
   );
 }
-
-

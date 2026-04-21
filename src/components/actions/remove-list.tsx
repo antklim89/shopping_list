@@ -1,6 +1,6 @@
 import { FaTrash } from 'react-icons/fa6';
-import { useStore } from '@/lib/store';
 
+import { useStore } from '@/lib/store';
 
 export function RemoveList() {
   const listRevome = useStore(state => state.listRevome);

@@ -1,11 +1,10 @@
 import type { ListShareType, ListType } from './types';
 
-
 export function generateId(): string {
   return (Math.random() * 1000).toString(36);
 }
 
-export async function loadListFromFile(file: File): Promise<ListShareType> {
+export function loadListFromFile(file: File): Promise<ListShareType> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 

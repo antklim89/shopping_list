@@ -1,24 +1,12 @@
-import {
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
-import {
-  defaultList,
-  defaultListItem,
-  type ListStore,
-  useStore,
-} from '@/lib/store';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { defaultList, defaultListItem, type ListStore, useStore } from '@/lib/store';
 import { generateId } from '@/lib/utils';
 
-
 vi.mock('@/lib/utils', async a => ({
-  ...await (a()),
-  generateId: vi.fn(() => `randomId`),
+  ...(await a()),
+  generateId: vi.fn(() => 'randomId'),
 }));
-
 
 const initState = useStore.getInitialState();
 const getState = () => useStore.getState();
@@ -29,9 +17,8 @@ beforeEach(() => {
   useStore.setState(initState);
 });
 
-
 describe('listCreate', () => {
-  it('should create a list', async () => {
+  it('should create a list', () => {
     vi.mocked(generateId).mockImplementation(() => 'randomId1');
     getState().listCreate();
 
@@ -48,7 +35,7 @@ describe('listCreate', () => {
 });
 
 describe('listSetName', () => {
-  it('should set name of a list', async () => {
+  it('should set name of a list', () => {
     populateState({ lists: { collectionId: { name: 'name', items: {} } } });
     getState().listSetName('collectionId', 'New Name');
 
@@ -57,7 +44,7 @@ describe('listSetName', () => {
 });
 
 describe('listRevome', () => {
-  it('should remove list', async () => {
+  it('should remove list', () => {
     populateState({
       currentListId: 'listId3',
       lists: {
@@ -85,7 +72,7 @@ describe('listRevome', () => {
 });
 
 describe('listSetCurrentId', () => {
-  it('should set current list id', async () => {
+  it('should set current list id', () => {
     populateState({ currentListId: 'oldListId' });
     getState().listSetCurrentId('newListId');
 
@@ -94,19 +81,24 @@ describe('listSetCurrentId', () => {
 });
 
 describe('listItemAdd', () => {
-  it('should add new list item', async () => {
+  it('should add new list item', () => {
     vi.mocked(generateId).mockImplementation(() => 'randomId1');
     getState().listItemAdd('listId');
     vi.mocked(generateId).mockImplementation(() => 'randomId2');
     getState().listItemAdd('listId');
 
-    expect(getState().lists.listId).toStrictEqual({ ...defaultList, items: { randomId1: defaultListItem, randomId2: defaultListItem } });
+    expect(getState().lists.listId).toStrictEqual({
+      ...defaultList,
+      items: { randomId1: defaultListItem, randomId2: defaultListItem },
+    });
   });
 });
 
 describe('listItemUpdate', () => {
-  it('should update list item', async () => {
-    populateState({ lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } } });
+  it('should update list item', () => {
+    populateState({
+      lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } },
+    });
     getState().listItemUpdate('listId', 'listItemId', { name: 'Updated Name' });
     getState().listItemUpdate('listId', 'listItemId', { qty: 6000 });
     getState().listItemUpdate('listId', 'listItemId', {});
@@ -120,7 +112,7 @@ describe('listItemUpdate', () => {
     });
   });
 
-  it('should update if list does not exist', async () => {
+  it('should update if list does not exist', () => {
     getState().listItemUpdate('listId', 'randomId', { name: 'Updated Name' });
 
     expect(getState().lists.listId?.items).toEqual({
@@ -135,13 +127,13 @@ describe('listItemUpdate', () => {
 });
 
 describe('listItemDelete', () => {
-  it('should remove list item', async () => {
-    populateState({ lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } } });
+  it('should remove list item', () => {
+    populateState({
+      lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } },
+    });
     getState().listItemDelete('listId', 'listItemId');
 
     expect(getState().lists.listId?.items).toHaveProperty('extra');
     expect(getState().lists.listId?.items).not.toHaveProperty('listItemId');
   });
 });
-
-

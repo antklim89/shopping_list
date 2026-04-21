@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState } from 'react';
 
-
 type Theme = 'light' | 'dark';
 
 export function useTheme() {
@@ -14,7 +13,7 @@ export function useTheme() {
   }, [theme]);
 
   function toggleTheme() {
-    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+    setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
   }
 
   return { theme, toggleTheme };

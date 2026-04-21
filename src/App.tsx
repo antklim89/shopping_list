@@ -12,8 +12,7 @@ function App() {
 
   useEffect(() => {
     if (list != null) listLoad(list.id, list.list);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [list, listLoad]);
 
   return (
     <>

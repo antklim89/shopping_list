@@ -1,9 +1,9 @@
 import { Reorder } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
+
 import { units } from '@/lib/constants';
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
-
 
 export function ListItem({ items, listItemId }: { items: ListItemType; listItemId: string }) {
   const currentListId = useStore(state => state.currentListId);
@@ -18,7 +18,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
     <Reorder.Item
       animate={{ x: 0, opacity: 1 }}
       as="div"
-      className="flex gap-2 justify-between flex-wrap sm:flex-nowrap"
+      className="flex flex-wrap justify-between gap-2 sm:flex-nowrap"
       dragListener={false}
       exit={{ x: 20, opacity: 0 }}
       initial={{ x: -20, opacity: 0 }}
@@ -27,7 +27,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
       }}
       value={listItemId}
     >
-      <div className="flex gap-2 w-full sm:w-auto sm:flex-[2_0_auto]">
+      <div className="flex w-full gap-2 sm:w-auto sm:flex-[2_0_auto]">
         <input
           placeholder="Product name..."
           type="text"
@@ -35,22 +35,24 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           onChange={e => handleChange({ name: e.target.value })}
         />
       </div>
-      <div className="flex gap-2 flex-[1] justify-end">
+      <div className="flex flex-[1] justify-end gap-2">
         <input
           className="text-center"
           max={90000000}
           min={1}
           type="number"
-          value={(items.qty == null || Number.isNaN(items.qty)) ? '' : items.qty}
+          value={items.qty == null || Number.isNaN(items.qty) ? '' : items.qty}
           onChange={e => handleChange({ qty: e.target.valueAsNumber })}
         />
         <select
           className="text-center"
           value={items.unit}
-          onChange={e => handleChange({ unit: e.target.value as typeof units[number] })}
+          onChange={e => handleChange({ unit: e.target.value as (typeof units)[number] })}
         >
           {units.map(unit => (
-            <option key={unit} value={unit}>{unit}</option>
+            <option key={unit} value={unit}>
+              {unit}
+            </option>
           ))}
         </select>
 
@@ -62,11 +64,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           {items.selected ? <FaCheck /> : <FaO />}
         </button>
 
-        <button
-          className="btn-error"
-          type="button"
-          onClick={() => listItemDelete(currentListId, listItemId)}
-        >
+        <button className="btn-error" type="button" onClick={() => listItemDelete(currentListId, listItemId)}>
           <FaTrash />
         </button>
       </div>

@@ -1,6 +1,5 @@
 import type { units } from './constants';
 
-
 export interface ListType {
   name: string;
   items: Record<string, ListItemType>;
@@ -9,7 +8,7 @@ export interface ListType {
 export interface ListItemType {
   name: string;
   qty: number;
-  unit: typeof units[number];
+  unit: (typeof units)[number];
   selected: boolean;
 }
 

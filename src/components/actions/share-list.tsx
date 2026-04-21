@@ -1,7 +1,7 @@
 import { FaShare } from 'react-icons/fa6';
+
 import { useStore } from '@/lib/store';
 import type { ListShareType } from '@/lib/types';
-
 
 export function ShareList() {
   const currentListId = useStore(state => state.currentListId);
