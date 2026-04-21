@@ -1,14 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@utility container {
+  padding-right: 0.7rem;
+  padding-left: 0.7rem;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 a,
 button,
 textarea,
 input,
 select {
-  @apply focus:outline-2 focus:outline focus:outline-amber-600;
   outline-offset: 2px;
+  @apply focus:outline-2 focus:outline-amber-600;
 }
 
 input,
@@ -33,42 +38,62 @@ button.btn-error {
 }
 
 :root {
-  --primary-foreground: 210 40% 25%;
-  --primary-light: 210 40% 92%;
-  --primary: 210 40% 75%;
-  --primary-dark: 210 40% 65%;
-  --primary-border: 210 40% 50%;
+  --primary-foreground: hsl(210 40% 25%);
+  --primary-light: hsl(210 40% 92%);
+  --primary: hsl(210 40% 75%);
+  --primary-dark: hsl(210 40% 65%);
+  --primary-border: hsl(210 40% 50%);
 
-  --success-foreground: 143 64% 88%;
-  --success-light: 143 64% 60%;
-  --success: 143 64% 24%;
-  --success-dark: 143 64% 16%;
-  --success-border: 143 64% 8%;
+  --success-foreground: hsl(143 64% 88%);
+  --success-light: hsl(143 64% 60%);
+  --success: hsl(143 64% 24%);
+  --success-dark: hsl(143 64% 16%);
+  --success-border: hsl(143 64% 8%);
 
-  --error-foreground: 0 74% 88%;
-  --error-light: 0 74% 78%;
-  --error: 0 74% 42%;
-  --error-dark: 0 74% 34%;
-  --error-border: 0 74% 26%;
+  --error-foreground: hsl(0 74% 88%);
+  --error-light: hsl(0 74% 78%);
+  --error: hsl(0 74% 42%);
+  --error-dark: hsl(0 74% 34%);
+  --error-border: hsl(0 74% 26%);
 
-  --background: 240 5% 92%;
-  --foreground: 240 5% 10%;
+  --background: hsl(240 5% 92%);
+  --foreground: hsl(240 5% 10%);
 }
 
 .dark {
-  --primary-foreground: 240 5% 88%;
-  --primary-light: 240 5% 70%;
-  --primary: 240 5% 34%;
-  --primary-dark: 240 5% 26%;
-  --primary-border: 240 5% 22%;
+  --primary-foreground: hsl(240 5% 88%);
+  --primary-light: hsl(240 5% 70%);
+  --primary: hsl(240 5% 34%);
+  --primary-dark: hsl(240 5% 26%);
+  --primary-border: hsl(240 5% 22%);
 
-  --background: 240 5% 52%;
-  --foreground: 240 5% 90%;
+  --background: hsl(240 5% 52%);
+  --foreground: hsl(240 5% 90%);
 }
 
-* {
-  @apply border-border;
+@theme inline {
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--primary-light);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-border: var(--primary-border);
+
+  --color-success-foreground: var(--success-foreground);
+  --color-success-light: var(--success-light);
+  --color-success: var(--success);
+  --color-success-dark: var(--success-dark);
+  --color-success-border: var(--success-border);
+
+  --color-error-foreground: var(--error-foreground);
+  --color-error-light: var(--error-light);
+  --color-error: var(--error);
+  --color-error-dark: var(--error-dark);
+  --color-error-border: var(--error-border);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 }
+
 body {
   @apply bg-background text-foreground;
 }

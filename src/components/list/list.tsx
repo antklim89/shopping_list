@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { AnimatePresence, Reorder } from 'framer-motion';
+
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
 import { ListItem } from './list-item';
 import { ListSelect } from './list-select';
-
 
 export function List() {
   const currentListId = useStore(state => state.currentListId);
@@ -24,29 +24,25 @@ export function List() {
   }, [list]);
   if (!list) return null;
 
-
   return (
-    <div className=" overflow-hidden">
+    <div className="overflow-hidden">
       <ListSelect />
 
       <div key={currentListId}>
-        {notSelected.length === 0
-          ? (
-              <div className="flex justify-center">
-                <span className="text-2xl my-4 font-bold">All products bought</span>
-              </div>
-            )
-          : null}
+        {notSelected.length === 0 ? (
+          <div className="flex justify-center">
+            <span className="my-4 font-bold text-2xl">All products bought</span>
+          </div>
+        ) : null}
 
         <Reorder.Group
           as="div"
           axis="y"
-          className="flex flex-col gap-8 sm:gap-1 my-8"
+          className="my-8 flex flex-col gap-8 sm:gap-1"
           values={Object.entries(list?.items)}
           onReorder={() => null}
         >
           <AnimatePresence initial={false}>
-
             {notSelected.map(([id, items]) => (
               <ListItem items={items} key={id} listItemId={id} />
             ))}
