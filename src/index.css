@@ -18,80 +18,70 @@ select {
 
 input,
 select {
-  @apply w-full min-w-20 sm:min-w-24 p-2 border bg-primary text-primary-foreground border-primary-border placeholder:text-primary-light disabled:bg-gray-400 disabled:text-gray-600;
+  @apply rounded-default w-full min-w-20 sm:min-w-24 p-2 border bg-primary border-primary-border disabled:opacity-45;
 }
 
 button {
-  @apply flex text-nowrap justify-center items-center border px-6 py-2 transition-colors uppercase;
+  @apply rounded-default cursor-pointer flex text-nowrap justify-center items-center border px-6 py-2 transition-colors uppercase disabled:cursor-not-allowed disabled:opacity-45;
 }
 
 button.btn-primary {
-  @apply border-primary-border bg-primary hover:bg-primary-dark text-primary-foreground disabled:bg-primary-light;
+  @apply border-primary-border bg-primary hover:bg-primary/80 text-primary-foreground disabled:bg-primary;
 }
 
 button.btn-success {
-  @apply border-success-border bg-success hover:bg-success-dark text-success-foreground disabled:bg-success-light;
+  @apply border-success-border bg-success hover:bg-success/80 text-success-foreground disabled:bg-success;
 }
 
 button.btn-error {
-  @apply border-error-border bg-error hover:bg-error-dark text-error-foreground disabled:bg-error-light;
+  @apply border-error-border bg-error hover:bg-error/80 text-error-foreground disabled:bg-error;
 }
 
 :root {
-  --primary-foreground: hsl(210 40% 25%);
-  --primary-light: hsl(210 40% 92%);
-  --primary: hsl(210 40% 75%);
-  --primary-dark: hsl(210 40% 65%);
-  --primary-border: hsl(210 40% 50%);
+  --primary-foreground: var(--color-zinc-900);
+  --primary: var(--color-zinc-300);
+  --primary-border: var(--color-zinc-400);
 
-  --success-foreground: hsl(143 64% 88%);
-  --success-light: hsl(143 64% 60%);
-  --success: hsl(143 64% 24%);
-  --success-dark: hsl(143 64% 16%);
-  --success-border: hsl(143 64% 8%);
+  --success-foreground: var(--color-lime-100);
+  --success: var(--color-lime-600);
+  --success-border: var(--color-lime-700);
 
-  --error-foreground: hsl(0 74% 88%);
-  --error-light: hsl(0 74% 78%);
-  --error: hsl(0 74% 42%);
-  --error-dark: hsl(0 74% 34%);
-  --error-border: hsl(0 74% 26%);
+  --error-foreground: var(--color-rose-100);
+  --error: var(--color-red-600);
+  --error-border: var(--color-red-700);
 
-  --background: hsl(240 5% 92%);
-  --foreground: hsl(240 5% 10%);
+  --background: var(--color-zinc-100);
+  --foreground: var(--color-zinc-900);
+
+  --radius: 0.45rem;
 }
 
 .dark {
-  --primary-foreground: hsl(240 5% 88%);
-  --primary-light: hsl(240 5% 70%);
-  --primary: hsl(240 5% 34%);
-  --primary-dark: hsl(240 5% 26%);
-  --primary-border: hsl(240 5% 22%);
+  --primary-foreground: var(--color-zinc-100);
+  --primary: var(--color-zinc-600);
+  --primary-border: var(--color-zinc-700);
 
-  --background: hsl(240 5% 52%);
-  --foreground: hsl(240 5% 90%);
+  --background: var(--color-zinc-800);
+  --foreground: var(--color-zinc-100);
 }
 
 @theme inline {
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary-light: var(--primary-light);
   --color-primary: var(--primary);
-  --color-primary-dark: var(--primary-dark);
   --color-primary-border: var(--primary-border);
 
   --color-success-foreground: var(--success-foreground);
-  --color-success-light: var(--success-light);
   --color-success: var(--success);
-  --color-success-dark: var(--success-dark);
   --color-success-border: var(--success-border);
 
   --color-error-foreground: var(--error-foreground);
-  --color-error-light: var(--error-light);
   --color-error: var(--error);
-  --color-error-dark: var(--error-dark);
   --color-error-border: var(--error-border);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --radius-default: calc(var(--radius) - 4px);
 }
 
 body {
