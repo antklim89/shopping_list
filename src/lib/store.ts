@@ -22,7 +22,7 @@ export interface ListStore {
   listCreate: () => void;
   listLoad: (listId: string, list: ListType) => void;
   listSetName: (listId: string, newName: string) => void;
-  listRevome: (listId: string) => void;
+  listRemove: (listId: string) => void;
   listItemAdd: (listId: string) => void;
   listSetCurrentId: (listId: string) => void;
   listItemUpdate: (listId: string, listItemId: string, newData: Partial<ListItemType>) => void;
@@ -74,7 +74,7 @@ export const useStore = create(
           };
         }),
 
-      listRevome: listId =>
+      listRemove: listId =>
         set(state => {
           const newLists = Object.fromEntries(Object.entries(state.lists).filter(([key]) => key !== listId));
           const newCurrentListId =

@@ -43,7 +43,7 @@ describe('listSetName', () => {
   });
 });
 
-describe('listRevome', () => {
+describe('listRemove', () => {
   it('should remove list', () => {
     populateState({
       currentListId: 'listId3',
@@ -54,18 +54,18 @@ describe('listRevome', () => {
       },
     });
 
-    getState().listRevome('listId3');
+    getState().listRemove('listId3');
     expect(getState().lists).not.toHaveProperty('listId3');
     expect(getState().lists).toHaveProperty('listId1');
     expect(getState().lists).toHaveProperty('listId2');
     expect(getState().currentListId).toEqual('listId1');
 
-    getState().listRevome('listId1');
+    getState().listRemove('listId1');
     expect(getState().lists).not.toHaveProperty('listId1');
     expect(getState().lists).toHaveProperty('listId2');
     expect(getState().currentListId).toEqual('listId2');
 
-    getState().listRevome('listId2');
+    getState().listRemove('listId2');
     expect(getState().lists).not.toHaveProperty('listId2');
     expect(getState().currentListId).toEqual('randomId');
   });
