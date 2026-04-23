@@ -13,16 +13,16 @@ textarea,
 input,
 select {
   outline-offset: 2px;
-  @apply focus:outline-2 focus:outline-amber-600;
+  @apply focus:outline-2 focus:outline-amber-600 appearance-none;
 }
 
 input,
 select {
-  @apply rounded-default w-full min-w-20 sm:min-w-24 p-2 border bg-primary border-primary-border disabled:opacity-45;
+  @apply rounded-default w-full min-w-20 sm:min-w-24 px-2 h-9 border bg-primary border-primary-border disabled:opacity-45;
 }
 
 button {
-  @apply rounded-default cursor-pointer flex text-nowrap justify-center items-center border px-6 py-2 transition-colors uppercase disabled:cursor-not-allowed disabled:opacity-45;
+  @apply rounded-default cursor-pointer flex text-nowrap justify-center items-center border px-3 h-9 transition-colors uppercase disabled:cursor-not-allowed disabled:opacity-45;
 }
 
 button.btn-primary {
