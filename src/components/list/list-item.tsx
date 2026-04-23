@@ -2,13 +2,11 @@ import { Reorder } from 'framer-motion';
 import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
 
 import { units } from '@/lib/constants';
-import { useStore } from '@/lib/store';
+import { listItemDelete, listItemUpdate, useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
 
 export function ListItem({ items, listItemId }: { items: ListItemType; listItemId: string }) {
   const currentListId = useStore(state => state.currentListId);
-  const listItemUpdate = useStore(state => state.listItemUpdate);
-  const listItemDelete = useStore(state => state.listItemDelete);
 
   const handleChange = (newData: Partial<ListItemType>) => {
     listItemUpdate(currentListId, listItemId, newData);
@@ -35,7 +33,7 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
           onChange={e => handleChange({ name: e.target.value })}
         />
       </div>
-      <div className="flex flex-[1] justify-end gap-2">
+      <div className="flex flex-1 justify-end gap-2">
         <input
           className="text-center"
           max={90000000}

@@ -1,14 +1,13 @@
 import { type ChangeEvent, useRef } from 'react';
 import { FaUpload } from 'react-icons/fa6';
 
-import { useStore } from '@/lib/store';
+import { listLoad, useStore } from '@/lib/store';
 import { loadListFromFile } from '@/lib/utils';
 
 export function LoadFromFile() {
   const inputRef = useRef<HTMLInputElement>(null);
   const currentListId = useStore(state => state.currentListId);
   const list = useStore(state => state.lists[currentListId]);
-  const listLoad = useStore(state => state.listLoad);
   const listsItemsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
 
   const handleFileLoad = async (e: ChangeEvent<HTMLInputElement>) => {

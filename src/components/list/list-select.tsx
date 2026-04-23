@@ -4,14 +4,12 @@ import { FaList } from 'react-icons/fa6';
 
 import { ListCreate } from '@/components/actions/list-create';
 import { RemoveList } from '@/components/actions/remove-list';
-import { useStore } from '@/lib/store';
+import { listSetCurrentId, listSetName, useStore } from '@/lib/store';
 
 export function ListSelect() {
   const [open, setOpen] = useState(false);
   const currentListId = useStore(state => state.currentListId);
   const lists = useStore(state => state.lists);
-  const listSetName = useStore(state => state.listSetName);
-  const listSetCurrentId = useStore(state => state.listSetCurrentId);
   const list = useStore(state => state.lists[currentListId]);
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export function ListSelect() {
 
   return (
     <div className="flex items-center gap-1 md:gap-4">
-      <div className="relative my-4 w-full max-w-[50rem]">
+      <div className="relative my-4 w-full max-w-200">
         <input
           className="w-full border p-2 font-bold text-2xl"
           placeholder="List name"
@@ -48,7 +46,7 @@ export function ListSelect() {
               />
               <motion.div
                 animate="animate"
-                className="fixed my-8 flex w-full max-w-[50rem] flex-col gap-2"
+                className="fixed my-8 flex w-full max-w-200 flex-col gap-2"
                 exit="exit"
                 initial="initial"
               >

@@ -1,10 +1,9 @@
 import { FaCheckDouble, FaMinus } from 'react-icons/fa6';
 
-import { useStore } from '@/lib/store';
+import { listItemSelectAll, useStore } from '@/lib/store';
 
 export function SelectAll() {
   const currentListId = useStore(state => state.currentListId);
-  const listItemSelectAll = useStore(state => state.listItemSelectAll);
   const listItemsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
 
   const isAllSelected = useStore(state => {
