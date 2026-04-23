@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite --host --port 3000",
 		"build": "tsc -b && vite build",
+    "typecheck": "tsc --noEmit --preserveWatchOutput -p tsconfig.app.json",
 		"lint": "biome check",
 		"start": "vite preview --host --port 3000",
 		"test": "vitest -w"
