@@ -1,11 +1,11 @@
 import { Reorder } from 'framer-motion';
-import { FaCheck, FaO, FaTrash } from 'react-icons/fa6';
+import { FaCheck, FaTrash } from 'react-icons/fa6';
 
 import { units } from '@/lib/constants';
 import { listItemDelete, listItemUpdate, useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
 
-export function ListItem({ items, listItemId }: { items: ListItemType; listItemId: string }) {
+export function ListItem({ listItem, listItemId }: { listItem: ListItemType; listItemId: string }) {
   const currentListId = useStore(state => state.currentListId);
 
   const handleChange = (newData: Partial<ListItemType>) => {
@@ -29,22 +29,27 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
         <input
           placeholder="Product name..."
           type="text"
-          value={items.name}
+          value={listItem.name}
           onChange={e => handleChange({ name: e.target.value })}
         />
       </div>
       <div className="flex flex-1 justify-end gap-2">
         <input
           className="text-center"
-          max={90000000}
+          max={1000000}
           min={1}
-          type="number"
-          value={items.qty == null || Number.isNaN(items.qty) ? '' : items.qty}
-          onChange={e => handleChange({ qty: e.target.valueAsNumber })}
+          type="text"
+          inputMode="numeric"
+          value={listItem.qty}
+          onChange={e =>
+            handleChange({
+              qty: Number.isNaN(Number.parseFloat(e.target.value)) ? 0 : Number.parseFloat(e.target.value),
+            })
+          }
         />
         <select
-          className="text-center"
-          value={items.unit}
+          className="text-center text-sm uppercase"
+          value={listItem.unit}
           onChange={e => handleChange({ unit: e.target.value as (typeof units)[number] })}
         >
           {units.map(unit => (
@@ -55,11 +60,11 @@ export function ListItem({ items, listItemId }: { items: ListItemType; listItemI
         </select>
 
         <button
-          className={`btn-primary ${items.selected ? 'btn-success' : ''}`}
+          className={`btn-primary ${listItem.selected ? 'btn-success' : ''}`}
           type="button"
-          onClick={() => handleChange({ selected: !items.selected })}
+          onClick={() => handleChange({ selected: !listItem.selected })}
         >
-          {items.selected ? <FaCheck /> : <FaO />}
+          <FaCheck />
         </button>
 
         <button className="btn-error" type="button" onClick={() => listItemDelete(currentListId, listItemId)}>
