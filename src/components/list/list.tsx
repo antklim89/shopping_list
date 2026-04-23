@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 import { AnimatePresence, Reorder } from 'framer-motion';
+import { FaCheck, FaList } from 'react-icons/fa6';
 
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
 import { ListItem } from './list-item';
 import { ListSelect } from './list-select';
+import { Empty } from '../ui/empty';
 
 export function List() {
   const currentListId = useStore(state => state.currentListId);
@@ -31,24 +33,28 @@ export function List() {
       <ListSelect />
 
       <div key={currentListId}>
-        {notSelectedList.length === 0 ? (
-          <div className="flex justify-center">
-            <span className="my-4 font-bold text-2xl">All products bought</span>
-          </div>
-        ) : null}
+        {Object.values(list.items).length > 0 && notSelectedList.length === 0 && (
+          <Empty title="List Empty" icon={FaCheck} message="You have bought all the products" />
+        )}
+
+        {Object.values(list.items).length === 0 && (
+          <Empty title="List Empty" icon={FaList} message="You haven&apos;t added any products yet" />
+        )}
 
         <Reorder.Group
           as="div"
           axis="y"
           className="my-8 flex flex-col gap-8 sm:gap-1"
-          values={Object.entries(list.items)}
+          values={Object.keys(list.items)}
           onReorder={() => null}
         >
           <AnimatePresence initial={false}>
             {notSelectedList.map(([id, items]) => (
               <ListItem listItem={items} key={id} listItemId={id} />
             ))}
-            <hr className="my-4" />
+
+            {selectedList.length !== 0 && notSelectedList.length !== 0 && <hr className="my-4" />}
+
             {selectedList.map(([id, items]) => (
               <ListItem listItem={items} key={id} listItemId={id} />
             ))}
