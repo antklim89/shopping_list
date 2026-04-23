@@ -3,6 +3,5 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
-  "files": [],
-  "include": ["eslint.config.js", "tailwind.config.js"]
+  "files": []
 }
