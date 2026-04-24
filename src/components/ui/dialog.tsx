@@ -24,7 +24,7 @@ export function Dialog({ children, isOpen, close }: { children: ReactNode; isOpe
             onClick={() => close()}
           />
           <motion.div
-            className="-translate-1/2 fixed top-1/2 left-1/2 min-w-96 rounded-default bg-background p-4"
+            className="fixed top-26 left-1/2 mx-4 w-full max-w-md -translate-x-1/2 rounded-default bg-background p-4"
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
