@@ -22,7 +22,7 @@ select {
 }
 
 button {
-  @apply rounded-default cursor-pointer flex text-nowrap justify-center items-center border px-3 h-9 transition-colors uppercase disabled:cursor-not-allowed disabled:opacity-45;
+  @apply flex gap-2 rounded-default cursor-pointer text-nowrap justify-center items-center border px-3 h-9 transition-colors disabled:cursor-not-allowed disabled:opacity-45;
 }
 
 button.btn-primary {

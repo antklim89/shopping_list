@@ -60,7 +60,7 @@ export function ListItem({ listItem, listItemId }: { listItem: ListItemType; lis
         </select>
 
         <button
-          className={`btn-primary ${listItem.selected ? 'btn-success' : ''}`}
+          className={listItem.selected ? 'btn-success' : 'btn-primary'}
           type="button"
           onClick={() => handleChange({ selected: !listItem.selected })}
         >
