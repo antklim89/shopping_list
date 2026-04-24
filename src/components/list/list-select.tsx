@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { FaList } from 'react-icons/fa6';
 
 import { ListCreate } from '@/components/actions/list-create';
@@ -26,52 +26,30 @@ export function ListSelect() {
           onChange={e => listSetName(currentListId, e.target.value)}
         />
 
-        <AnimatePresence>
-          {open && (
-            <div className="z-50">
-              <motion.div
-                animate={{ opacity: 0.5 }}
-                className="fixed inset-0 bg-gray-400"
-                exit={{ opacity: 0 }}
-                initial={{ opacity: 0 }}
-                onClick={() => setOpen(false)}
-              />
-              <motion.div
-                animate="animate"
-                className="fixed my-8 flex w-full max-w-200 flex-col gap-2"
-                exit="exit"
-                initial="initial"
+        <Dialog isOpen={open} close={() => setOpen(false)}>
+          <motion.div animate="animate" className="flex-col gap-4" exit="exit" initial="initial">
+            <h3 className="mb-4 text-xl">List collection</h3>
+            {Object.entries(lists).map(([id, listItem], idx) => (
+              <motion.button
+                className="btn-primary w-full"
+                custom={idx}
+                key={id}
+                transition={{ type: 'spring', bounce: 0.15, duration: 0.6 }}
+                type="button"
+                variants={{
+                  animate: () => ({ y: 0 }),
+                  initial: (i: number) => ({ y: -i * 38 }),
+                }}
+                onClick={() => {
+                  listSetCurrentId(id);
+                  setOpen(false);
+                }}
               >
-                {Object.entries(lists).map(([id, listItem], idx) => (
-                  <motion.button
-                    className="btn-primary"
-                    custom={idx}
-                    key={id}
-                    transition={{ type: 'spring', bounce: 0.15 }}
-                    type="button"
-                    variants={{
-                      animate: () => ({
-                        y: 0,
-                        opacity: 1,
-                      }),
-                      exit: (custom: number) => ({
-                        y: -(custom + 0.5) * 38,
-                        opacity: 0,
-                      }),
-                      initial: (custom: number) => ({
-                        y: -(custom + 0.5) * 38,
-                        opacity: 0,
-                      }),
-                    }}
-                    onClick={() => listSetCurrentId(id)}
-                  >
-                    {listItem.name || 'List'}
-                  </motion.button>
-                ))}
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
+                {listItem.name || 'List'}
+              </motion.button>
+            ))}
+          </motion.div>
+        </Dialog>
       </div>
 
       <button className="btn-primary" type="button" onClick={() => setOpen(p => !p)}>
