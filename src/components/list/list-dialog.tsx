@@ -37,7 +37,7 @@ export function ListDialog() {
                     setOpen(false);
                   }}
                   type="button"
-                  className="btn-primary"
+                  className="btn-primary w-full"
                 >
                   {listItem.name || 'List'}
                 </button>
