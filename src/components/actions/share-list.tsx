@@ -24,7 +24,7 @@ export function ShareList() {
   return (
     <button className="btn-primary" type="button" onClick={async () => share()}>
       <FaShare />
-      <span className="ml-2 hidden md:inline">Share</span>
+      <span className="ml-2 hidden sm:inline">Share</span>
     </button>
   );
 }

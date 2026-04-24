@@ -16,7 +16,7 @@ export function SaveToFile() {
       onClick={() => list && saveListToFile(currentListId, list)}
     >
       <FaDownload />
-      <span className="ml-2 hidden md:inline">Save To File</span>
+      <span className="ml-2 hidden sm:inline">Save To File</span>
     </button>
   );
 }

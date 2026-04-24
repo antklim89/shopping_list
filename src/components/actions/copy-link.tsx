@@ -24,7 +24,7 @@ export function CopyLink() {
   return (
     <button className="btn-primary" type="button" onClick={async () => copyLink()}>
       <FaCopy />
-      <span className="ml-2 hidden md:inline">Copy URL</span>
+      <span className="ml-2 hidden sm:inline">Copy URL</span>
     </button>
   );
 }

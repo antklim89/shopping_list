@@ -8,7 +8,7 @@ export function ListItemCreate() {
   return (
     <button className="btn-primary" type="button" onClick={() => listItemAdd(currentListId)}>
       <FaPlus />
-      <span className="hidden md:inline">Add Item</span>
+      <span className="hidden sm:inline">Add Item</span>
     </button>
   );
 }

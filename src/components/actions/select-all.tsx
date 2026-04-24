@@ -22,12 +22,12 @@ export function SelectAll() {
       {isAllSelected ? (
         <>
           <FaMinus />
-          <span className="ml-2 hidden md:inline">Nothing Bought</span>
+          <span className="ml-2 hidden sm:inline">Nothing Bought</span>
         </>
       ) : (
         <>
           <FaCheckDouble />
-          <span className="ml-2 hidden md:inline">All Bought</span>
+          <span className="ml-2 hidden sm:inline">All Bought</span>
         </>
       )}
     </button>

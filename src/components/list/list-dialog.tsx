@@ -50,7 +50,7 @@ export function ListDialog() {
 
       <button className="btn-primary" type="button" onClick={() => setOpen(p => !p)}>
         <FaList />
-        <span className="hidden md:inline">Show lists</span>
+        <span className="hidden sm:inline">Show lists</span>
       </button>
     </div>
   );
