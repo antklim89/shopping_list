@@ -5,21 +5,13 @@ import { FaList } from 'react-icons/fa6';
 import { ListCreate } from '@/components/actions/list-create';
 import { RemoveList } from '@/components/actions/remove-list';
 import { listSetCurrentId, listSetName, useStore } from '@/lib/store';
+import { Dialog } from '../ui/dialog';
 
 export function ListSelect() {
   const [open, setOpen] = useState(false);
   const currentListId = useStore(state => state.currentListId);
   const lists = useStore(state => state.lists);
   const list = useStore(state => state.lists[currentListId]);
-
-  useEffect(() => {
-    if (open === false) return;
-    const listener = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    addEventListener('keydown', listener);
-    return () => removeEventListener('keydown', listener);
-  }, [open]);
 
   if (!list) return null;
 
