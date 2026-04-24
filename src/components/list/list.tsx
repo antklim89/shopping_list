@@ -5,7 +5,6 @@ import { FaCheck, FaList } from 'react-icons/fa6';
 import { useStore } from '@/lib/store';
 import type { ListItemType } from '@/lib/types';
 import { ListItem } from './list-item';
-import { ListSelect } from './list-select';
 import { Empty } from '../ui/empty';
 
 export function List() {
@@ -29,9 +28,7 @@ export function List() {
   if (!list) return null;
 
   return (
-    <div className="overflow-hidden">
-      <ListSelect />
-
+    <div>
       <div key={currentListId}>
         {Object.values(list.items).length > 0 && notSelectedList.length === 0 && (
           <Empty title="List Empty" icon={FaCheck} message="You have bought all the products" />

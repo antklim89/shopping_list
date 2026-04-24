@@ -2,20 +2,18 @@ import { FaTrash } from 'react-icons/fa6';
 
 import { listRemove, useStore } from '@/lib/store';
 
-export function RemoveList() {
-  const currentListId = useStore(state => state.currentListId);
+export function ListRemove({ listId }: { listId: string }) {
   const listsLength = useStore(state => Object.keys(state.lists).length);
-  const list = useStore(state => state.lists[currentListId]);
+  const list = useStore(state => state.lists[listId]);
 
   return (
     <button
       className="btn-error"
       disabled={listsLength <= 1 || list == null}
       type="button"
-      onClick={() => listRemove(currentListId)}
+      onClick={() => listRemove(listId)}
     >
       <FaTrash />
-      <span className="ml-2 hidden md:inline">Remove List</span>
     </button>
   );
 }

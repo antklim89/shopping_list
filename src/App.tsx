@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/header';
 import { List } from '@/components/list/list';
 import { listLoad } from '@/lib/store';
 import { loadListFromUrl } from '@/lib/utils';
+import { ListPanel } from './components/list/list-panel';
 
 function App() {
   const list = loadListFromUrl();
@@ -16,8 +17,9 @@ function App() {
   return (
     <>
       <Header />
-      <main className="container">
+      <main className="container flex flex-col gap-2">
         <ActionsPanel />
+        <ListPanel />
         <List />
       </main>
     </>
