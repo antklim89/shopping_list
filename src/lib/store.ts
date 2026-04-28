@@ -29,7 +29,22 @@ export const useStore = create(
   ),
 );
 
-export const listCreate = () => {
+export function getCurrentListItemsLength(state: ListStore): number {
+  const items = state.lists[state.currentListId]?.items;
+  return items ? Object.entries(items).length : 0;
+}
+
+export function getListsLength(state: ListStore): number {
+  return Object.values(state.lists).length;
+}
+
+export function checkIsAllSelected(state: ListStore): boolean {
+  const list = state.lists[state.currentListId];
+  if (list == null) return false;
+  return Object.values(list.items).every(listItem => listItem.selected);
+}
+
+export function listCreate() {
   useStore.setState(state => {
     const listId = generateId();
 
@@ -38,7 +53,7 @@ export const listCreate = () => {
       currentListId: listId,
     };
   });
-};
+}
 
 export const listLoad = (listId: string, list: ListType) => {
   useStore.setState(state => {
@@ -87,7 +102,16 @@ export const listItemAdd = (listId: keyof ListStore['lists']) => {
     const list = state.lists[listId] || defaultList;
 
     return {
-      lists: { ...state.lists, [listId]: { ...list, items: { ...list.items, [generateId()]: defaultListItem } } },
+      lists: {
+        ...state.lists,
+        [listId]: {
+          ...list,
+          items: {
+            ...list.items,
+            [generateId()]: defaultListItem,
+          },
+        },
+      },
     };
   });
 };
@@ -132,7 +156,7 @@ export const listItemSelectAll = (listId: keyof ListStore['lists']) => {
     const list = state.lists[listId];
     if (list == null) return state;
 
-    const isAllSelected = Object.entries(list.items).every(([_, listItem]) => listItem.selected);
+    const isAllSelected = Object.values(list.items).every(listItem => listItem.selected);
 
     const newItems = isAllSelected
       ? Object.fromEntries(Object.entries(list.items).map(([key, listItem]) => [key, { ...listItem, selected: false }]))

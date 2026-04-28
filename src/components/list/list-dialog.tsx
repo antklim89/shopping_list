@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaList } from 'react-icons/fa6';
+import { FaList, FaX } from 'react-icons/fa6';
 
 import { ListCreate } from '@/components/list/list-create';
 import { ListRemove } from '@/components/list/list-remove';
@@ -23,7 +23,7 @@ export function ListDialog() {
             {Object.entries(lists).map(([id, listItem], idx) => (
               <motion.div
                 key={id}
-                className="flex gap-2"
+                className="flex items-center gap-2"
                 custom={idx}
                 transition={{ type: 'spring', bounce: 0.15, duration: 0.6 }}
                 variants={{
@@ -41,6 +41,7 @@ export function ListDialog() {
                 >
                   {listItem.name || 'List'}
                 </button>
+                <FaX className="m-0 leading-0" /> {Object.values(listItem.items).length}
                 <ListRemove listId={id} />
               </motion.div>
             ))}

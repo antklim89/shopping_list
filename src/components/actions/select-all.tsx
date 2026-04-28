@@ -1,21 +1,16 @@
 import { FaCheckDouble, FaMinus } from 'react-icons/fa6';
 
-import { listItemSelectAll, useStore } from '@/lib/store';
+import { checkIsAllSelected, getCurrentListItemsLength, listItemSelectAll, useStore } from '@/lib/store';
 
 export function SelectAll() {
   const currentListId = useStore(state => state.currentListId);
-  const listItemsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
-
-  const isAllSelected = useStore(state => {
-    const list = state.lists[currentListId];
-    if (list == null) return false;
-    return Object.entries(list.items).every(([_, listItem]) => listItem.selected);
-  });
+  const listsItemsLength = useStore(getCurrentListItemsLength);
+  const isAllSelected = useStore(checkIsAllSelected);
 
   return (
     <button
       className="btn-primary"
-      disabled={listItemsLength === 0}
+      disabled={listsItemsLength === 0}
       type="button"
       onClick={() => listItemSelectAll(currentListId)}
     >

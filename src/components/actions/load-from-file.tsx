@@ -1,14 +1,12 @@
 import { type ChangeEvent, useRef } from 'react';
 import { FaUpload } from 'react-icons/fa6';
 
-import { listLoad, useStore } from '@/lib/store';
+import { getCurrentListItemsLength, listLoad, useStore } from '@/lib/store';
 import { loadListFromFile } from '@/lib/utils';
 
 export function LoadFromFile() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const currentListId = useStore(state => state.currentListId);
-  const list = useStore(state => state.lists[currentListId]);
-  const listsItemsLength = useStore(state => Object.keys(state.lists[currentListId]?.items || {}).length);
+  const listsItemsLength = useStore(getCurrentListItemsLength);
 
   const handleFileLoad = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -21,7 +19,7 @@ export function LoadFromFile() {
   return (
     <button
       className="btn-primary"
-      disabled={listsItemsLength === 0 || list == null}
+      disabled={listsItemsLength === 0}
       type="button"
       onClick={() => inputRef.current?.click()}
     >
