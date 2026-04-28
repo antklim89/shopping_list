@@ -39,7 +39,7 @@ export function ListDialog() {
                   type="button"
                   className="btn-primary w-full"
                 >
-                  {listItem.name || 'List'}
+                  {listItem.name || 'Nameless list'}
                 </button>
                 <FaX className="m-0 leading-0" /> {Object.values(listItem.items).length}
                 <ListRemove listId={id} />

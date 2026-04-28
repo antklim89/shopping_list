@@ -27,7 +27,7 @@ export function ListItem({ listItem, listItemId }: { listItem: ListItemType; lis
     >
       <div className="flex w-full gap-2 sm:w-auto sm:flex-[2_0_auto]">
         <input
-          placeholder="Product name..."
+          placeholder="Enter product name..."
           type="text"
           value={listItem.name}
           onChange={e => handleChange({ name: e.target.value })}
