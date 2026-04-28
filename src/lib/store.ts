@@ -5,14 +5,14 @@ import type { ListItemType, ListType } from './types';
 import { generateId } from './utils';
 
 export const defaultListItem: ListItemType = {
-  name: 'New list item',
+  name: '',
   qty: 0,
   unit: 'piece',
   selected: false,
 };
 
 export const defaultList: ListType = {
-  name: 'New list collection',
+  name: '',
   items: {},
 };
 
