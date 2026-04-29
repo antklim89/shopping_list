@@ -6,7 +6,7 @@ export function Header() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="mb-4 bg-primary p-2 shadow-lg">
+    <header className="mb-4 bg-primary p-2 shadow shadow-black">
       <div className="container flex items-center justify-between">
         <h1 className="font-bold text-2xl text-primary-foreground">Shopping List</h1>
         <div className="flex space-x-4">

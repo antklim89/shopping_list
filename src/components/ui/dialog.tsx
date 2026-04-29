@@ -12,7 +12,7 @@ export function Dialog({ children, isOpen, close }: { children: ReactNode; isOpe
   }, [isOpen, close]);
 
   return (
-    <AnimatePresence propagate>
+    <AnimatePresence>
       {isOpen && (
         <>
           <motion.div
@@ -24,7 +24,7 @@ export function Dialog({ children, isOpen, close }: { children: ReactNode; isOpe
             onClick={() => close()}
           />
           <motion.div
-            className="fixed top-26 left-1/2 mx-4 w-full max-w-md -translate-x-1/2 rounded-default bg-background p-4"
+            className="fixed top-26 left-1/2 w-[calc(100vw-1.2rem)] max-w-md -translate-x-1/2 rounded-default border border-primary-border bg-background p-2 shadow shadow-black"
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}

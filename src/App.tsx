@@ -18,8 +18,10 @@ function App() {
     <>
       <Header />
       <main className="container flex flex-col gap-2">
-        <ActionsPanel />
-        <ListPanel />
+        <div className="flex flex-col gap-2 rounded-default border border-primary-border p-2 shadow shadow-black">
+          <ActionsPanel />
+          <ListPanel />
+        </div>
         <List />
       </main>
     </>

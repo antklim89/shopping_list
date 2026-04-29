@@ -32,7 +32,7 @@ export function ListItem({ listItem, listItemId }: { listItem: ListItemType; lis
     <Reorder.Item
       animate={{ x: 0, opacity: 1 }}
       as="div"
-      className="flex flex-wrap justify-between gap-2 sm:flex-nowrap"
+      className="flex flex-wrap justify-between gap-2 rounded-default border border-primary-border p-1 shadow shadow-black sm:flex-nowrap"
       dragListener={false}
       exit={{ x: 20, opacity: 0 }}
       initial={{ x: -20, opacity: 0 }}
