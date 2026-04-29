@@ -1,16 +1,32 @@
+import type { ChangeEvent } from 'react';
 import { Reorder } from 'framer-motion';
 import { FaCheck, FaTrash } from 'react-icons/fa6';
 
 import { units } from '@/lib/constants';
-import { listItemDelete, listItemUpdate, useStore } from '@/lib/store';
-import type { ListItemType } from '@/lib/types';
+import { listItemDelete, listItemUpdate } from '@/lib/store';
+import type { ListItemType, Unit } from '@/lib/types';
 
 export function ListItem({ listItem, listItemId }: { listItem: ListItemType; listItemId: string }) {
-  const currentListId = useStore(state => state.currentListId);
+  function handleQtyChange(e: ChangeEvent<HTMLInputElement>) {
+    const newValue = Number.parseFloat(e.target.value);
+    listItemUpdate(listItemId, { qty: Number.isNaN(newValue) ? 0 : newValue });
+  }
 
-  const handleChange = (newData: Partial<ListItemType>) => {
-    listItemUpdate(currentListId, listItemId, newData);
-  };
+  function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
+    listItemUpdate(listItemId, { name: e.target.value });
+  }
+
+  function handleUnitChange(e: ChangeEvent<HTMLSelectElement>) {
+    listItemUpdate(listItemId, { unit: e.target.value as Unit });
+  }
+
+  function handleSelectedChange() {
+    listItemUpdate(listItemId, { selected: !listItem.selected });
+  }
+
+  function handleListItemDelete() {
+    listItemDelete(listItemId);
+  }
 
   return (
     <Reorder.Item
@@ -26,12 +42,7 @@ export function ListItem({ listItem, listItemId }: { listItem: ListItemType; lis
       value={listItemId}
     >
       <div className="flex w-full gap-2 sm:w-auto sm:flex-[2_0_auto]">
-        <input
-          placeholder="Enter product name..."
-          type="text"
-          value={listItem.name}
-          onChange={e => handleChange({ name: e.target.value })}
-        />
+        <input placeholder="Enter product name..." type="text" value={listItem.name} onChange={handleNameChange} />
       </div>
       <div className="flex flex-1 justify-end gap-2">
         <input
@@ -41,17 +52,9 @@ export function ListItem({ listItem, listItemId }: { listItem: ListItemType; lis
           type="text"
           inputMode="numeric"
           value={listItem.qty}
-          onChange={e =>
-            handleChange({
-              qty: Number.isNaN(Number.parseFloat(e.target.value)) ? 0 : Number.parseFloat(e.target.value),
-            })
-          }
+          onChange={handleQtyChange}
         />
-        <select
-          className="text-center text-sm uppercase"
-          value={listItem.unit}
-          onChange={e => handleChange({ unit: e.target.value as (typeof units)[number] })}
-        >
+        <select className="text-center text-sm uppercase" value={listItem.unit} onChange={handleUnitChange}>
           {units.map(unit => (
             <option key={unit} value={unit}>
               {unit}
@@ -62,12 +65,12 @@ export function ListItem({ listItem, listItemId }: { listItem: ListItemType; lis
         <button
           className={listItem.selected ? 'btn-success' : 'btn-primary'}
           type="button"
-          onClick={() => handleChange({ selected: !listItem.selected })}
+          onClick={handleSelectedChange}
         >
           <FaCheck />
         </button>
 
-        <button className="btn-error" type="button" onClick={() => listItemDelete(currentListId, listItemId)}>
+        <button className="btn-error" type="button" onClick={handleListItemDelete}>
           <FaTrash />
         </button>
       </div>

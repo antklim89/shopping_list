@@ -94,11 +94,11 @@ describe('listSetCurrentId', () => {
 
 describe('listItemAdd', () => {
   it('should add new list item', () => {
+    useStore.setState({ currentListId: 'listId' });
     vi.mocked(generateId).mockImplementation(() => 'randomId1');
-    listItemAdd('listId');
+    listItemAdd();
     vi.mocked(generateId).mockImplementation(() => 'randomId2');
-    listItemAdd('listId');
-
+    listItemAdd();
     expect(getState().lists.listId).toStrictEqual({
       ...defaultList,
       items: { randomId1: defaultListItem, randomId2: defaultListItem },
@@ -109,11 +109,12 @@ describe('listItemAdd', () => {
 describe('listItemUpdate', () => {
   it('should update list item', () => {
     populateState({
+      currentListId: 'listId',
       lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } },
     });
-    listItemUpdate('listId', 'listItemId', { name: 'Updated Name' });
-    listItemUpdate('listId', 'listItemId', { qty: 6000 });
-    listItemUpdate('listId', 'listItemId', {});
+    listItemUpdate('listItemId', { name: 'Updated Name' });
+    listItemUpdate('listItemId', { qty: 6000 });
+    listItemUpdate('listItemId', {});
 
     expect(getState().lists.listId?.items).toHaveProperty('extra');
     expect(getState().lists.listId?.items.listItemId).toStrictEqual({
@@ -125,7 +126,8 @@ describe('listItemUpdate', () => {
   });
 
   it('should update if list does not exist', () => {
-    listItemUpdate('listId', 'randomId', { name: 'Updated Name' });
+    populateState({ currentListId: 'listId' });
+    listItemUpdate('randomId', { name: 'Updated Name' });
 
     expect(getState().lists.listId?.items).toEqual({
       randomId: {
@@ -141,9 +143,10 @@ describe('listItemUpdate', () => {
 describe('listItemDelete', () => {
   it('should remove list item', () => {
     populateState({
+      currentListId: 'listId',
       lists: { listId: { name: 'name', items: { listItemId: defaultListItem, extra: defaultListItem } } },
     });
-    listItemDelete('listId', 'listItemId');
+    listItemDelete('listItemId');
 
     expect(getState().lists.listId?.items).toHaveProperty('extra');
     expect(getState().lists.listId?.items).not.toHaveProperty('listItemId');

@@ -58,6 +58,7 @@ export function listCreate() {
 export const listLoad = (listId: string, list: ListType) => {
   useStore.setState(state => {
     return {
+      currentListId: listId,
       lists: { ...state.lists, [listId]: list },
     };
   });
@@ -97,8 +98,9 @@ export const listSetCurrentId = (listId: keyof ListStore['lists']) => {
   });
 };
 
-export const listItemAdd = (listId: keyof ListStore['lists']) => {
+export const listItemAdd = () => {
   useStore.setState(state => {
+    const listId = state.currentListId;
     const list = state.lists[listId] || defaultList;
 
     return {
@@ -116,12 +118,9 @@ export const listItemAdd = (listId: keyof ListStore['lists']) => {
   });
 };
 
-export const listItemUpdate = (
-  listId: keyof ListStore['lists'],
-  listItemId: string,
-  newData: Partial<ListItemType>,
-) => {
+export const listItemUpdate = (listItemId: string, newData: Partial<ListItemType>) => {
   useStore.setState(state => {
+    const listId = state.currentListId;
     const list = state.lists[listId] || defaultList;
     const listItem = list.items[listItemId] || defaultListItem;
 
@@ -134,8 +133,9 @@ export const listItemUpdate = (
   });
 };
 
-export const listItemDelete = (listId: keyof ListStore['lists'], listItemId: string) => {
+export const listItemDelete = (listItemId: string) => {
   useStore.setState(state => {
+    const listId = state.currentListId;
     const list = state.lists[listId];
     if (list == null) return state;
 
@@ -151,8 +151,9 @@ export const listItemDelete = (listId: keyof ListStore['lists'], listItemId: str
   });
 };
 
-export const listItemSelectAll = (listId: keyof ListStore['lists']) => {
+export const listItemSelectAll = () => {
   useStore.setState(state => {
+    const listId = state.currentListId;
     const list = state.lists[listId];
     if (list == null) return state;
 

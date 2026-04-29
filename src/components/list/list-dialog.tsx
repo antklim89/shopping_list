@@ -10,6 +10,14 @@ import { Dialog } from '../ui/dialog';
 export function ListDialog() {
   const [open, setOpen] = useState(false);
   const lists = useStore(state => state.lists);
+  const toggleOpen = () => setOpen(p => !p);
+
+  function handleListSelect(id: string) {
+    return () => {
+      listSetCurrentId(id);
+      setOpen(false);
+    };
+  }
 
   return (
     <div className="flex items-center gap-1 md:gap-4">
@@ -27,18 +35,11 @@ export function ListDialog() {
                 custom={idx}
                 transition={{ type: 'spring', bounce: 0.15, duration: 0.6 }}
                 variants={{
-                  animate: () => ({ y: 0 }),
+                  animate: { y: 0 },
                   initial: (i: number) => ({ y: -i * 38 }),
                 }}
               >
-                <button
-                  onClick={() => {
-                    listSetCurrentId(id);
-                    setOpen(false);
-                  }}
-                  type="button"
-                  className="btn-primary w-full"
-                >
+                <button onClick={handleListSelect(id)} type="button" className="btn-primary w-full">
                   {listItem.name || 'Nameless list'}
                 </button>
                 <FaX className="m-0 leading-0" /> {Object.values(listItem.items).length}
@@ -49,7 +50,7 @@ export function ListDialog() {
         </motion.div>
       </Dialog>
 
-      <button className="btn-primary" type="button" onClick={() => setOpen(p => !p)}>
+      <button className="btn-primary" type="button" onClick={toggleOpen}>
         <FaList />
         <span className="hidden sm:inline">Show lists</span>
       </button>

@@ -1,30 +1,24 @@
 import { FaCopy } from 'react-icons/fa6';
 
 import { useStore } from '@/lib/store';
-import type { ListShareType } from '@/lib/types';
+import { copyLink } from '@/lib/utils';
 
 export function CopyLink() {
   const currentListId = useStore(state => state.currentListId);
   const list = useStore(state => state.lists[currentListId]);
 
-  if (list == null) return null;
-  if (navigator.clipboard?.writeText == null) return null;
+  if (!navigator.clipboard?.writeText) return null;
+  if (!list) return;
 
-  const copyLink = async () => {
-    const shareData: ListShareType = { id: currentListId, list };
-    const url = `${location.href}?share=${encodeURIComponent(JSON.stringify(shareData))}`;
-
-    try {
-      await navigator.clipboard.writeText(url);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  function handleCopyFile() {
+    if (!list) return;
+    void copyLink({ id: currentListId, list });
+  }
 
   return (
-    <button className="btn-primary" type="button" onClick={async () => copyLink()}>
+    <button className="btn-primary" type="button" onClick={handleCopyFile}>
       <FaCopy />
-      <span className="ml-2 hidden sm:inline">Copy URL</span>
+      <span className="hidden sm:inline">Copy URL</span>
     </button>
   );
 }

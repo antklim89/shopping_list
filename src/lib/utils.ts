@@ -54,3 +54,27 @@ export function loadListFromUrl(): ListShareType | null {
     return null;
   }
 }
+
+export async function share({ currentListId, list }: { currentListId?: string; list?: ListType }) {
+  if (currentListId == null) return;
+  if (list == null) return;
+
+  const shareData: ListShareType = { id: currentListId, list };
+  const url = `${location.href}?share=${encodeURIComponent(JSON.stringify(shareData))}`;
+
+  try {
+    if (navigator.share != null) await navigator.share({ url });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const copyLink = async (shareData: ListShareType) => {
+  const url = `${location.href}?share=${encodeURIComponent(JSON.stringify(shareData))}`;
+
+  try {
+    await navigator.clipboard.writeText(url);
+  } catch (error) {
+    console.error(error);
+  }
+};

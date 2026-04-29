@@ -1,3 +1,5 @@
+import type { ChangeEvent } from 'react';
+
 import { listSetName, useStore } from '@/lib/store';
 
 export function ListInput() {
@@ -6,13 +8,17 @@ export function ListInput() {
 
   if (!list) return null;
 
+  function handleListNameChange(e: ChangeEvent<HTMLInputElement>) {
+    listSetName(currentListId, e.target.value);
+  }
+
   return (
     <input
       className="w-full border p-2 font-bold text-2xl"
       placeholder="Enter list name..."
       type="text"
       value={list.name}
-      onChange={e => listSetName(currentListId, e.target.value)}
+      onChange={handleListNameChange}
     />
   );
 }

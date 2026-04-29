@@ -5,8 +5,12 @@ import { getListsLength, listRemove, useStore } from '@/lib/store';
 export function ListRemove({ listId }: { listId: string }) {
   const listsLength = useStore(getListsLength);
 
+  function handleListRemove() {
+    listRemove(listId)
+  }
+
   return (
-    <button className="btn-error" disabled={listsLength <= 1} type="button" onClick={() => listRemove(listId)}>
+    <button className="btn-error" disabled={listsLength <= 1} type="button" onClick={handleListRemove}>
       <FaTrash />
     </button>
   );

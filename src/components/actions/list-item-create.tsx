@@ -1,12 +1,14 @@
 import { FaPlus } from 'react-icons/fa6';
 
-import { listItemAdd, useStore } from '@/lib/store';
+import { listItemAdd } from '@/lib/store';
 
 export function ListItemCreate() {
-  const currentListId = useStore(state => state.currentListId);
+  function handleListItemAdd() {
+    listItemAdd();
+  }
 
   return (
-    <button className="btn-primary" type="button" onClick={() => listItemAdd(currentListId)}>
+    <button className="btn-primary" type="button" onClick={handleListItemAdd}>
       <FaPlus />
       <span className="hidden sm:inline">Add Item</span>
     </button>
