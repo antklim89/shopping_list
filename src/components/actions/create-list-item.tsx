@@ -2,7 +2,7 @@ import { FaPlus } from 'react-icons/fa6';
 
 import { listItemAdd } from '@/lib/store';
 
-export function ListItemCreate() {
+export function CreateListItem() {
   function handleListItemAdd() {
     listItemAdd();
   }
