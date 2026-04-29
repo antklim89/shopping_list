@@ -5,10 +5,12 @@ export interface ListType {
   items: Record<string, ListItemType>;
 }
 
+export type Unit = (typeof units)[number];
+
 export interface ListItemType {
   name: string;
   qty: number;
-  unit: (typeof units)[number];
+  unit: Unit;
   selected: boolean;
 }
 
