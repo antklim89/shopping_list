@@ -52,7 +52,7 @@ export function ListDialog() {
 
       <button className="btn-primary" type="button" onClick={toggleOpen}>
         <FaList />
-        <span className="hidden sm:inline">Show lists</span>
+        <span className="sr-only sm:not-sr-only">Show lists</span>
       </button>
     </div>
   );

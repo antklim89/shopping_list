@@ -16,7 +16,7 @@ export function ShareList() {
   return (
     <button className="btn-primary" type="button" onClick={handleShare}>
       <FaShare />
-      <span className="ml-2 hidden sm:inline">Share</span>
+      <span className="sr-only ml-2 sm:not-sr-only">Share</span>
     </button>
   );
 }

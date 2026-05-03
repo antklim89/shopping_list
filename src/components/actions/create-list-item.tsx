@@ -10,7 +10,7 @@ export function CreateListItem() {
   return (
     <button className="btn-primary" type="button" onClick={handleListItemAdd}>
       <FaPlus />
-      <span className="hidden sm:inline">Add Item</span>
+      <span className="sr-only sm:not-sr-only">Add Item</span>
     </button>
   );
 }

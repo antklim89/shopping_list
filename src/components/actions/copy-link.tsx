@@ -18,7 +18,7 @@ export function CopyLink() {
   return (
     <button className="btn-primary" type="button" onClick={handleCopyFile}>
       <FaCopy />
-      <span className="hidden sm:inline">Copy URL</span>
+      <span className="sr-only sm:not-sr-only">Copy URL</span>
     </button>
   );
 }

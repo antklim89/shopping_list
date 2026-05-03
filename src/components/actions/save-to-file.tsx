@@ -16,7 +16,7 @@ export function SaveToFile() {
   return (
     <button className="btn-primary" disabled={listsItemsLength === 0} type="button" onClick={handleSaveListToFile}>
       <FaDownload />
-      <span className="ml-2 hidden sm:inline">Save To File</span>
+      <span className="sr-only ml-2 sm:not-sr-only">Save To File</span>
     </button>
   );
 }

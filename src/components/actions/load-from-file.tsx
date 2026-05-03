@@ -24,7 +24,7 @@ export function LoadFromFile() {
       onClick={() => inputRef.current?.click()}
     >
       <FaUpload />
-      <span className="ml-2 hidden sm:inline">Load From File</span>
+      <span className="sr-only ml-2 sm:not-sr-only">Load From File</span>
       <input accept=".json" className="hidden" ref={inputRef} type="file" onChange={handleFileLoad} />
     </button>
   );

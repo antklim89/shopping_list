@@ -7,6 +7,10 @@
   margin-left: auto;
 }
 
+@utility not-sr-only {
+  white-space: nowrap;
+}
+
 body {
   @apply bg-background text-foreground;
 }
