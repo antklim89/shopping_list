@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { AnimatePresence, Reorder } from 'framer-motion';
+import { AnimatePresence, Reorder } from 'motion/react';
 import { FaCheck, FaList } from 'react-icons/fa6';
 
 import { useStore } from '@/lib/store';

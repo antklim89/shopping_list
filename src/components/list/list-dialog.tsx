@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { div as Div } from 'motion/react-m';
 import { FaList, FaX } from 'react-icons/fa6';
 
 import { ListCreate } from '@/components/list/list-create';
@@ -22,14 +22,14 @@ export function ListDialog() {
   return (
     <div className="flex items-center gap-1 md:gap-4">
       <Dialog isOpen={open} close={() => setOpen(false)}>
-        <motion.div animate="animate" className="flex flex-col gap-4" exit="exit" initial="initial">
+        <Div animate="animate" className="flex flex-col gap-4" exit="exit" initial="initial">
           <h3 className="text-xl">List collection</h3>
 
           <ListCreate />
 
           <div className="flex flex-col gap-1">
             {Object.entries(lists).map(([id, listItem], idx) => (
-              <motion.div
+              <Div
                 key={id}
                 className="flex items-center gap-2"
                 custom={idx}
@@ -44,10 +44,10 @@ export function ListDialog() {
                 </button>
                 <FaX className="m-0 leading-0" /> {Object.values(listItem.items).length}
                 <ListRemove listId={id} />
-              </motion.div>
+              </Div>
             ))}
           </div>
-        </motion.div>
+        </Div>
       </Dialog>
 
       <button className="btn-primary" type="button" onClick={toggleOpen}>

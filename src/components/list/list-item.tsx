@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { Reorder } from 'framer-motion';
+import { Reorder } from 'motion/react';
 import { FaCheck, FaTrash } from 'react-icons/fa6';
 
 import { units } from '@/lib/constants';
