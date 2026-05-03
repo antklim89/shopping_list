@@ -14,7 +14,7 @@ export function ListInput() {
 
   return (
     <input
-      className="w-full border p-2 font-bold text-2xl"
+      className="w-full py-6 font-bold text-3xl"
       placeholder="Enter list name..."
       type="text"
       value={list.name}

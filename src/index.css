@@ -7,68 +7,86 @@
   margin-left: auto;
 }
 
+body {
+  @apply bg-background text-foreground;
+}
+
 a,
 button,
 textarea,
 input,
 select {
-  outline-offset: 2px;
-  @apply focus:outline-2 focus:outline-amber-600 appearance-none;
+  @apply focus:outline-2 outline-offset-2 focus:outline-amber-600 appearance-none;
 }
 
 input,
 select {
-  @apply rounded-default w-full min-w-20 sm:min-w-24 px-2 h-9 border bg-primary border-primary-border disabled:opacity-45;
+  @apply bg-transparent focus:bg-input rounded-default w-full min-w-20 sm:min-w-24 px-2 h-9 disabled:opacity-45;
 }
 
 button {
-  @apply flex gap-2 rounded-default cursor-pointer text-nowrap justify-center items-center border px-3 h-9 transition-colors disabled:cursor-not-allowed disabled:opacity-45;
+  @apply text-nowrap flex gap-2 rounded-default cursor-pointer justify-center items-center px-3 h-9 transition-colors disabled:cursor-not-allowed disabled:opacity-45;
 }
 
 button.btn-primary {
-  @apply border-primary-border bg-primary hover:bg-primary/80 text-primary-foreground disabled:bg-primary;
+  @apply bg-primary hover:bg-primary/80 text-primary-foreground disabled:bg-primary;
 }
 
 button.btn-success {
-  @apply border-success-border bg-success hover:bg-success/80 text-success-foreground disabled:bg-success;
+  @apply bg-success hover:bg-success/80 text-success-foreground disabled:bg-success;
 }
 
 button.btn-error {
-  @apply border-error-border bg-error hover:bg-error/80 text-error-foreground disabled:bg-error;
+  @apply bg-error hover:bg-error/80 text-error-foreground disabled:bg-error;
 }
 
 :root {
-  --primary-foreground: var(--color-zinc-900);
-  --primary: var(--color-zinc-300);
-  --primary-border: var(--color-zinc-400);
+  --primary: oklch(0.5654 0.2041 277.1173);
+  --primary-foreground: oklch(1 0 0);
 
-  --success-foreground: var(--color-lime-100);
-  --success: var(--color-lime-600);
-  --success-border: var(--color-lime-700);
+  --success: oklch(0.7395 0.2268 142.8504);
+  --success-foreground: oklch(1 0 0);
 
-  --error-foreground: var(--color-rose-100);
-  --error: var(--color-red-600);
-  --error-border: var(--color-red-700);
+  --error: oklch(0.6368 0.2078 25.3313);
+  --error-foreground: oklch(1 0 0);
 
-  --background: var(--color-zinc-100);
-  --foreground: var(--color-zinc-900);
+  --secondary: oklch(0.9842 0.0034 247.8575);
+  --secondary-foreground: oklch(0.2795 0.0368 260.031);
 
-  --radius: 0.45rem;
+  --background: oklch(0.9276 0.0058 264.5313);
+  --foreground: oklch(0.3729 0.0306 259.7328);
+
+  --border: oklch(0.8717 0.0093 258.3382);
+  --radius: 0.5rem;
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --input: oklch(87.168% 0.00944 258.479);
 }
 
 .dark {
-  --primary-foreground: var(--color-zinc-100);
-  --primary: var(--color-zinc-600);
-  --primary-border: var(--color-zinc-700);
+  --primary: oklch(0.6801 0.1383 276.9349);
+  --primary-foreground: oklch(0.2077 0.0398 265.7549);
 
-  --background: var(--color-zinc-800);
-  --foreground: var(--color-zinc-100);
+  --error: oklch(0.6368 0.2078 25.3313);
+  --error-foreground: oklch(0.2077 0.0398 265.7549);
+
+  --success: oklch(0.7395 0.2268 142.8504);
+  --success-foreground: oklch(0.2077 0.0398 265.7549);
+
+  --background: oklch(0.2077 0.0398 265.7549);
+  --foreground: oklch(0.9288 0.0126 255.5078);
+
+  --secondary: oklch(0.3351 0.0331 260.912);
+  --secondary-foreground: oklch(0.8717 0.0093 258.3382);
+
+  --border: oklch(0.4461 0.0263 256.8018);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --input: oklch(44.611% 0.02636 256.837);
 }
 
 @theme inline {
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
-  --color-primary-border: var(--primary-border);
+  --color-border: var(--border);
 
   --color-success-foreground: var(--success-foreground);
   --color-success: var(--success);
@@ -78,12 +96,13 @@ button.btn-error {
   --color-error: var(--error);
   --color-error-border: var(--error-border);
 
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-input: var(--input);
 
-  --radius-default: calc(var(--radius) - 4px);
-}
-
-body {
-  @apply bg-background text-foreground;
+  --radius-default: var(--radius);
+  --shadow: var(--shadow);
 }
